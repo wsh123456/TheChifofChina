@@ -11,12 +11,13 @@ public class TimerContorller : MonoBehaviour
     Image timerBarImage;//计时器进度条
     TimeSpan timeSpan;//将秒换为分
     protected Timer menuTimer;
+  public  AddMenu addMenu;
     void Start()
     {
         timerNum = GameObject.Find("Timer_banner/Timer_Number").GetComponent<Text>();
         timerBarImage = GameObject.Find("Timer_bar_banner/Timer_bar_image").GetComponent<Image>();
         gameTimer = Timer.Register(240f, null, null, false, false, null);//给予计时器240s的倒计时
-        menuTimer = Timer.Register(15f, null, null, true, false, null);//上菜时间
+        menuTimer = Timer.Register(2f, null, null, true, false, null);//上菜时间
     }
     // Update is called once per frame
     void Update()
@@ -29,9 +30,9 @@ public class TimerContorller : MonoBehaviour
     }
     void AddMenu()
     {
-        if (menuTimer.GetTimeRemaining() <= 0.2f)
+        if (menuTimer.GetTimeRemaining() == 0)
         {
-            Resources.Load("Menu");
+            addMenu.AddMenuPanel();
             Debug.Log("+1道菜");
         }
     }
