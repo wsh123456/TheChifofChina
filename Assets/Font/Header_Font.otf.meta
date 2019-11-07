@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: ee34230a498016f458973992fbff8e8c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Naughty Squirrel
+  fontNames:
+  - Naughty Squirrel
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 71c1c06ff84747241a2a49bec3c820d9, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
