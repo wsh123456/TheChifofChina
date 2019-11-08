@@ -15,6 +15,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class FoodIngredient : MonoBehaviour {
     /// <summary>
@@ -35,34 +36,87 @@ public class FoodIngredient : MonoBehaviour {
     private float curProgress = 0;
     public float actionTime = 2;
     private bool isActive = false;  // 是否正在进行操作
+    private FoodIngredientModel foodIModel;
+    private FoodIngredientMachine stateMachine;
+
+
+    private void Awake() {
+        stateMachine = new FoodIngredientMachine();
+    }
+
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.Q)){
+            DoAction(FoodIngredientState.Cut);
+        }
+    }
+
 
     /// <summary>
     /// 初始化食材属性
     /// </summary>
     public void InitFoodIngredient(FoodIngredientModel food){
-
+        foodIModel = food;
+        stateMachine.SetState(this, FoodIngredientState.Normal);
     }
 
     /// <summary>
     /// 打断当前的操作(煮，切等操作)
     /// </summary>
     public void BreakCurrentAction(){
-
+        StopCoroutine("ShowProgras");
     }
 
     
     /// <summary>
     /// 继续当前的操作
     /// </summary>
-    public void ContinueCurrentAction(){
-        StartCoroutine("ShowProgras");
+    public void DoCurrentAction(){
+        if(!isActive){
+            isActive = true;
+            StartCoroutine("ChangingStatus");
+        }
     }
 
+    
+    // public void StopChangingState(){}
 
-    IEnumerator ShowProgras(){
-        while(curProgress < actionTime){
+    /// <summary>
+    /// 做当前的操作
+    /// </summary>
+    public void DoAction(FoodIngredientState state){
+        stateMachine.ChangeState(this, state);
+    }
+
+    /// <summary>
+    /// 显示进度条
+    /// </summary>
+    public void ShowProgras(){
+        Debug.Log("当前进度: " + curProgress / actionTime);
+    }
+
+    /// <summary>
+    /// 隐藏进度条
+    /// </summary>
+    public void HideProgras(){
+        Debug.Log("隐藏进度条");
+    }
+
+    // 转换状态
+    private IEnumerator ChangingStatus(){
+        Debug.Log(curProgress + ", " + actionTime);
+        while(true){
+            ShowProgras();
             yield return new WaitForSeconds(Time.fixedDeltaTime);
+            curProgress += Time.fixedDeltaTime;
+            if(curProgress >= actionTime){
+                break;
+            }
         }
+        Debug.Log("切换完成，用时 " + curProgress);
+        stateMachine.FinishChange(this);
+        HideProgras();
+        curProgress = 0;
+        isActive = false;
     }
 }
 
@@ -75,6 +129,7 @@ public enum FoodIngredientState
     Cut,        // 切块状态
     Fried,      // 炸状态
     Poach,      // 水煮状态
+    Break       // 破坏状态
 }
 
 /// <summary>

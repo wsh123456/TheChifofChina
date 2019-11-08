@@ -30,6 +30,8 @@ public class FoodIngredientModel{
     // 煮预制体 煮时间
     public string poachPrefab;
     public float poachTime;
+    // 毁坏预制体
+    public string breakPrefab;
 
 
     public FoodIngredientModel(){}
