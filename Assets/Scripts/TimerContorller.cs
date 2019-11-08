@@ -11,7 +11,7 @@ public class TimerContorller : MonoBehaviour
     Image timerBarImage;//计时器进度条
     TimeSpan timeSpan;//将秒换为分
     protected Timer menuTimer;
-  public  AddMenu addMenu;
+    public  AddMenu addMenu;
     protected Timer destoryFoodMenuTimer;
     void Start()
     {
