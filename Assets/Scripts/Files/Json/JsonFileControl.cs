@@ -61,7 +61,6 @@ public class JsonFileControl{
 		}
 		string jsonText = json.ReadToEnd();
 		json.Close();
-
 		Debug.Log(jsonText);
 		Dictionary<string, FoodModel> resultList = JsonMapper.ToObject<Dictionary<string, FoodModel>>(jsonText);
 
