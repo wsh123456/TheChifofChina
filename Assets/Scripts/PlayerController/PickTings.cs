@@ -17,10 +17,7 @@ using System.Collections;
 using System;
 
 public class PickTings : MonoBehaviour, IComparable{
-   // public int index;
-   // public GameObject game;
-   // public Vector3 gameV3;
-
+ 
     public int CompareTo(object obj)
     {
         PickTings other = obj as PickTings;
