@@ -1,0 +1,11 @@
+{
+    "Level":[
+        {
+            "level":1,
+            "levelTime":240,
+            "foodMenu":[
+                "CabbageSalad","CabbageTomatoSalad","Chips","FriedChicken","FriedChickenChips"
+            ]
+        }
+    ]
+}
