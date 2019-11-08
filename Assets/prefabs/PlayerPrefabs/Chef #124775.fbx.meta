@@ -1,0 +1,1802 @@
+fileFormatVersion: 2
+guid: a016fd6baffe89e4ab7882038157cdeb
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Attach
+    100002: Base
+    100004: Body
+    100006: Body_Robot
+    100008: Body_Top
+    100010: Chef
+    100012: //RootNode
+    100014: Chef_Alien_Green
+    100016: Chef_Alien_Pink
+    100018: Chef_Beard
+    100020: Chef_BlackCat
+    100022: Chef_Buck
+    100024: Chef_Crocodile
+    100026: Chef_Dora
+    100028: Chef_Gertie
+    100030: Chef_GingerCat
+    100032: Chef_Granny_Grey
+    100034: Chef_Mike
+    100036: Chef_Panda
+    100038: Chef_Racoon
+    100040: Chef_Robot
+    100042: Chef_Specs
+    100044: Chef_Wizard_Boy
+    100046: Cleaver
+    100048: Eyebrows
+    100050: Eyes
+    100052: Hair
+    100054: Hand_Grip_L
+    100056: Hand_Grip_L 1
+    100058: Hand_Grip_L 10
+    100060: Hand_Grip_L 11
+    100062: Hand_Grip_L 12
+    100064: Hand_Grip_L 13
+    100066: Hand_Grip_L 14
+    100068: Hand_Grip_L 2
+    100070: Hand_Grip_L 3
+    100072: Hand_Grip_L 4
+    100074: Hand_Grip_L 5
+    100076: Hand_Grip_L 6
+    100078: Hand_Grip_L 7
+    100080: Hand_Grip_L 8
+    100082: Hand_Grip_L 9
+    100084: Hand_Grip_L_Robot
+    100086: Hand_Grip_R
+    100088: Hand_Grip_R 1
+    100090: Hand_Grip_R 10
+    100092: Hand_Grip_R 11
+    100094: Hand_Grip_R 12
+    100096: Hand_Grip_R 13
+    100098: Hand_Grip_R 14
+    100100: Hand_Grip_R 2
+    100102: Hand_Grip_R 3
+    100104: Hand_Grip_R 4
+    100106: Hand_Grip_R 5
+    100108: Hand_Grip_R 6
+    100110: Hand_Grip_R 7
+    100112: Hand_Grip_R 8
+    100114: Hand_Grip_R 9
+    100116: Hand_Grip_R_Robot
+    100118: Hand_Open_L
+    100120: Hand_Open_L 1
+    100122: Hand_Open_L 10
+    100124: Hand_Open_L 11
+    100126: Hand_Open_L 12
+    100128: Hand_Open_L 13
+    100130: Hand_Open_L 14
+    100132: Hand_Open_L 2
+    100134: Hand_Open_L 3
+    100136: Hand_Open_L 4
+    100138: Hand_Open_L 5
+    100140: Hand_Open_L 6
+    100142: Hand_Open_L 7
+    100144: Hand_Open_L 8
+    100146: Hand_Open_L 9
+    100148: Hand_Open_L_Robot
+    100150: Hand_Open_R
+    100152: Hand_Open_R 1
+    100154: Hand_Open_R 10
+    100156: Hand_Open_R 11
+    100158: Hand_Open_R 12
+    100160: Hand_Open_R 13
+    100162: Hand_Open_R 14
+    100164: Hand_Open_R 2
+    100166: Hand_Open_R 3
+    100168: Hand_Open_R 4
+    100170: Hand_Open_R 5
+    100172: Hand_Open_R 6
+    100174: Hand_Open_R 7
+    100176: Hand_Open_R 8
+    100178: Hand_Open_R 9
+    100180: Hand_Open_R_Robot
+    100182: Hat_Cap
+    100184: Hat_Fancy
+    100186: Hat_Tall
+    100188: HatBase
+    100190: HatLocator
+    100192: HatTop
+    100194: Head
+    100196: HeldItem
+    100198: Jnt_Body
+    100200: Jnt_Wheelchair
+    100202: Knife
+    100204: LeftHand
+    100206: Mesh
+    100208: NeckTie
+    100210: PART_Slip_Locator
+    100212: Player 4
+    100214: RightHand
+    100216: Skeleton
+    100218: Tail
+    100220: Wheelchair
+    400000: Attach
+    400002: Base
+    400004: Body
+    400006: Body_Robot
+    400008: Body_Top
+    400010: Chef
+    400012: //RootNode
+    400014: Chef_Alien_Green
+    400016: Chef_Alien_Pink
+    400018: Chef_Beard
+    400020: Chef_BlackCat
+    400022: Chef_Buck
+    400024: Chef_Crocodile
+    400026: Chef_Dora
+    400028: Chef_Gertie
+    400030: Chef_GingerCat
+    400032: Chef_Granny_Grey
+    400034: Chef_Mike
+    400036: Chef_Panda
+    400038: Chef_Racoon
+    400040: Chef_Robot
+    400042: Chef_Specs
+    400044: Chef_Wizard_Boy
+    400046: Cleaver
+    400048: Eyebrows
+    400050: Eyes
+    400052: Hair
+    400054: Hand_Grip_L
+    400056: Hand_Grip_L 1
+    400058: Hand_Grip_L 10
+    400060: Hand_Grip_L 11
+    400062: Hand_Grip_L 12
+    400064: Hand_Grip_L 13
+    400066: Hand_Grip_L 14
+    400068: Hand_Grip_L 2
+    400070: Hand_Grip_L 3
+    400072: Hand_Grip_L 4
+    400074: Hand_Grip_L 5
+    400076: Hand_Grip_L 6
+    400078: Hand_Grip_L 7
+    400080: Hand_Grip_L 8
+    400082: Hand_Grip_L 9
+    400084: Hand_Grip_L_Robot
+    400086: Hand_Grip_R
+    400088: Hand_Grip_R 1
+    400090: Hand_Grip_R 10
+    400092: Hand_Grip_R 11
+    400094: Hand_Grip_R 12
+    400096: Hand_Grip_R 13
+    400098: Hand_Grip_R 14
+    400100: Hand_Grip_R 2
+    400102: Hand_Grip_R 3
+    400104: Hand_Grip_R 4
+    400106: Hand_Grip_R 5
+    400108: Hand_Grip_R 6
+    400110: Hand_Grip_R 7
+    400112: Hand_Grip_R 8
+    400114: Hand_Grip_R 9
+    400116: Hand_Grip_R_Robot
+    400118: Hand_Open_L
+    400120: Hand_Open_L 1
+    400122: Hand_Open_L 10
+    400124: Hand_Open_L 11
+    400126: Hand_Open_L 12
+    400128: Hand_Open_L 13
+    400130: Hand_Open_L 14
+    400132: Hand_Open_L 2
+    400134: Hand_Open_L 3
+    400136: Hand_Open_L 4
+    400138: Hand_Open_L 5
+    400140: Hand_Open_L 6
+    400142: Hand_Open_L 7
+    400144: Hand_Open_L 8
+    400146: Hand_Open_L 9
+    400148: Hand_Open_L_Robot
+    400150: Hand_Open_R
+    400152: Hand_Open_R 1
+    400154: Hand_Open_R 10
+    400156: Hand_Open_R 11
+    400158: Hand_Open_R 12
+    400160: Hand_Open_R 13
+    400162: Hand_Open_R 14
+    400164: Hand_Open_R 2
+    400166: Hand_Open_R 3
+    400168: Hand_Open_R 4
+    400170: Hand_Open_R 5
+    400172: Hand_Open_R 6
+    400174: Hand_Open_R 7
+    400176: Hand_Open_R 8
+    400178: Hand_Open_R 9
+    400180: Hand_Open_R_Robot
+    400182: Hat_Cap
+    400184: Hat_Fancy
+    400186: Hat_Tall
+    400188: HatBase
+    400190: HatLocator
+    400192: HatTop
+    400194: Head
+    400196: HeldItem
+    400198: Jnt_Body
+    400200: Jnt_Wheelchair
+    400202: Knife
+    400204: LeftHand
+    400206: Mesh
+    400208: NeckTie
+    400210: PART_Slip_Locator
+    400212: Player 4
+    400214: RightHand
+    400216: Skeleton
+    400218: Tail
+    400220: Wheelchair
+    2100000: mat_chef_clothes
+    2100002: mat_chef_head_alien_green
+    2100004: mat_chef_head_alien_pink
+    2100006: mat_chef_head_beared
+    2100008: mat_chef_head_old_cat_black
+    2100010: mat_chef_head_buck
+    2100012: mat_chef_head_crocodile
+    2100014: mat_chef_head_dora
+    2100016: mat_chef_head_gertie
+    2100018: mat_chef_head_old_cat_ginger
+    2100020: mat_chef_head_granny_grey
+    2100022: mat_chef_head_mike
+    2100024: mat_chef_head_panda
+    2100026: No Name
+    2100028: mat_chef_wheelchair
+    2100030: mat_chef_head_robot
+    2100032: mat_chef_body_red
+    2100034: mat_chef_head_specs
+    2100036: mat_chef_head_wizard_boy
+    2100038: mat_chef_cleaver
+    2100040: mat_chef_hat_fancy
+    2100042: mat_chef_knife
+    2300000: Body_Robot
+    2300002: Chef_Alien_Green
+    2300004: Chef_Alien_Pink
+    2300006: Chef_Beard
+    2300008: Chef_Buck
+    2300010: Chef_Crocodile
+    2300012: Chef_Dora
+    2300014: Chef_Gertie
+    2300016: Chef_Granny_Grey
+    2300018: Chef_Mike
+    2300020: Chef_Racoon
+    2300022: Chef_Robot
+    2300024: Chef_Specs
+    2300026: Chef_Wizard_Boy
+    2300028: Cleaver
+    2300030: Hand_Grip_L
+    2300032: Hand_Grip_L 1
+    2300034: Hand_Grip_L 14
+    2300036: Hand_Grip_L 9
+    2300038: Hand_Grip_L_Robot
+    2300040: Hand_Grip_R
+    2300042: Hand_Grip_R 1
+    2300044: Hand_Grip_R 14
+    2300046: Hand_Grip_R 5
+    2300048: Hand_Grip_R 9
+    2300050: Hand_Grip_R_Robot
+    2300052: Hand_Open_L
+    2300054: Hand_Open_L 1
+    2300056: Hand_Open_L 14
+    2300058: Hand_Open_L 9
+    2300060: Hand_Open_L_Robot
+    2300062: Hand_Open_R
+    2300064: Hand_Open_R 1
+    2300066: Hand_Open_R 14
+    2300068: Hand_Open_R 5
+    2300070: Hand_Open_R 9
+    2300072: Hand_Open_R_Robot
+    2300074: Hat_Cap
+    2300076: Hat_Fancy
+    2300078: Hat_Tall
+    2300080: Knife
+    3300000: Body_Robot
+    3300002: Chef_Alien_Green
+    3300004: Chef_Alien_Pink
+    3300006: Chef_Beard
+    3300008: Chef_Buck
+    3300010: Chef_Crocodile
+    3300012: Chef_Dora
+    3300014: Chef_Gertie
+    3300016: Chef_Granny_Grey
+    3300018: Chef_Mike
+    3300020: Chef_Racoon
+    3300022: Chef_Robot
+    3300024: Chef_Specs
+    3300026: Chef_Wizard_Boy
+    3300028: Cleaver
+    3300030: Hand_Grip_L
+    3300032: Hand_Grip_L 1
+    3300034: Hand_Grip_L 14
+    3300036: Hand_Grip_L 9
+    3300038: Hand_Grip_L_Robot
+    3300040: Hand_Grip_R
+    3300042: Hand_Grip_R 1
+    3300044: Hand_Grip_R 14
+    3300046: Hand_Grip_R 5
+    3300048: Hand_Grip_R 9
+    3300050: Hand_Grip_R_Robot
+    3300052: Hand_Open_L
+    3300054: Hand_Open_L 1
+    3300056: Hand_Open_L 14
+    3300058: Hand_Open_L 9
+    3300060: Hand_Open_L_Robot
+    3300062: Hand_Open_R
+    3300064: Hand_Open_R 1
+    3300066: Hand_Open_R 14
+    3300068: Hand_Open_R 5
+    3300070: Hand_Open_R 9
+    3300072: Hand_Open_R_Robot
+    3300074: Hat_Cap
+    3300076: Hat_Fancy
+    3300078: Hat_Tall
+    3300080: Knife
+    4300000: Body
+    4300002: Chef_Alien_Green
+    4300004: Hand_Grip_L
+    4300006: Hand_Grip_R
+    4300008: Hand_Open_L
+    4300010: Hand_Open_R
+    4300012: Chef_Alien_Pink
+    4300014: Hand_Grip_L 1
+    4300016: Hand_Grip_R 1
+    4300018: Hand_Open_L 1
+    4300020: Hand_Open_R 1
+    4300022: Chef_Beard
+    4300024: Hand_Grip_L 2
+    4300026: Hand_Grip_R 2
+    4300028: Hand_Open_L 2
+    4300030: Hand_Open_R 2
+    4300032: Hand_Grip_L 3
+    4300034: Hand_Grip_R 3
+    4300036: Hand_Open_L 3
+    4300038: Hand_Open_R 3
+    4300040: Chef_Buck
+    4300042: Hand_Grip_L 4
+    4300044: Hand_Grip_R 4
+    4300046: Hand_Open_L 4
+    4300048: Hand_Open_R 4
+    4300050: Chef_Crocodile
+    4300052: Hand_Grip_L 5
+    4300054: Hand_Grip_R 5
+    4300056: Hand_Open_L 5
+    4300058: Hand_Open_R 5
+    4300060: Chef_Dora
+    4300062: Hand_Grip_L 6
+    4300064: Hand_Grip_R 6
+    4300066: Hand_Open_L 6
+    4300068: Hand_Open_R 6
+    4300070: Chef_Gertie
+    4300072: Hand_Grip_L 7
+    4300074: Hand_Grip_R 7
+    4300076: Hand_Open_L 7
+    4300078: Hand_Open_R 7
+    4300080: Hand_Grip_L 8
+    4300082: Hand_Grip_R 8
+    4300084: Hand_Open_L 8
+    4300086: Hand_Open_R 8
+    4300088: Chef_Granny_Grey
+    4300090: Hand_Grip_L 9
+    4300092: Hand_Grip_R 9
+    4300094: Hand_Open_L 9
+    4300096: Hand_Open_R 9
+    4300098: Chef_Mike
+    4300100: Hand_Grip_L 10
+    4300102: Hand_Grip_R 10
+    4300104: Hand_Open_L 10
+    4300106: Hand_Open_R 10
+    4300108: Hand_Grip_L 11
+    4300110: Hand_Grip_R 11
+    4300112: Hand_Open_L 11
+    4300114: Hand_Open_R 11
+    4300116: Chef_Racoon
+    4300118: Hand_Grip_L 12
+    4300120: Hand_Grip_R 12
+    4300122: Hand_Open_L 12
+    4300124: Hand_Open_R 12
+    4300126: Wheelchair
+    4300128: Chef_Robot
+    4300130: Body_Robot
+    4300132: Hand_Grip_L_Robot
+    4300134: Hand_Grip_R_Robot
+    4300136: Hand_Open_L_Robot
+    4300138: Hand_Open_R_Robot
+    4300140: Chef_Specs
+    4300142: Hand_Grip_L 13
+    4300144: Hand_Grip_R 13
+    4300146: Hand_Open_L 13
+    4300148: Hand_Open_R 13
+    4300150: Chef_Wizard_Boy
+    4300152: Hand_Grip_L 14
+    4300154: Hand_Grip_R 14
+    4300156: Hand_Open_L 14
+    4300158: Hand_Open_R 14
+    4300160: Cleaver
+    4300162: Hat_Cap
+    4300164: Hat_Fancy
+    4300166: Hat_Tall
+    4300168: Knife
+    7400000: New_Chef@Walk
+    7400002: New_Chef@Walk_Holding
+    7400004: New_Chef@Idle_Holding
+    7400006: New_Chef@Idle_Holding_SuperSoaker
+    7400008: New_Chef@Walk_Holding_SuperSoaker
+    7400010: New_Chef@Idle
+    7400012: New_Chef@Idle_02
+    7400014: New_Chef@Idle_03
+    7400016: New_Chef@Idle_04
+    7400018: New_Chef@Idle_05
+    7400020: New_Chef@Chop
+    7400022: New_Chef@Wash
+    7400024: New_Chef@Death
+    7400026: New_Chef@DeathLoop
+    7400028: New_Chef@Throw
+    7400030: New_Chef@Slip_02
+    7400032: New_Chef@SlipLoop
+    7400034: New_Chef@Stand
+    7400036: New_Chef@Fall_Loop_Standing_01
+    7400038: New_Chef@Fall_01
+    7400040: New_Chef@Fall_Loop_01
+    7400042: New_Chef@CarDeath
+    7400044: New_Chef@Drowning_01
+    7400046: New_Chef@Bellows_Use
+    9500000: //RootNode
+    13700000: Body
+    13700002: Hand_Grip_L 10
+    13700004: Hand_Grip_L 11
+    13700006: Hand_Grip_L 12
+    13700008: Hand_Grip_L 13
+    13700010: Hand_Grip_L 2
+    13700012: Hand_Grip_L 3
+    13700014: Hand_Grip_L 4
+    13700016: Hand_Grip_L 5
+    13700018: Hand_Grip_L 6
+    13700020: Hand_Grip_L 7
+    13700022: Hand_Grip_L 8
+    13700024: Hand_Grip_R 10
+    13700026: Hand_Grip_R 11
+    13700028: Hand_Grip_R 12
+    13700030: Hand_Grip_R 13
+    13700032: Hand_Grip_R 2
+    13700034: Hand_Grip_R 3
+    13700036: Hand_Grip_R 4
+    13700038: Hand_Grip_R 6
+    13700040: Hand_Grip_R 7
+    13700042: Hand_Grip_R 8
+    13700044: Hand_Open_L 10
+    13700046: Hand_Open_L 11
+    13700048: Hand_Open_L 12
+    13700050: Hand_Open_L 13
+    13700052: Hand_Open_L 2
+    13700054: Hand_Open_L 3
+    13700056: Hand_Open_L 4
+    13700058: Hand_Open_L 5
+    13700060: Hand_Open_L 6
+    13700062: Hand_Open_L 7
+    13700064: Hand_Open_L 8
+    13700066: Hand_Open_R 10
+    13700068: Hand_Open_R 11
+    13700070: Hand_Open_R 12
+    13700072: Hand_Open_R 13
+    13700074: Hand_Open_R 2
+    13700076: Hand_Open_R 3
+    13700078: Hand_Open_R 4
+    13700080: Hand_Open_R 6
+    13700082: Hand_Open_R 7
+    13700084: Hand_Open_R 8
+    13700086: Wheelchair
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_old_cat_black
+    second: {instanceID: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_old_cat_ginger
+    second: {instanceID: 0}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: New_Chef@Walk
+      takeName: New_Chef@Walk
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Walk_Holding
+      takeName: New_Chef@Walk_Holding
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Idle_Holding
+      takeName: New_Chef@Idle_Holding
+      firstFrame: 0
+      lastFrame: 38
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Idle_Holding_SuperSoaker
+      takeName: New_Chef@Idle_Holding_SuperSoaker
+      firstFrame: 0
+      lastFrame: 38
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Walk_Holding_SuperSoaker
+      takeName: New_Chef@Walk_Holding_SuperSoaker
+      firstFrame: 0
+      lastFrame: 38
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Idle
+      takeName: New_Chef@Idle
+      firstFrame: 0
+      lastFrame: 38
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Idle_02
+      takeName: New_Chef@Idle_02
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Idle_03
+      takeName: New_Chef@Idle_03
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Idle_04
+      takeName: New_Chef@Idle_04
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Idle_05
+      takeName: New_Chef@Idle_05
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Chop
+      takeName: New_Chef@Chop
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Wash
+      takeName: New_Chef@Wash
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Death
+      takeName: New_Chef@Death
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@DeathLoop
+      takeName: New_Chef@DeathLoop
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Throw
+      takeName: New_Chef@Throw
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Slip_02
+      takeName: New_Chef@Slip_02
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@SlipLoop
+      takeName: New_Chef@SlipLoop
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Stand
+      takeName: New_Chef@Stand
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Fall_Loop_Standing_01
+      takeName: New_Chef@Fall_Loop_Standing_01
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Fall_01
+      takeName: New_Chef@Fall_01
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Fall_Loop_01
+      takeName: New_Chef@Fall_Loop_01
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@CarDeath
+      takeName: New_Chef@CarDeath
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Drowning_01
+      takeName: New_Chef@Drowning_01
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: New_Chef@Bellows_Use
+      takeName: New_Chef@Bellows_Use
+      firstFrame: 0
+      lastFrame: 131
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton:
+    - name: 'Chef #124775(Clone)'
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Player 4
+      parentName: 'Chef #124775(Clone)'
+      position: {x: 0.1741, y: 0.0010899999, z: 0.0752}
+      rotation: {x: -6.1232336e-17, y: 1, z: 6.1232336e-17, w: -0.00000004371139}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef
+      parentName: Player 4
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh
+      parentName: Chef
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Alien_Green
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L
+      parentName: Chef_Alien_Green
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R
+      parentName: Chef_Alien_Green
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L
+      parentName: Chef_Alien_Green
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R
+      parentName: Chef_Alien_Green
+      position: {x: -0, y: 0, z: 0.000159152}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Alien_Pink
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 1
+      parentName: Chef_Alien_Pink
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 1
+      parentName: Chef_Alien_Pink
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 1
+      parentName: Chef_Alien_Pink
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 1
+      parentName: Chef_Alien_Pink
+      position: {x: -0, y: 0, z: 0.000159152}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Beard
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 2
+      parentName: Chef_Beard
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 2
+      parentName: Chef_Beard
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 2
+      parentName: Chef_Beard
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 2
+      parentName: Chef_Beard
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_BlackCat
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 3
+      parentName: Chef_BlackCat
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 3
+      parentName: Chef_BlackCat
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 3
+      parentName: Chef_BlackCat
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 3
+      parentName: Chef_BlackCat
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Buck
+      parentName: Mesh
+      position: {x: 0.12334587, y: -0.00033852013, z: -0.020148337}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 4
+      parentName: Chef_Buck
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 4
+      parentName: Chef_Buck
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 4
+      parentName: Chef_Buck
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 4
+      parentName: Chef_Buck
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Crocodile
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 5
+      parentName: Chef_Crocodile
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 5
+      parentName: Chef_Crocodile
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 5
+      parentName: Chef_Crocodile
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 5
+      parentName: Chef_Crocodile
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Dora
+      parentName: Mesh
+      position: {x: -0.021277713, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 6
+      parentName: Chef_Dora
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 6
+      parentName: Chef_Dora
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 6
+      parentName: Chef_Dora
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 6
+      parentName: Chef_Dora
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Gertie
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 7
+      parentName: Chef_Gertie
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 7
+      parentName: Chef_Gertie
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 7
+      parentName: Chef_Gertie
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 7
+      parentName: Chef_Gertie
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_GingerCat
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 8
+      parentName: Chef_GingerCat
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 8
+      parentName: Chef_GingerCat
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 8
+      parentName: Chef_GingerCat
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 8
+      parentName: Chef_GingerCat
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Granny_Grey
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 9
+      parentName: Chef_Granny_Grey
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 9
+      parentName: Chef_Granny_Grey
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 9
+      parentName: Chef_Granny_Grey
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 9
+      parentName: Chef_Granny_Grey
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Mike
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 10
+      parentName: Chef_Mike
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 10
+      parentName: Chef_Mike
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 10
+      parentName: Chef_Mike
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 10
+      parentName: Chef_Mike
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Panda
+      parentName: Mesh
+      position: {x: -0.024011364, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 11
+      parentName: Chef_Panda
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 11
+      parentName: Chef_Panda
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 11
+      parentName: Chef_Panda
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 11
+      parentName: Chef_Panda
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Racoon
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 12
+      parentName: Chef_Racoon
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 12
+      parentName: Chef_Racoon
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 12
+      parentName: Chef_Racoon
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 12
+      parentName: Chef_Racoon
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Wheelchair
+      parentName: Chef_Racoon
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Robot
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body_Robot
+      parentName: Chef_Robot
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L_Robot
+      parentName: Chef_Robot
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R_Robot
+      parentName: Chef_Robot
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L_Robot
+      parentName: Chef_Robot
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R_Robot
+      parentName: Chef_Robot
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Specs
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 13
+      parentName: Chef_Specs
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 13
+      parentName: Chef_Specs
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 13
+      parentName: Chef_Specs
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 13
+      parentName: Chef_Specs
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chef_Wizard_Boy
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_L 14
+      parentName: Chef_Wizard_Boy
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Grip_R 14
+      parentName: Chef_Wizard_Boy
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_L 14
+      parentName: Chef_Wizard_Boy
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_Open_R 14
+      parentName: Chef_Wizard_Boy
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cleaver
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hat_Cap
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hat_Fancy
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hat_Tall
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knife
+      parentName: Mesh
+      position: {x: -0, y: 0, z: 0.00048173874}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Skeleton
+      parentName: Chef
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Jnt_Wheelchair
+      parentName: Skeleton
+      position: {x: 0.000038286205, y: 0.004304634, z: -0.0022223617}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Base
+      parentName: Skeleton
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Attach
+      parentName: Base
+      position: {x: -0, y: 0.0054838997, z: 0.006534899}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Jnt_Body
+      parentName: Base
+      position: {x: -3.542912e-10, y: -4.3144984e-11, z: 2.7083e-10}
+      rotation: {x: 0.754935, y: -0.648775, z: -0.07944093, w: 0.05341664}
+      scale: {x: 1, y: 1, z: 1}
+    - name: PART_Slip_Locator
+      parentName: Jnt_Body
+      position: {x: -0.00009018198, y: -0.00004052517, z: -5.037603e-12}
+      rotation: {x: -0.70211, y: 0.7120685, z: 2.7617103e-10, w: 2.8008823e-10}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tail
+      parentName: Jnt_Body
+      position: {x: -0.0034208228, y: -0.000007651447, z: 0.0041697496}
+      rotation: {x: 0.060222443, y: 0.3034683, z: 0.05101283, w: 0.94956726}
+      scale: {x: 1, y: 1, z: 1}
+    - name: NeckTie
+      parentName: Jnt_Body
+      position: {x: -0.005774607, y: 2.206962e-18, z: -0.0027967314}
+      rotation: {x: 0, y: -0.25535494, z: -0, w: 0.96684736}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body_Top
+      parentName: Jnt_Body
+      position: {x: -0.005861372, y: 1.2521701e-18, z: 6.147465e-19}
+      rotation: {x: 0.67415076, y: 0.10105101, z: 0.0000061690794, w: 0.7316485}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head
+      parentName: Body_Top
+      position: {x: 4.538358e-11, y: 0.000000044873726, z: -0.0007370875}
+      rotation: {x: 0.16778155, y: -0.1483882, z: 0.06094109, w: 0.9726852}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyebrows
+      parentName: Head
+      position: {x: -0.0039812867, y: -2.49763e-11, z: -0.002606981}
+      rotation: {x: 0.00000027741032, y: -0.000000047444438, z: 1.31615766e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Eyes
+      parentName: Head
+      position: {x: -0.0032801395, y: 0.0000000054616907, z: -0.0026909814}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair
+      parentName: Head
+      position: {x: -0.0057771862, y: 0.0000000037744705, z: 0.0010809925}
+      rotation: {x: 0.00000027741032, y: -0.000000047444438, z: 1.31615766e-14, w: 1}
+      scale: {x: 0.9508857, y: 1, z: 1}
+    - name: HatLocator
+      parentName: Head
+      position: {x: -0.004500449, y: 0.00009404596, z: 0.0010684708}
+      rotation: {x: 0.7153962, y: -0.69869465, z: -0.0054240944, w: 0.0021414445}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HatBase
+      parentName: HatLocator
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.31656373, y: -0.63228744, z: -0.31656373, w: 0.63228744}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HatTop
+      parentName: HatBase
+      position: {x: -0.00453086, y: 0.000071142495, z: -0.00009201501}
+      rotation: {x: -0.33599734, y: 0.6443402, z: 0.30351743, w: 0.61628616}
+      scale: {x: 1, y: 1, z: 1}
+    - name: RightHand
+      parentName: Base
+      position: {x: 0.004846404, y: 0.00450041, z: -0.0012644146}
+      rotation: {x: 0.5250423, y: 0.37930542, z: -0.52503777, w: -0.55208087}
+      scale: {x: 1, y: 1, z: 1}
+    - name: HeldItem
+      parentName: RightHand
+      position: {x: -0.00052512955, y: -1.4210854e-18, z: -1.4210854e-18}
+      rotation: {x: 0.8598935, y: -0.5104735, z: -5.9872863e-16, w: -2.8422445e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LeftHand
+      parentName: Base
+      position: {x: -0.004453835, y: 0.0041238964, z: 0.003345872}
+      rotation: {x: 0.471344, y: -0.018028254, z: -0.17258279, w: 0.8647109}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
