@@ -5,13 +5,15 @@ using UnityEngine.UI;
 public class AddMenu : MonoBehaviour {
     int count = 0;
     Transform tran;
+    
     void Awake()
     {
         tran = GameObject.Find("MenuPoint").GetComponent<Transform>();
     }
     public void AddMenuPanel()
     {
-        if (count >= 6) return;
+       
+        if (count >= LevelInstance._instance.maxMenuNum) return;
         GameObject menu= Resources.Load<GameObject>("Menu");
         menu = Instantiate(menu,tran);
         menu.transform.SetParent(tran);
