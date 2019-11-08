@@ -15,6 +15,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using HighlightingSystem;
 
 public class PlayerHandController : MonoBehaviour {
 
@@ -24,7 +25,6 @@ public class PlayerHandController : MonoBehaviour {
     /// </summary>
     private bool isPick;
     private List<PickTings> handObj;
-    //private GameObject[] games;
     private void Start()
     {
         ani = transform.root.GetComponent<Animator>();
@@ -36,11 +36,14 @@ public class PlayerHandController : MonoBehaviour {
     /// <param name="other"></param>
     private void PickUp(GameObject  other)
     {
+      
         other.transform.parent = transform;
         other.transform.localPosition = Vector3.zero;
         //端盘子
         ani.SetBool("snackAttack", true);
         other.GetComponent<Rigidbody>().isKinematic = true;
+        RemoveLight();
+     
     }
     private void Update()
     {
@@ -52,13 +55,16 @@ public class PlayerHandController : MonoBehaviour {
         //拿东西
         if (other.tag=="Thing"&& Input.GetKeyDown(KeyCode.Space)&&!isPick)
         {
-            //
             PickUp(handObj[0].gameObject);
+
+            RemoveAllLight();
         }
-        //仍
+        //扔
         if (isPick&&Input.GetKeyUp(KeyCode.LeftShift))
         {
             ThrowThings(other.gameObject);
+            ani.SetTrigger("Push");
+            
         }
         if (isPick && Input.GetKey(KeyCode.LeftShift))
         {
@@ -69,6 +75,7 @@ public class PlayerHandController : MonoBehaviour {
         {
             LayDownThings(other.gameObject);
         }
+        
     }
     /// <summary>
     /// 触碰飞来的游戏物体
@@ -76,8 +83,8 @@ public class PlayerHandController : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.tag == "Thing" && other.GetComponent<Rigidbody>().velocity != Vector3.zero &&!isPick)
+       
+        if (other.tag == "Thing" &&!isPick && other.GetComponent<Rigidbody>().velocity.z>3|| other.GetComponent<Rigidbody>().velocity.z <-3)
         {
             PickUp(other.gameObject);
         }
@@ -86,6 +93,55 @@ public class PlayerHandController : MonoBehaviour {
            PickTings  pickTings=other.gameObject.AddComponent<PickTings>();
             handObj.Add(pickTings);
             handObj.Sort();
+            if (!isPick)
+            {
+                handObj[0].gameObject.AddComponent<HighlighterFlashing>();
+                handObj[0].gameObject.AddComponent<Highlighter>();
+            }
+        }
+    }
+    /// <summary>
+    /// 移除灯光
+    /// </summary>
+    private void RemoveLight()
+    {
+        Destroy(handObj[0].GetComponent<HighlighterFlashing>());
+        Destroy(handObj[0].GetComponent<Highlighter>());
+    }
+    private void RemoveAllLight()
+    {
+        for (int i = 0; i < handObj.Count; i++)
+        {
+            Destroy(handObj[i].GetComponent<HighlighterFlashing>());
+            Destroy(handObj[i].GetComponent<Highlighter>());
+        }
+    }
+    /// <summary>
+    /// 物体离开清除脚本
+    /// 从队列中移除
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Thing")
+        { 
+            for (int i = 0; i < handObj.Count; i++)
+            {
+                if (other.gameObject==handObj[i].gameObject)
+                {
+                    if (i == 0)
+                    {
+                        RemoveLight();
+                    }
+                    Debug.Log(other.gameObject);
+                    Destroy(handObj[i].GetComponent<PickTings>());
+
+                    handObj.Remove(handObj[i]);
+                    return;
+                }
+            }
+           
+          
         }
     }
     /// <summary>
@@ -96,7 +152,7 @@ public class PlayerHandController : MonoBehaviour {
         if (transform.childCount != 0)
         {
             isPick = true;
-            handObj.Clear();
+         
         }
         else
             isPick = false;
