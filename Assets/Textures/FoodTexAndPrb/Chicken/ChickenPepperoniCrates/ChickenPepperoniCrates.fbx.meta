@@ -1,0 +1,138 @@
+fileFormatVersion: 2
+guid: 8b5b9162d8a5e374d9feb9bcc99b6e09
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Animated Objects
+    100002: Block
+    100004: Block 1
+    100006: //RootNode
+    100008: ChickenPepperoniCrates
+    100010: crateBone
+    100012: crateBone 1
+    100014: crateLidBone
+    100016: crateLidBone 1
+    100018: DispenserCrate 3 (2)
+    100020: DispenserCrate 3 (3)
+    100022: ItemAttach
+    100024: ItemAttach 1
+    100026: m_sk_crate_01
+    100028: m_sk_crate_01 1
+    100030: NewCrate
+    100032: NewCrate 1
+    100034: PFX_MagicCloud_Levitate
+    100036: PFX_MagicCloud_Levitate 1
+    400000: Animated Objects
+    400002: Block
+    400004: Block 1
+    400006: ChickenPepperoniCrates
+    400008: //RootNode
+    400010: crateBone
+    400012: crateBone 1
+    400014: crateLidBone
+    400016: crateLidBone 1
+    400018: DispenserCrate 3 (2)
+    400020: DispenserCrate 3 (3)
+    400022: ItemAttach
+    400024: ItemAttach 1
+    400026: m_sk_crate_01
+    400028: m_sk_crate_01 1
+    400030: NewCrate
+    400032: NewCrate 1
+    400034: PFX_MagicCloud_Levitate
+    400036: PFX_MagicCloud_Levitate 1
+    2100000: mat_sk_crate_01
+    2100002: mat_sk_crate_lid
+    4300000: m_sk_crate_01
+    4300002: m_sk_crate_01
+    7400000: CentreCrates1
+    7400002: CentreCrates2
+    7400004: CentreCrates3
+    7400006: CentreCrates4
+    7400008: CentreCrates1_end
+    7400010: CentreCrates2_end
+    7400012: CentreCrates3_end
+    7400014: CentreCrates4_end
+    9500000: //RootNode
+    13700000: m_sk_crate_01
+    13700002: m_sk_crate_01 1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

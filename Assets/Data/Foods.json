@@ -2,7 +2,7 @@
     "CabbageSalad":{
         "foodIngredient":[
             {
-                "name":"Cabbage",
+                "name":"Cabbage", 
                 "state":"Cut"
             }
         ],
