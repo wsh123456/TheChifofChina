@@ -32,4 +32,5 @@ public class FoodModel{
 public class FoodModel_FoodIngredient{
     public string name;
     public string state;
+    
 }
