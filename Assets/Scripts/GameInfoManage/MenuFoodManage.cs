@@ -2,47 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-public class MenuFoodManage
-{
-    public static readonly MenuFoodManage _instance = new MenuFoodManage();
-    TimerContorller times;
-    JsonFileControl json;
-    public List<string> menuFood;
-    AddMenu addMenu;
+    public class MenuFoodManage
+    {
+   
+   
+        ArrayList menuFood;
     void Awake()
     {
-        times = new TimerContorller();
-        menuFood = new List<string>();
-        json = new JsonFileControl();
-        addMenu = new AddMenu();
-        //Add("Cabbage");
+        menuFood = new ArrayList();
+        
     }
-    
     /// <summary>
     /// 添加菜谱
     /// </summary>
     /// <param name="value">菜</param>
-    public void Add(Foods food)
+     public void Add(object value)
     {
-        //menuFood.Add(food);
+        menuFood.Add(value);
     }
-    public void AddCookBook()
+    public void AddCookBook(int time)
     {
-        //times.AddMenuP();
-        
-    }
-    public void AddMenuP()
-    {
-        if (times.menuTimer.GetTimeRemaining() == 0)
-        {
-            addMenu.AddMenuPanel();
-            foreach (var item in menuFood)
-            {
-                Debug.Log(item);
-            }
-            
-            //JsonFileControl.LoadFoodIngredient();
-        }
+
     }
 }
-
+    

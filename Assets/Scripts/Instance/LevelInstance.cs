@@ -14,17 +14,12 @@ using System.Collections.Generic;
 
 public class LevelInstance{
     public float levelTime;
-    public float menuTimer;
-    public float destoryFoodMenuTimer;
-    public float maxMenuNum;
-    public int levelOneStarScore;
-    public int levelTwoStarScore;
-    public int levelThreeStarScore;
+
     public static readonly LevelInstance _instance = new LevelInstance();
     private LevelInstance(){}
 
     public void LoadLevel(int level){
-        LevelModel message = JsonFileControl.LoadLevelMessage(level);
+        LevelModel message = JsonFileControl.LoadLevelMessage(1);
         levelTime = message.levelTime;
         Debug.Log("aaaa, " + levelTime + ", " + message.foodMenu.Count);
         // 加载本关菜单

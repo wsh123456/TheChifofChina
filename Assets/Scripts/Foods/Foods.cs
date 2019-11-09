@@ -17,37 +17,4 @@ public class Foods{
     /// 所需要用到的食材
     /// </summary>
     // public List<> usingFoodIList;
-    private string foodName;
-    public string FoodName
-    {
-        get
-        {
-            return foodName;
-        }
-
-       set
-        {
-            foodName = value;
-
-        }
-    }
-    private float destoryFoodMenuTimer;
-    public float DestoryFoodMenuTimer
-    {
-        get
-        {
-            return destoryFoodMenuTimer;
-        }
-
-        set
-        {
-            destoryFoodMenuTimer = value;
-
-        }
-    }
-
-    public void LoadFoods()
-    {
-        LevelInstance._instance.LoadFoodIngredient(MenuFoodManage._instance.menuFood);
-    }
 }

@@ -43,9 +43,10 @@ public class PlayerMoveController : Singleton<PlayerMoveController> {
             index = ++index % handSkin.Count;
             FindSkin(index);
         }
-        else  if (Input.GetKey(KeyCode.Q))
+      else  if (Input.GetKey(KeyCode.Q))
         {
-
+            ani.SetBool("Walk",true);
+            Debug.Log("a");
         }
         else if (Input.GetKey(KeyCode.E))
         {
@@ -57,7 +58,7 @@ public class PlayerMoveController : Singleton<PlayerMoveController> {
             transform.position += -transform.forward * 2f;
         }
         else
-           
+            ani.SetBool("Walk", false);
             ani.SetBool("Cute", false);  
     }
     /// <summary>
@@ -67,7 +68,6 @@ public class PlayerMoveController : Singleton<PlayerMoveController> {
     {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
-        ani.SetFloat("Walk",Mathf.Abs(hor)+Mathf.Abs(ver)*0.01f-0.0000001f);
         transform.position +=new Vector3(hor,0,ver)*Time.deltaTime*1.5f;
         Vector3 dir = new Vector3(hor, 0, ver);
          
