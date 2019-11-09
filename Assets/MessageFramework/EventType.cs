@@ -1,4 +1,4 @@
 ﻿public enum EventType
 {
-    ShowText,
+    ShowText,CreateTomaTo,
 }
