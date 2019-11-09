@@ -19,8 +19,9 @@ public class FoodIngredientModel{
     public FoodIngredientType foodIType;
     // 食材状态
     public FoodIngredientState curState = FoodIngredientState.Normal;   // 状态
-    // 默认预制体
+    // 默认预制体 默认UI
     public string normalPrefab;
+    public string normalUI;
     // 切预制体 切时间
     public string cutPrefab;
     public float cutTime;
@@ -30,6 +31,10 @@ public class FoodIngredientModel{
     // 煮预制体 煮时间
     public string poachPrefab;
     public float poachTime;
+
+    // 装盘预制体
+    public string inPlate;
+    
     // 毁坏预制体
     public string breakPrefab;
 

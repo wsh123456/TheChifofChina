@@ -16,6 +16,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Events;
 
 public class FoodIngredient : MonoBehaviour {
     /// <summary>
@@ -33,20 +34,28 @@ public class FoodIngredient : MonoBehaviour {
     /// <summary>
     /// 当前的操作进度
     /// </summary>
-    private float curProgress = 0;
     public float actionTime = 2;
+
+    private float curProgress = 0;  // 当前进度
+    private GameObject progressBar; // 进度条
     private bool isActive = false;  // 是否正在进行操作
+    private bool isFirstTime = true;    // 是否第一次进行操作
     private FoodIngredientModel foodIModel;
     private FoodIngredientMachine stateMachine;
-
+    private Action finishCallback;      // 完成切换状态时的回调函数
 
     private void Awake() {
         stateMachine = new FoodIngredientMachine();
+        // 实例一个进度条
+        progressBar = Instantiate(Resources.Load<GameObject>(UIConst.PROGRESS_BAR));
     }
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Q)){
-            DoAction(FoodIngredientState.Cut);
+            DoAction(FoodIngredientState.Cut, null);
+        }
+        if(Input.GetKeyDown(KeyCode.S)){
+            BreakCurrentAction();
         }
     }
 
@@ -63,7 +72,8 @@ public class FoodIngredient : MonoBehaviour {
     /// 打断当前的操作(煮，切等操作)
     /// </summary>
     public void BreakCurrentAction(){
-        StopCoroutine("ShowProgras");
+        isActive = false;
+        StopCoroutine("ChangingStatus");
     }
 
     
@@ -83,7 +93,8 @@ public class FoodIngredient : MonoBehaviour {
     /// <summary>
     /// 做当前的操作
     /// </summary>
-    public void DoAction(FoodIngredientState state){
+    public void DoAction(FoodIngredientState state, Action finishCallback){
+        this.finishCallback = finishCallback;
         stateMachine.ChangeState(this, state);
     }
 
@@ -92,6 +103,7 @@ public class FoodIngredient : MonoBehaviour {
     /// </summary>
     public void ShowProgras(){
         Debug.Log("当前进度: " + curProgress / actionTime);
+        // 显示进度条
     }
 
     /// <summary>
@@ -99,6 +111,7 @@ public class FoodIngredient : MonoBehaviour {
     /// </summary>
     public void HideProgras(){
         Debug.Log("隐藏进度条");
+        // 隐藏进度条
     }
 
     // 转换状态
@@ -117,6 +130,7 @@ public class FoodIngredient : MonoBehaviour {
         HideProgras();
         curProgress = 0;
         isActive = false;
+        finishCallback();
     }
 }
 
@@ -126,9 +140,11 @@ public class FoodIngredient : MonoBehaviour {
 public enum FoodIngredientState
 {
     Normal,     // 默认状态(原材料)
+    NormalCanPlate, // 默认可装盘
     Cut,        // 切块状态
     Fried,      // 炸状态
     Poach,      // 水煮状态
+    InPlate,    // 装盘状态
     Break       // 破坏状态
 }
 
@@ -138,5 +154,4 @@ public enum FoodIngredientState
 public enum FoodIngredientType
 {
     Cabbage,Potato,Tomato,Chicken
-
 }
