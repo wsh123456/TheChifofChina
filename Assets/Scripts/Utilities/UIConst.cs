@@ -16,5 +16,5 @@ using UnityEngine;
 using System.Collections;
 
 public class UIConst{
-    public const string PROGRESS_BAR = "";
+    public const string PROGRESS_BAR = "FoodIngredient/ProgressBar";
 }

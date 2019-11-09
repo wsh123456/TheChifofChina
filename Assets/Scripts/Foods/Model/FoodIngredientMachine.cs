@@ -30,12 +30,12 @@ public class FoodIngredientMachine{
     /// 将foodI食材状态转换
     /// </summary>
     public void ChangeState(FoodIngredient foodI, FoodIngredientState tState){
+        curState = EnumToState(foodI.curState);
+        targetState = EnumToState(tState);
 
         // 如果可以转换，则转换，否则不进行操作
         if(curState.CanChange(EnumToState(tState))){
             targetState.Changing(foodI, tState);
-            curState = EnumToState(foodI.curState);
-            targetState = EnumToState(tState);
         }
     }
 
