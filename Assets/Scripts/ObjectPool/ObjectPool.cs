@@ -71,7 +71,7 @@ public class ObjectPool
         //if (!string.IsNullOrEmpty(namespace))
         //{}
         //给预设体添加行为脚本
-        //tempObj.AddComponent(Type.GetType("CubeBehaviour"));
+        tempObj.AddComponent(Type.GetType(objName+"Behaviour"));
 
         //将对象返回
         return tempObj;
