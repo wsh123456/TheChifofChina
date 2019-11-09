@@ -17,6 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class FoodIngredient : MonoBehaviour {
     /// <summary>
@@ -31,6 +32,7 @@ public class FoodIngredient : MonoBehaviour {
     /// 对应不同状态的网格
     /// </summary>
     private Dictionary<FoodIngredientState, GameObject> usingMesh;
+    private Dictionary<FoodIngredientState, float> usingTime;
     /// <summary>
     /// 当前的操作进度
     /// </summary>
@@ -44,10 +46,26 @@ public class FoodIngredient : MonoBehaviour {
     private FoodIngredientMachine stateMachine;
     private Action finishCallback;      // 完成切换状态时的回调函数
 
+
+    private GameObject canvas;
+    private Transform iconPoint;
+    private Transform progressPoint;
+
+
     private void Awake() {
         stateMachine = new FoodIngredientMachine();
         // 实例一个进度条
         progressBar = Instantiate(Resources.Load<GameObject>(UIConst.PROGRESS_BAR));
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
+        iconPoint = transform.Find("IconPoint").transform;
+        progressPoint = transform.Find("ProgressPoint").transform;
+    }
+
+    private void Start() {
+        usingMesh = new Dictionary<FoodIngredientState, GameObject>();
+        usingTime = new Dictionary<FoodIngredientState, float>();
+        progressBar.transform.SetParent(canvas.transform);
+        progressBar.gameObject.SetActive(false);
     }
 
     private void Update() {
@@ -57,15 +75,27 @@ public class FoodIngredient : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.S)){
             BreakCurrentAction();
         }
+
+        progressBar.transform.position = Camera.main.WorldToScreenPoint(progressPoint.position);
     }
 
 
     /// <summary>
-    /// 初始化食材属性
+    /// 初始化食材属性并返回这个对象
     /// </summary>
-    public void InitFoodIngredient(FoodIngredientModel food){
+    public FoodIngredient InitFoodIngredient(FoodIngredientModel food){
         foodIModel = food;
-        stateMachine.SetState(this, FoodIngredientState.Normal);
+        stateMachine.SetState(this, food.curState);
+
+        SetUsingDict(food);     // 设置状态 网格和时间 字典
+
+        isCooked = false;
+        curProgress = 0;
+        isActive = false;
+        isFirstTime = true;
+
+        HideProgras();
+        return this;
     }
 
     /// <summary>
@@ -104,6 +134,8 @@ public class FoodIngredient : MonoBehaviour {
     public void ShowProgras(){
         Debug.Log("当前进度: " + curProgress / actionTime);
         // 显示进度条
+        progressBar.SetActive(true);
+        progressBar.transform.Find("Slider").GetComponent<Slider>().value = curProgress / actionTime;
     }
 
     /// <summary>
@@ -111,7 +143,7 @@ public class FoodIngredient : MonoBehaviour {
     /// </summary>
     public void HideProgras(){
         Debug.Log("隐藏进度条");
-        // 隐藏进度条
+        progressBar.gameObject.SetActive(false);
     }
 
     // 转换状态
@@ -130,7 +162,34 @@ public class FoodIngredient : MonoBehaviour {
         HideProgras();
         curProgress = 0;
         isActive = false;
-        finishCallback();
+        if(finishCallback != null){
+            finishCallback();
+        }
+    }
+
+
+    private void SetUsingDict(FoodIngredientModel food){
+        if(food.normalPrefab != null){
+            usingMesh.Add(food.curState, Resources.Load<GameObject>(food.normalPrefab));
+        }
+        if(food.cutPrefab != null){
+            usingMesh.Add(FoodIngredientState.Cut, Resources.Load<GameObject>(food.cutPrefab));
+            usingTime.Add(FoodIngredientState.Cut, food.cutTime);
+        }
+        if(food.friedPrefab != null){
+            usingMesh.Add(FoodIngredientState.Fried, Resources.Load<GameObject>(food.friedPrefab));
+            usingTime.Add(FoodIngredientState.Fried, food.friedTime);
+        }
+        if(food.poachPrefab != null){
+            usingMesh.Add(FoodIngredientState.Poach, Resources.Load<GameObject>(food.poachPrefab));
+            usingTime.Add(FoodIngredientState.Poach, food.poachTime);
+        }
+        if(food.inPlate != null){
+            usingMesh.Add(FoodIngredientState.InPlate, Resources.Load<GameObject>(food.inPlate));
+        }
+        if(food.breakPrefab != null){
+            usingMesh.Add(FoodIngredientState.Break, Resources.Load<GameObject>(food.breakPrefab));
+        }
     }
 }
 

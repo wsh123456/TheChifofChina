@@ -74,37 +74,16 @@ public class JsonFileControl{
 	}
    
 
-	// 获取点上的数据
-	// private PointJsonModel GetPointData(MovePoint p, Road road, int index){
-	// 	PointJsonModel point = new PointJsonModel();
-	// 	point.point_street = (int)road;
-	// 	point.point_index = index;
-
+	// public static List<FoodIngredientModel> LoadFoodIngredient(){
+	// 	StreamReader json;
 	// 	try{
-	// 		BuildingBase building = (p as Point_Build).GetBuilding();
+	// 		json = File.OpenText();
+	// 	}catch{
 
-	// 		// Debug.Log((p as Point_Build).building);
-	// 		// if(building != ){
-	// 		HouseJsonModel house = new HouseJsonModel();
-	// 		house.type = (int)building.GetBuildingType();
-	// 		house.level = building.currentLevel;
-	// 		house.belong = gameController.playerList.IndexOf(building.owner);
-	// 		house.state = (int)building.state;
-	// 		point.point_house = house;
-	// 		// }
-	// 	}catch{}
-
-	// 	StageJsonModel stage = new StageJsonModel();
-	// 	// stage.type = "qdqf0";
-	// 	point.point_stage = stage;
-
-	// 	GodJsonModel god = new GodJsonModel();
-	// 	// god.type = "asdqwd";
-	// 	// god.left_days = "dqef";
-	// 	point.point_god = god;
-
-	// 	return point;
+	// 	}
 	// }
+
+
 }
 
 
