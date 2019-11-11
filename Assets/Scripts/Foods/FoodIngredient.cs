@@ -179,6 +179,10 @@ public class FoodIngredient : MonoBehaviour {
         Debug.Log("隐藏进度条");
         progressBar.gameObject.SetActive(false);
     }
+    public FoodIngredientType GetIType()
+    {
+        return foodIModel.foodIType;
+    }
 
     // 转换状态
     private IEnumerator ChangingStatus(){

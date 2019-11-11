@@ -131,7 +131,7 @@ public class PlayerHandController : Singleton<PlayerHandController> {
             }
             if (!isCute)
             {
-             //   other.gameObject.GetComponent<FoodIngredient>().BreakCurrentAction();
+                other.gameObject.GetComponent<FoodIngredient>().BreakCurrentAction();
             }
             //------------------！！！！！
 
@@ -143,19 +143,36 @@ public class PlayerHandController : Singleton<PlayerHandController> {
                 handObj[0].gameObject.transform.localPosition = Vector3.zero;
                 handObj[0].gameObject.transform.localEulerAngles = Vector3.zero;
             }
-            //物体是盘子
-            if (isPick&&Input.GetKeyDown(KeyCode.Space)&&other.transform.GetChild(0).GetChild(0).name.Contains("Plate"))
+            if (other.transform.GetChild(0).GetChild(0) != null)
             {
-                //TODO......
-                if (inHandObj == null)
-                    return;
-                //状态不等于Normal
-                if (inHandObj.GetComponent<FoodIngredient>().curState!=FoodIngredientState.Normal)
-                {
-                    //当前
-                    if (true)
-                    {
+                //物体是盘子
 
+                if (isPick && Input.GetKeyDown(KeyCode.Space) && other.transform.GetChild(0).GetChild(0).name.Contains("Plate"))
+                {
+                    //TODO......
+                    if (inHandObj == null)
+                        return;
+                    //状态不等于Normal
+                    if (inHandObj.GetComponent<FoodIngredient>().curState != FoodIngredientState.Normal)
+                    {
+                        //检测重复
+                        if (other.transform.GetChild(0).GetChild(0).childCount!=0)
+                        {
+                            //盘子中的食材
+                            for (int i = 0; i < other.transform.GetChild(0).GetChild(0).childCount; i++)
+                            {
+                                if (inHandObj.GetComponent<FoodIngredient>().GetIType() == other.transform.GetChild(0).GetChild(0).GetChild(i).gameObject.GetComponent<FoodIngredient>().GetIType())
+                                {
+                                    return;
+                                }
+                            }
+                           
+                        }
+                        //满足食谱条件
+                        if (true)
+                        {
+
+                        }
                     }
                 }
             }
@@ -316,11 +333,11 @@ public class PlayerHandController : Singleton<PlayerHandController> {
    //拿到菜谱 
     private void Menu()
     {
-      //  foreach (KeyValuePair<string,FoodModel> item in Levelins.levelFood)
-      //  {
-
-      //  }
-        
+        foreach (var item in Levelins.levelFood)
+        {
+            
+        }
+       
     }
 }
 

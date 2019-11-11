@@ -41,6 +41,7 @@ public class CreateTingsManager : MonoBehaviour, IPunObservable
         if (arg==0)
         {
          GameObject go=ObjectPool.instance.CreateObject(AssetConst.Tomato);
+          //  go.GetComponent<FoodIngredient>().InitFoodIngredient(LevelInstance._instance.levelFood[arg]);
             go.AddComponent<Rigidbody>();
             go.GetComponent<Rigidbody>().isKinematic = true;
             go.transform.parent = PlayerHandController.Instance.transform;
