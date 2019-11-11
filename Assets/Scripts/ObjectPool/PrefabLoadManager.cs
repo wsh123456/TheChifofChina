@@ -28,5 +28,12 @@ public class PrefabLoadManager : MonoBehaviour
         T tempAsset = Resources.Load<T>(AssetConst.Prefab_PATH+objectName);
         return tempAsset;
     }
+
+
+    public T LoadPrefabByPath<T>(string path) where T:Object
+    {
+        T tempAsset = Resources.Load<T>(path);
+        return tempAsset;
+    }
 	#endregion
 }
