@@ -46,7 +46,13 @@ public class FoodIngredient : MonoBehaviour {
     private GameObject progressBar; // 进度条
     private bool isActive = false;  // 是否正在进行操作
     private bool isFirstTime = true;    // 是否第一次进行操作
+    /// <summary>
+    /// 石材模型
+    /// </summary>
     private FoodIngredientModel foodIModel;
+    /// <summary>
+    /// 食物状态机
+    /// </summary>
     private FoodIngredientMachine stateMachine;
     private Action finishCallback;      // 完成切换状态时的回调函数
 
@@ -105,6 +111,7 @@ public class FoodIngredient : MonoBehaviour {
     /// </summary>
     public FoodIngredient InitFoodIngredient(FoodIngredientModel food){
         foodIModel = food;
+        //状态机设置状态
         stateMachine.SetState(this, food.curState);
 
         SetUsingDict(food);     // 设置状态 网格和时间 字典
@@ -146,9 +153,7 @@ public class FoodIngredient : MonoBehaviour {
     
     // public void StopChangingState(){}
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="state">要转换到的状态</param>
     /// <param name="finishCallback">完成时的回调函数</param>
     /// <returns>是否可以做这个操作</returns>
@@ -194,6 +199,7 @@ public class FoodIngredient : MonoBehaviour {
         curProgress = 0;
         isActive = false;
         if(finishCallback != null){
+            Debug.Log("我有用");
             finishCallback();
         }
     }
