@@ -19,10 +19,11 @@ using System.Collections.Generic;
 public class LevelModel{
     public int level;
     public float levelTime;
+    public float menuTimer;
+    public float destoryFoodMenuTimer;
     public List<string> foodMenu = new List<string>();
+    public List<FoodModel> foodModle = new List<FoodModel>();
 }
-
-
 public class FoodModel{
     public List<FoodModel_FoodIngredient> foodIngredient = new List<FoodModel_FoodIngredient>();
     public float price;

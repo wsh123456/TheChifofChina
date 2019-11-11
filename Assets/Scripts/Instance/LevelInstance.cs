@@ -14,16 +14,22 @@ using System.Collections.Generic;
 
 public class LevelInstance{
     public float levelTime;
-
+    public float menuTimer;
+    public float destoryFoodMenuTimer;
+    public List<string> foodMenu=new List<string>();
+    public List<FoodModel> foodModel=new List<FoodModel>();
     public static readonly LevelInstance _instance = new LevelInstance();
     private LevelInstance(){}
-
     public void LoadLevel(int level){
         LevelModel message = JsonFileControl.LoadLevelMessage(1);
         levelTime = message.levelTime;
-        Debug.Log("aaaa, " + levelTime + ", " + message.foodMenu.Count);
+        menuTimer = message.menuTimer;
+        foodMenu  =message.foodMenu;
+        foodModel = JsonFileControl.LoadFoodIngredient(foodMenu);
+        destoryFoodMenuTimer = message.destoryFoodMenuTimer;
+        // Debug.Log("aaaa, " + levelTime + ", " + message.foodMenu.Count);
         // 加载本关菜单
-        Debug.Log("adfwggsdffgdfsd" + LoadFoodIngredient(message.foodMenu));
+        //Debug.Log("adfwggsdffgdfsd" + LoadFoodIngredient(message.foodMenu));
     }
 
     public List<FoodModel> LoadFoodIngredient(List<string> foodMenu){
