@@ -15,15 +15,17 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using DG.Tweening;
 
 public class PlayerMoveController : Singleton<PlayerMoveController> {
 
     private Animator ani;
     private Transform mesh;
+    private GameObject knife;
     private List<GameObject> handSkin;
     [Header("换头")]
     public int index;
+    private bool isCute;
     protected override void Awake()
     {
         ani = GetComponent<Animator>();
@@ -33,7 +35,11 @@ public class PlayerMoveController : Singleton<PlayerMoveController> {
         {
             handSkin.Add(mesh.GetChild(i).gameObject);
         }
-      
+        knife =transform.GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(3).Find("Knife").gameObject;
+    }
+    private void Start()
+    {
+        knife.SetActive(false);
     }
     private void Update()
     {
@@ -43,23 +49,24 @@ public class PlayerMoveController : Singleton<PlayerMoveController> {
             index = ++index % handSkin.Count;
             FindSkin(index);
         }
-      else  if (Input.GetKey(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
-            ani.SetBool("Walk",true);
-            Debug.Log("a");
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            ani.SetBool("Cute", true);
+           
+            isCute = true;
+          
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
             ani.SetTrigger("Run");
-            transform.position += -transform.forward * 2f;
+            transform.DOMove(transform.position - transform.forward * 3f, 0.5f);
         }
-        else
-            ani.SetBool("Walk", false);
-            ani.SetBool("Cute", false);  
+        if (ani.GetFloat("Walk")>0)
+        {
+            isCute = false;
+        }
+        knife.SetActive(isCute);
+        ani.SetBool("Cute", isCute);
+
     }
     /// <summary>
     /// 玩家移动
@@ -68,9 +75,10 @@ public class PlayerMoveController : Singleton<PlayerMoveController> {
     {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
-        transform.position +=new Vector3(hor,0,ver)*Time.deltaTime*1.5f;
+        ani.SetFloat("Walk",Mathf.Abs(hor)+Mathf.Abs(ver)*100f-0.0000001f);
+        transform.position +=new Vector3(hor,0,ver)*Time.deltaTime*4f;
         Vector3 dir = new Vector3(hor, 0, ver);
-         
+        
         if (dir!=Vector3.zero)
         {
 
@@ -86,6 +94,7 @@ public class PlayerMoveController : Singleton<PlayerMoveController> {
             }
         }
     }
+   
     /// <summary>
     /// 更换英雄皮肤英雄
     /// </summary>
@@ -96,18 +105,10 @@ public class PlayerMoveController : Singleton<PlayerMoveController> {
             if (Index == i)
             {
                 handSkin[i].SetActive(true);
-               
+              
             }
             else
                 handSkin[i].SetActive(false);
         }
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag=="")
-        {
-
-        }
-    }
-
 }

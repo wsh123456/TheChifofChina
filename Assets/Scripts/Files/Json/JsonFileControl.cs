@@ -50,7 +50,7 @@ public class JsonFileControl{
 
 
 	// 读取本关菜单数据数据
-	public static List<FoodModel> LoadFoodIngredient(List<string> foodMenu){
+	public static List<FoodModel> LoadFood(List<string> foodMenu){
 		StreamReader json;
 		// 如果没有文件先创建文件
 		try{
@@ -62,7 +62,6 @@ public class JsonFileControl{
 		string jsonText = json.ReadToEnd();
 		json.Close();
 
-		Debug.Log(jsonText);
 		Dictionary<string, FoodModel> resultList = JsonMapper.ToObject<Dictionary<string, FoodModel>>(jsonText);
 
 		List<FoodModel> result = new List<FoodModel>(); 
@@ -74,14 +73,31 @@ public class JsonFileControl{
 	}
    
 
-	// public static List<FoodIngredientModel> LoadFoodIngredient(){
-	// 	StreamReader json;
-	// 	try{
-	// 		json = File.OpenText();
-	// 	}catch{
+	/// <summary>
+	/// 读取具体食材
+	/// </summary>
+	public static List<FoodIngredientModel> LoadFoodIngredient(List<string> ingredient){
+		StreamReader json;
+		try{
+			json = File.OpenText(Application.dataPath + "/Data/FoodIngredient.json");
+		}catch{
+			Debug.LogError("未找到：" + Application.dataPath + "/Data/FoodIngredient.json");
+			return null;
+		}
+		string jsonText = json.ReadToEnd();
+		json.Close();
 
-	// 	}
-	// }
+		Dictionary<string, FoodIngredientModel> resultList = JsonMapper.ToObject<Dictionary<string, FoodIngredientModel>>(jsonText);
+		List<FoodIngredientModel> result = new List<FoodIngredientModel>();
+		for(int i = 0; i < ingredient.Count; i++){
+			try{
+				result.Add(resultList[ingredient[i]]);
+			}catch{
+				Debug.LogError("未找到：" + ingredient[i]);
+			}
+		}
+		return result;
+	}
 
 
 }
