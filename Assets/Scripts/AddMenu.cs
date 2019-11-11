@@ -11,7 +11,7 @@ public class AddMenu : MonoBehaviour {
     }
     public void AddMenuPanel()
     {
-        if (count >= 6) return;
+        if (count >=MenuManage.menuManage.maxMenuNum) return;
         GameObject menu= Resources.Load<GameObject>("Menu");
         menu = Instantiate(menu,tran);
         menu.transform.SetParent(tran);

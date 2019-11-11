@@ -66,7 +66,7 @@ public class JsonFileControl{
 
 		List<FoodModel> result = new List<FoodModel>(); 
 		foreach(var item in resultList){
-			Debug.Log(item.Value.foodIngredient[0].name);
+			//Debug.Log(item.Value.foodIngredient[0].name);
 			result.Add(item.Value);
 		}
 		return result;

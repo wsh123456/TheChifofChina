@@ -17,13 +17,14 @@ public class LevelInstance{
     public float menuTimer;
     public float destoryFoodMenuTimer;
 
-    public List<FoodModel> levelFood;
-    public List<FoodIngredientModel> levelIngredient;
+    public Dictionary<string,FoodModel> levelFood;
+    public Dictionary<string,FoodIngredientModel> levelIngredient;
 
     public static readonly LevelInstance _instance = new LevelInstance();
     private LevelInstance(){
-        levelFood = new List<FoodModel>();
-        levelIngredient = new List<FoodIngredientModel>();
+        levelFood = new Dictionary<string, FoodModel>();
+        levelIngredient = new Dictionary<string, FoodIngredientModel>();
+        LoadLevel(1);
     }
 
     public void LoadLevel(int level){
@@ -31,13 +32,21 @@ public class LevelInstance{
         levelTime = message.levelTime;
         menuTimer = message.menuTimer;
         destoryFoodMenuTimer = message.destoryFoodMenuTimer;
-        // Debug.Log("aaaa, " + levelTime + ", " + message.foodMenu.Count);
+         Debug.Log("aaaa, " + levelTime + ", " + message.foodMenu.Count+"|"+destoryFoodMenuTimer);
         // 加载本关菜单
 
         levelFood = LoadFood(message.foodMenu);
+        //Debug.Log(levelFood);
     }
 
-    public List<FoodModel> LoadFood(List<string> foodMenu){
-        return JsonFileControl.LoadFood(foodMenu);
+    public Dictionary<string,FoodModel> LoadFood(List<string> foodMenu){
+
+        Dictionary<string, FoodModel> levelFood = new Dictionary<string, FoodModel>();
+        List<FoodModel>levelFoodA=JsonFileControl.LoadFood(foodMenu);
+        for (int i = 0; i < foodMenu.Count; i++)
+        {
+            levelFood.Add(foodMenu[i], levelFoodA[i]);
+        }
+        return levelFood;
     }
 }
