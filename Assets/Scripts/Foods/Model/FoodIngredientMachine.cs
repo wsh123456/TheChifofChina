@@ -22,6 +22,7 @@ public class FoodIngredientMachine{
 
     // 设置状态
     public void SetState(FoodIngredient foodI, FoodIngredientState state){
+
         curState = EnumToState(state);
         foodI.curState = state;
     }
@@ -30,12 +31,13 @@ public class FoodIngredientMachine{
     /// 将foodI食材状态转换
     /// </summary>
     public void ChangeState(FoodIngredient foodI, FoodIngredientState tState){
+       
         curState = EnumToState(foodI.curState);
         targetState = EnumToState(tState);
 
         // 如果可以转换，则转换，否则不进行操作
         if(curState.CanChange(EnumToState(tState))){
-            targetState.Changing(foodI, tState);
+            targetState.Changing(foodI, tState);  
         }
     }
 
@@ -44,7 +46,9 @@ public class FoodIngredientMachine{
     /// 完成转换
     /// </summary>
     public void FinishChange(FoodIngredient foodI){
+       //离开当前状态到新状态
         curState.ExitState(targetState);
+        //进入新状态
         targetState.EnterState();
     }
 
@@ -55,6 +59,7 @@ public class FoodIngredientMachine{
     public static FoodIState EnumToState(FoodIngredientState state){
         Type t = Type.GetType("FoodIState_" + state.ToString());
         FieldInfo info = t.GetField("_ins", BindingFlags.Static | BindingFlags.Public);
+        //获取字段内容信息
         return info.GetValue(info.Name) as FoodIState;
     }
 }

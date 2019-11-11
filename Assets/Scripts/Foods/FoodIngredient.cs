@@ -42,7 +42,13 @@ public class FoodIngredient : MonoBehaviour {
     private GameObject progressBar; // 进度条
     private bool isActive = false;  // 是否正在进行操作
     private bool isFirstTime = true;    // 是否第一次进行操作
+    /// <summary>
+    /// 石材模型
+    /// </summary>
     private FoodIngredientModel foodIModel;
+    /// <summary>
+    /// 食物状态机
+    /// </summary>
     private FoodIngredientMachine stateMachine;
     private Action finishCallback;      // 完成切换状态时的回调函数
 
@@ -64,6 +70,7 @@ public class FoodIngredient : MonoBehaviour {
     private void Start() {
         usingMesh = new Dictionary<FoodIngredientState, GameObject>();
         usingTime = new Dictionary<FoodIngredientState, float>();
+
         progressBar.transform.SetParent(canvas.transform);
         progressBar.gameObject.SetActive(false);
     }
@@ -85,6 +92,7 @@ public class FoodIngredient : MonoBehaviour {
     /// </summary>
     public FoodIngredient InitFoodIngredient(FoodIngredientModel food){
         foodIModel = food;
+        //状态机设置状态
         stateMachine.SetState(this, food.curState);
 
         SetUsingDict(food);     // 设置状态 网格和时间 字典
@@ -124,7 +132,9 @@ public class FoodIngredient : MonoBehaviour {
     /// 做当前的操作
     /// </summary>
     public void DoAction(FoodIngredientState state, Action finishCallback){
+        //
         this.finishCallback = finishCallback;
+        //改变状态
         stateMachine.ChangeState(this, state);
     }
 
@@ -163,11 +173,15 @@ public class FoodIngredient : MonoBehaviour {
         curProgress = 0;
         isActive = false;
         if(finishCallback != null){
+            Debug.Log("我有用");
             finishCallback();
         }
     }
 
-
+    /// <summary>
+    /// 设置网格状态
+    /// </summary>
+    /// <param name="food"></param>
     private void SetUsingDict(FoodIngredientModel food){
         if(food.normalPrefab != null){
             usingMesh.Add(food.curState, Resources.Load<GameObject>(food.normalPrefab));
