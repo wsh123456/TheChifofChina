@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MenuManage : MonoBehaviour {
     public static readonly MenuManage menuManage = new MenuManage();
-    private MenuManage() { }
+    private MenuManage()
+    {
+
+    }
     public int minMenuNum = 2;
     public int currentMenuNum = 0;
     public int maxMenuNum = 6;
@@ -12,10 +15,11 @@ public class MenuManage : MonoBehaviour {
     public Timer levelTimer;
     public Timer destoryFoodMenuTimer;
     public Dictionary<string, FoodModel> levelFood = new Dictionary<string, FoodModel>();
-    public List<string> menu;
+    public List<string> foodMenu;
     public Image food;
     Image meterial;
     Image cook;
+    AddMenu addMenu;
     //public List<Timer> MenuTimer;
     bool isDestory = true;
     bool isAddMenu = true;
@@ -23,14 +27,8 @@ public class MenuManage : MonoBehaviour {
     bool isMenuAdd = true;
     void Awake()
     {
-        meterial = GameObject.Find("materialMenu/materialPannel/material").GetComponent<Image>();
-        cook = GameObject.Find("materialMenu/cookPannel/cook").GetComponent<Image>();
-        menu = new List<string>();
-        destoryFoodMenuTimer = TimerInstance.instance.destoryFoodMenuTimer;
-        menuTimer = TimerInstance.instance.menuTimer;
-        levelTimer = TimerInstance.instance.levelTimer;
-        levelFood = LevelInstance._instance.levelFood;
-        food = GameObject.Find("MenuFood/MenuFood/food").GetComponent<Image>();
+        
+        foodMenu = new List<string>();
         //foreach (KeyValuePair<string,FoodModel> item in levelFood)
         //{
         //    Debug.Log(item.Value.foodIngredient[0].state);
@@ -38,7 +36,13 @@ public class MenuManage : MonoBehaviour {
     }
     void Start()
     {
-        menu = ForeachLevelFood(levelFood);
+        
+        foodMenu = LevelInstance._instance.foodMenu;
+        destoryFoodMenuTimer = TimerInstance.instance.destoryFoodMenuTimer;
+        menuTimer = TimerInstance.instance.menuTimer;
+        levelTimer = TimerInstance.instance.levelTimer;
+        levelFood = LevelInstance._instance.levelFood;
+        addMenu = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AddMenu>();
     }
     void Update()
     {
@@ -47,7 +51,7 @@ public class MenuManage : MonoBehaviour {
         //Debug.Log(levelTimer.GetRatioRemaining());
         //Debug.Log(menuTimer.GetTimeRemaining());
         //Debug.Log(levelFood);
-
+        //Debug.Log(destoryFoodMenuTimer.GetTimeRemaining());
         Initmenu();
         AddMenu();
         DestoryMenu();
@@ -60,23 +64,28 @@ public class MenuManage : MonoBehaviour {
         if (currentMenuNum ==0&& isAddMenu)
         {
             currentMenuNum = 2;
+            addMenu .AddMenuPanel();
+            addMenu.AddMenuPanel();
             //Debug.Log(currentMenuNum);
             //Debug.Log("+2道菜");
             isAddMenu = false;   
-        }
-        
-        
+        } 
     }
     public void DestoryMenu()
     {
     if (destoryFoodMenuTimer.isDone && isDestory)
-    {
+        {
+
+            currentMenuNum -= 1;
+            Debug.Log("-1道菜");
+            Debug.Log(currentMenuNum);
+            Debug.Log(isDestory);
+            isDestory = false;
             //Debug.Log("-1道菜");
-    }
-        isDestory = false;
-        currentMenuNum -= 1;
-        //Debug.Log("-1道菜");
+        }
+        //isDestory = false;
         //Debug.Log(currentMenuNum);
+        
     }
     public void CheckMenu()
     {
@@ -89,21 +98,14 @@ public class MenuManage : MonoBehaviour {
             if (!isMenuDone)
             {
                 currentMenuNum += 2;
+                addMenu.AddMenuPanel();
                 //Debug.Log("+2道菜");
                 //Debug.Log(currentMenuNum);
             }
             isMenuDone = true;
         }
     }
-    public List<string> ForeachLevelFood(Dictionary<string, FoodModel> levelFood)
-    {
-        List<string> LevelFoodKey = new List<string>();
-        foreach (KeyValuePair<string,FoodModel> item in levelFood)
-        {
-            LevelFoodKey.Add(item.Key);
-        }
-        return LevelFoodKey;
-    }
+
     public int RandomLevelFoodKey()
     {
       int  random = Random.Range(0, 5);
@@ -113,8 +115,9 @@ public class MenuManage : MonoBehaviour {
     {
         if (TimerInstance.instance.menuTimer.isDone && isMenuAdd)
         {
-            Debug.Log(menu[RandomLevelFoodKey()]);
-            string menuStr = menu[RandomLevelFoodKey()];
+            food = GameObject.Find("MenuFood/MenuFood/food").GetComponent<Image>();
+            Debug.Log(foodMenu[RandomLevelFoodKey()]);
+            string menuStr = foodMenu[RandomLevelFoodKey()];
             string foodSprite = levelFood[menuStr].normalUI;
             food.sprite = Resources.Load<Sprite>(foodSprite);
             isMenuAdd = false;
