@@ -4,28 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MenuUI : MonoBehaviour {
     Image cook;
-    Image meterial;
-    Image food;
+    
     public Dictionary<string, FoodModel> levelFood;
     // Use this for initialization
     void Start () {
         levelFood = new Dictionary<string, FoodModel>();
-        meterial = GameObject.Find("materialMenu/materialPannel/material").GetComponent<Image>();
-        cook = GameObject.Find("materialMenu/cookPannel/cook").GetComponent<Image>();
-        food= GameObject.Find("MenuFood/MenuFood/food").GetComponent<Image>();
+        
+        
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        A();
+        
 	}
-    void A()
-    {
-        foreach (KeyValuePair<string,FoodModel> item in levelFood)
-        {
-           Sprite a = Resources.Load<Sprite>(item.Value.normalUI);
-          food.sprite=Instantiate(a);
-        }
-    }
+    //void A()
+    //{
+    //    foreach (KeyValuePair<string,FoodModel> item in levelFood)
+    //    {
+    //       //Sprite a = Resources.Load<Sprite>(item.Value.normalUI);
+    //      //food.sprite=Instantiate(a);
+    //    }
+    //}
 }
