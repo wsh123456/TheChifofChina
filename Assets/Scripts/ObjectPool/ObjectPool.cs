@@ -110,12 +110,15 @@ public class ObjectPool
         }
         else
         {
+            Debug.Log("path = " + path);
             //如果没有，就从Resources加载预设体
             prefab = PrefabLoadManager.instance.LoadPrefabByPath<GameObject>(path);
+            Debug.Log(prefab);
             //添加到预设体缓冲池中
             prefabCache.Add(objName,prefab);
         }
         
+        Debug.Log("aaa " + objName);
         //生成预设体
         tempObj = UnityEngine.Object.Instantiate(prefab);
 

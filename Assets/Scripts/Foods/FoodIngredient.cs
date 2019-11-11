@@ -79,6 +79,19 @@ public class FoodIngredient : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Q)){
             DoAction(FoodIngredientState.Cut, null);
         }
+
+        if(Input.GetKeyDown(KeyCode.W)){
+            DoAction(FoodIngredientState.Fried, null);
+        }
+
+        if(Input.GetKeyDown(KeyCode.E)){
+            DoAction(FoodIngredientState.InPlate, null);
+        }
+
+        if(Input.GetKeyDown(KeyCode.R)){
+            DoAction(FoodIngredientState.Break, null);
+        }
+
         if(Input.GetKeyDown(KeyCode.S)){
             BreakCurrentAction();
         }
@@ -96,6 +109,8 @@ public class FoodIngredient : MonoBehaviour {
 
         SetUsingDict(food);     // 设置状态 网格和时间 字典
         // 加载当前状态的预制体，赋值
+        Debug.Log(food.normalPrefab);
+        Debug.Log(food.foodIType.ToString());
         ChangeCurMesh(food.curState);
         actionTime = 0;
 
@@ -164,7 +179,9 @@ public class FoodIngredient : MonoBehaviour {
     private IEnumerator ChangingStatus(){
         Debug.Log(curProgress + ", " + actionTime);
         while(true){
-            ShowProgras();
+            if(actionTime > 0){
+                ShowProgras();
+            }
             yield return new WaitForSeconds(Time.fixedDeltaTime);
             curProgress += Time.fixedDeltaTime;
             if(curProgress >= actionTime){
@@ -183,6 +200,7 @@ public class FoodIngredient : MonoBehaviour {
 
 
     private void ChangeCurMesh(FoodIngredientState state){
+        curState = state;
         ObjectPool.instance.RecycleObj(curMesh);
         curMesh = ObjectPool.instance.CreateObject(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state]);
         curMesh.transform.SetParent(modelPoint);
@@ -194,6 +212,7 @@ public class FoodIngredient : MonoBehaviour {
         Debug.Log(usingMesh);
         if(food.normalPrefab != null){
             usingMesh.Add(food.curState, food.normalPrefab);
+            usingTime.Add(food.curState, 0);
         }
         if(food.cutPrefab != null){
             usingMesh.Add(FoodIngredientState.Cut, food.cutPrefab);
@@ -209,9 +228,11 @@ public class FoodIngredient : MonoBehaviour {
         }
         if(food.inPlate != null){
             usingMesh.Add(FoodIngredientState.InPlate, food.inPlate);
+            usingTime.Add(FoodIngredientState.InPlate, 0);
         }
         if(food.breakPrefab != null){
             usingMesh.Add(FoodIngredientState.Break, food.breakPrefab);
+            usingTime.Add(FoodIngredientState.Break, 0);
         }
     }
 }
