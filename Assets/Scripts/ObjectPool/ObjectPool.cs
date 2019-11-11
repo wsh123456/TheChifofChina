@@ -72,7 +72,11 @@ public class ObjectPool
        // if (!string.IsNullOrEmpty(namespace))
         //{}
         //给预设体添加行为脚本
+<<<<<<< HEAD
         tempObj.AddComponent(Type.GetType(typeFullName));
+=======
+        tempObj.AddComponent(Type.GetType(objName+"Behaviour"));
+>>>>>>> d0519004a6bed796c823d5c410f7ad7e4f9c9908
 
         //将对象返回
         return tempObj;

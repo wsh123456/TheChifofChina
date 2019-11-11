@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/Behaviour/PlateBehaviour.cs.meta
 guid: 251627a59a4d5db4588e14278275e4d8
+=======
+guid: b8bd89524b4982e4caf0b9655794ea00
+>>>>>>> d0519004a6bed796c823d5c410f7ad7e4f9c9908:Assets/Scripts/PlateBehaviour.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

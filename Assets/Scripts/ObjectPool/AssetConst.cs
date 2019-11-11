@@ -18,4 +18,6 @@ public class AssetConst
 public class GameConst
 {
     public const string Menu = "Menu";
+    public const string Plate = "Plate";
+    
 }
