@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class AssetConst
 {
     public const string Prefab_PATH = "Prefabs/";
+    public const string Behaviour = "Behaviour";
     public const string Tomato = "Tomato";
     public const string Cube1 = "Tomato";
     public const string Potato = "Potato";
@@ -18,4 +19,6 @@ public class AssetConst
 public class GameConst
 {
     public const string Menu = "Menu";
+    public const string Cube = "Cube";
+    public const string Plate = "Plate";
 }
