@@ -313,7 +313,6 @@ namespace HighlightingSystem
 				}
 				else
 				{
-					Debug.LogWarning("HighlightingSystem : Framebuffer depth data is not available. Depth occlusion disabled, highlighting occluders enabled. (This message is harmless)");
 				}
 			}
 

@@ -19,6 +19,8 @@ using HighlightingSystem;
 
 public class PlayerHandController : Singleton<PlayerHandController> {
 
+    private LevelInstance Levelins = LevelInstance._instance;
+
     private GameObject knife;
     /// <summary>
     /// 食物种类
@@ -36,6 +38,7 @@ public class PlayerHandController : Singleton<PlayerHandController> {
     private List<GameObject> allThings;
     private bool isCute;
 
+    private GameObject inHandObj;
     private void Start()
     {
         ani = transform.root.GetComponent<Animator>();
@@ -50,9 +53,10 @@ public class PlayerHandController : Singleton<PlayerHandController> {
     /// <param name="other"></param>
     private void PickUp(GameObject  other)
     {
-      
+        inHandObj = other;
         other.transform.parent = transform;
         other.transform.localPosition = Vector3.zero;
+        other.transform.localEulerAngles = Vector3.zero;
         other.GetComponent<Rigidbody>().isKinematic = true;
         RemoveLight();
      
@@ -62,6 +66,7 @@ public class PlayerHandController : Singleton<PlayerHandController> {
         IsObjectInHand();
         ani.SetBool("snackAttack", isPick);
         //扔
+
         if (isPick && Input.GetKeyUp(KeyCode.LeftShift)&&foodType.canThrow)
         {
             ThrowThings(transform.GetChild(0).gameObject);
@@ -82,6 +87,7 @@ public class PlayerHandController : Singleton<PlayerHandController> {
         if (ani.GetFloat("Walk") > 0)
         {
             isCute = false;
+
         }
         knife.SetActive(isCute);
         ani.SetBool("Cute", isCute);
@@ -102,6 +108,7 @@ public class PlayerHandController : Singleton<PlayerHandController> {
         }
         if (other.tag == "Plant")
         {
+            Debug.Log(other.gameObject.GetComponentsInChildren<Transform>().Length);
             //取食材
             if (!isPick&&Input.GetKeyDown(KeyCode.Space)&&other.gameObject.GetComponentsInChildren<Transform>().Length==2)
             {
@@ -110,21 +117,47 @@ public class PlayerHandController : Singleton<PlayerHandController> {
                     FoodsType(other.gameObject);
                     EventCenter.Broadcast<int>(EventType.CreateTomaTo,0);
                 }
+                if (other.name.Contains("Potato"))
+                {
+                    FoodsType(other.gameObject);
+                    EventCenter.Broadcast<int>(EventType.CreateTomaTo, 1);
+                }
             }
-            if (other.transform.Find("Plant").childCount==1)
-            {
-                FoodsType(other.transform.Find("Plant").GetChild(0).gameObject);
-            }
-            //TODO... 
-            if(other.name=="CuttingBoard"&&foodType.canCut&& Input.GetKeyDown(KeyCode.E))
+            //---------------切的状态 完成
+            if(!isPick&&other.name=="CuttingBoard"&& Input.GetKeyDown(KeyCode.E)&&
+                other.transform.Find("Plant").GetChild(0).gameObject.GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Cut,null))
             {
                 isCute = true;
             }
+            if (!isCute)
+            {
+             //   other.gameObject.GetComponent<FoodIngredient>().BreakCurrentAction();
+            }
+            //------------------！！！！！
+
             //放到台子上
             if (isPick && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2)
             {
+                Debug.Log("放到台子上");
                 handObj[0].gameObject.transform.parent = other.gameObject.transform.GetChild(0);
                 handObj[0].gameObject.transform.localPosition = Vector3.zero;
+                handObj[0].gameObject.transform.localEulerAngles = Vector3.zero;
+            }
+            //物体是盘子
+            if (isPick&&Input.GetKeyDown(KeyCode.Space)&&other.transform.GetChild(0).GetChild(0).name.Contains("Plate"))
+            {
+                //TODO......
+                if (inHandObj == null)
+                    return;
+                //状态不等于Normal
+                if (inHandObj.GetComponent<FoodIngredient>().curState!=FoodIngredientState.Normal)
+                {
+                    //当前
+                    if (true)
+                    {
+
+                    }
+                }
             }
         }
     }
@@ -226,9 +259,12 @@ public class PlayerHandController : Singleton<PlayerHandController> {
     /// </summary>
     private void ThrowThings(GameObject other)
     {
+        //if (other.name)
+        //{
+
+        //}
         other.GetComponent<Rigidbody>().isKinematic = false;
         other.GetComponent<Rigidbody>().AddForce(transform.forward*500f);
-       
         other.transform.parent=GameObject.Find("CanPickUpThings").transform;
     }
     /// <summary>
@@ -249,6 +285,10 @@ public class PlayerHandController : Singleton<PlayerHandController> {
         return false;
         //ToDo.........
     }
+    /// <summary>
+    /// 食物类型
+    /// </summary>
+    /// <param name="other"></param>
      private void FoodsType(GameObject other)
     {
         if (other.name.Contains("Cube"))
@@ -258,13 +298,29 @@ public class PlayerHandController : Singleton<PlayerHandController> {
         }
         if (other.name.Contains("Tomato"))
         {
-            FoodType type = new FoodType(true,true,false,false);
+            FoodType type = new FoodType(true,true,true,false);
             foodType = type;
         }
-        if (other.name.Contains("P"))
+        if (other.name.Contains("Plate"))
         {
-
+            FoodType type = new FoodType(true, true, false, false);
+            foodType = type;
         }
+        if (other.name.Contains("Extinguisher"))
+        {
+            Debug.Log("灭火器");
+            FoodType type = new FoodType(true, true, false, false);
+            foodType = type;
+        }
+    }
+   //拿到菜谱 
+    private void Menu()
+    {
+      //  foreach (KeyValuePair<string,FoodModel> item in Levelins.levelFood)
+      //  {
+
+      //  }
+        
     }
 }
 
@@ -282,3 +338,4 @@ public class FoodType
         this.canCut = canCut;
     }
 }
+
