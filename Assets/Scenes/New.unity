@@ -3002,7 +3002,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfe5591059be124baabf5995c816b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
 --- !u!54 &724923860
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3561,7 +3560,7 @@ GameObject:
   - component: {fileID: 830415003}
   - component: {fileID: 830415002}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4255,7 +4254,7 @@ GameObject:
   - component: {fileID: 994100463}
   - component: {fileID: 994100462}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5120,7 +5119,7 @@ GameObject:
   - component: {fileID: 1234209598}
   - component: {fileID: 1234209597}
   m_Layer: 0
-  m_Name: Cube1
+  m_Name: CuttingBoard
   m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5644,6 +5643,14 @@ Prefab:
     - target: {fileID: 4187420194809296, guid: 90a01b1af886cb24f86a0f7201bbd2d7, type: 2}
       propertyPath: m_RootOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1894437154507570, guid: 90a01b1af886cb24f86a0f7201bbd2d7, type: 2}
+      propertyPath: m_Name
+      value: CuttingBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679897351669204, guid: 90a01b1af886cb24f86a0f7201bbd2d7, type: 2}
+      propertyPath: m_Name
+      value: Plant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90a01b1af886cb24f86a0f7201bbd2d7, type: 2}
@@ -7294,6 +7301,46 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00041161105, y: 0.0002719392, z: 0.0008230666}
     m_Extent: {x: 0.001201422, y: 0.0014472766, z: 0.0015148581}
   m_DirtyAABB: 0
+--- !u!1 &1822270844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1822270846}
+  - component: {fileID: 1822270845}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1822270845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1822270844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe0cce2d6be41641863f4e905c1064f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1822270846
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1822270844}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 35.35728, y: -3.4318593, z: -19.641556}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1834282331
 GameObject:
   m_ObjectHideFlags: 0
@@ -7978,6 +8025,9 @@ GameObject:
   - component: {fileID: 1903447793}
   - component: {fileID: 1903447792}
   - component: {fileID: 1903447797}
+  - component: {fileID: 1903447800}
+  - component: {fileID: 1903447799}
+  - component: {fileID: 1903447798}
   m_Layer: 0
   m_Name: 'Chef #124775 (1)'
   m_TagString: Untagged
@@ -8024,7 +8074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfe5591059be124baabf5995c816b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
 --- !u!95 &1903447795
 Animator:
   serializedVersion: 3
@@ -8068,6 +8117,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91c4858f60dc7a41b85cf407556b020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1903447798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1903447791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: Cute
+  - Type: 9
+    SynchronizeType: 0
+    Name: Run
+  - Type: 9
+    SynchronizeType: 0
+    Name: Push
+  - Type: 4
+    SynchronizeType: 0
+    Name: snackAttack
+  - Type: 1
+    SynchronizeType: 0
+    Name: Walk
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
+  - SynchronizeType: 0
+    LayerIndex: 1
+--- !u!114 &1903447799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1903447791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+--- !u!114 &1903447800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1903447791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 1903447799}
+  - {fileID: 1903447798}
+  - {fileID: 1903447798}
+  - {fileID: 1903447794}
+  viewIdField: 1
+  InstantiationId: 1
+  isRuntimeInstantiated: 0
 --- !u!1 &1921766332
 GameObject:
   m_ObjectHideFlags: 0
@@ -8444,7 +8565,7 @@ GameObject:
   - component: {fileID: 1984198774}
   - component: {fileID: 1984198773}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

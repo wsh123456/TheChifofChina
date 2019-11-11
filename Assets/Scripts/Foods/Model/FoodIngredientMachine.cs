@@ -22,6 +22,7 @@ public class FoodIngredientMachine{
 
     // 设置状态
     public void SetState(FoodIngredient foodI, FoodIngredientState state){
+
         curState = EnumToState(state);
         foodI.curState = state;
     }
@@ -29,23 +30,26 @@ public class FoodIngredientMachine{
     /// <summary>
     /// 将foodI食材状态转换
     /// </summary>
-    public void ChangeState(FoodIngredient foodI, FoodIngredientState tState){
+    public bool ChangeState(FoodIngredient foodI, FoodIngredientState tState){
         curState = EnumToState(foodI.curState);
         targetState = EnumToState(tState);
 
         // 如果可以转换，则转换，否则不进行操作
         if(curState.CanChange(EnumToState(tState))){
+
             targetState.Changing(foodI, tState);
+            return true;
         }
+        return false;
     }
 
 
     /// <summary>
     /// 完成转换
     /// </summary>
-    public void FinishChange(FoodIngredient foodI){
+    public void FinishChange(Action<FoodIngredientState> action){
         curState.ExitState(targetState);
-        targetState.EnterState();
+        targetState.EnterState(action);
     }
 
 
@@ -55,6 +59,7 @@ public class FoodIngredientMachine{
     public static FoodIState EnumToState(FoodIngredientState state){
         Type t = Type.GetType("FoodIState_" + state.ToString());
         FieldInfo info = t.GetField("_ins", BindingFlags.Static | BindingFlags.Public);
+        //获取字段内容信息
         return info.GetValue(info.Name) as FoodIState;
     }
 }
@@ -64,6 +69,7 @@ public class FoodIState
 {
     protected List<FoodIState> canToState;      // 这个状态能够转换到什么状态
     public string stateName;        // 状态的名称
+    public FoodIngredientState state;
 
     // 能否转换
     public virtual bool CanChange(FoodIState state){
@@ -75,14 +81,14 @@ public class FoodIState
     }
 
     // 进入这个状态
-    public virtual void EnterState(){
+    public virtual void EnterState(Action<FoodIngredientState> action){
         Debug.Log("进入状态 " + stateName);
-        // 切换模型，贴图等
+        action(this.state);
     }
 
     // 转换过程
     public virtual void Changing(FoodIngredient foodI, FoodIngredientState tState){
-        foodI.DoCurrentAction();
+        foodI.DoCurrentAction(tState);
     }        
 
     // 结束这个状态
@@ -103,6 +109,7 @@ public class FoodIState_Normal:FoodIState
         canToState.Add(FoodIState_Poach._ins);
         canToState.Add(FoodIState_Break._ins);
         stateName = "初始状态";
+        state = FoodIngredientState.Normal;
     }
 }
 
@@ -117,6 +124,7 @@ public class FoodIState_NormalCanPlate:FoodIState
         canToState.Add(FoodIState_InPlate._ins);
         canToState.Add(FoodIState_Break._ins);
         stateName = "初始状态（可装盘）";
+        state = FoodIngredientState.NormalCanPlate;
     }
 }
 
@@ -131,6 +139,7 @@ public class FoodIState_Cut:FoodIState
         canToState.Add(FoodIState_InPlate._ins);
         canToState.Add(FoodIState_Break._ins);
         stateName = "切块";
+        state = FoodIngredientState.Cut;
     }
 }
 
@@ -143,6 +152,7 @@ public class FoodIState_Fried:FoodIState
         canToState.Add(FoodIState_InPlate._ins);
         canToState.Add(FoodIState_Break._ins);
         stateName = "炸";
+        state = FoodIngredientState.Fried;
     }
 }
 
@@ -155,6 +165,7 @@ public class FoodIState_Poach:FoodIState
         canToState.Add(FoodIState_InPlate._ins);
         canToState.Add(FoodIState_Break._ins);
         stateName = "水煮";
+        state = FoodIngredientState.Poach;
     }
 }
 
@@ -166,6 +177,7 @@ public class FoodIState_InPlate:FoodIState
         canToState = new List<FoodIState>();
         canToState.Add(FoodIState_Break._ins);
         stateName = "装盘了";
+        state = FoodIngredientState.InPlate;
     }
 }
 
@@ -176,5 +188,6 @@ public class FoodIState_Break:FoodIState
     private FoodIState_Break(){
         canToState = new List<FoodIState>();
         stateName = "毁坏了";
+        state = FoodIngredientState.Break;
     }
 }

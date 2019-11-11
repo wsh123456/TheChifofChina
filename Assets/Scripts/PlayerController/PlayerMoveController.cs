@@ -16,57 +16,25 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Photon.Pun;
 
-public class PlayerMoveController : Singleton<PlayerMoveController> {
+public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
 
     private Animator ani;
-    private Transform mesh;
-    private GameObject knife;
-    private List<GameObject> handSkin;
-    [Header("换头")]
-    public int index;
-    private bool isCute;
-    protected override void Awake()
+    public static  PlayerMoveController instance;
+    private PhotonView phView;
+    private int networkInt;
+
+    private  void Awake()
     {
+        instance = this;
         ani = GetComponent<Animator>();
-        handSkin = new List<GameObject>();
-        mesh = transform.GetChild(0).GetChild(0).GetChild(0);
-        for (int i = 1; i <=7; i++)
-        {
-            handSkin.Add(mesh.GetChild(i).gameObject);
-        }
-        knife =transform.GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(3).Find("Knife").gameObject;
-    }
-    private void Start()
-    {
-        knife.SetActive(false);
     }
     private void Update()
     {
+        
+            networkInt = 666;
         Move();
-        if (Input.GetMouseButtonDown(0))
-        {
-            index = ++index % handSkin.Count;
-            FindSkin(index);
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-           
-            isCute = true;
-          
-        }
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            ani.SetTrigger("Run");
-            transform.DOMove(transform.position - transform.forward * 3f, 0.5f);
-        }
-        if (ani.GetFloat("Walk")>0)
-        {
-            isCute = false;
-        }
-        knife.SetActive(isCute);
-        ani.SetBool("Cute", isCute);
-
     }
     /// <summary>
     /// 玩家移动
@@ -93,22 +61,22 @@ public class PlayerMoveController : Singleton<PlayerMoveController> {
                     transform.Rotate(0, -6f, 0);
             }
         }
-    }
-   
-    /// <summary>
-    /// 更换英雄皮肤英雄
-    /// </summary>
-    private void FindSkin(int Index)
-    {
-        for (int i = 0; i < handSkin.Count; i++)
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            if (Index == i)
-            {
-                handSkin[i].SetActive(true);
-              
-            }
-            else
-                handSkin[i].SetActive(false);
+            ani.SetTrigger("Run");
+            gameObject.GetComponent<Rigidbody>().AddForce(-transform.forward * 300f, ForceMode.Force);
+        }
+    }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(networkInt);
+
+        }
+        else
+        {
+            networkInt = (int)stream.ReceiveNext();
         }
     }
 }

@@ -19,6 +19,11 @@ using HighlightingSystem;
 
 public class PlayerHandController : Singleton<PlayerHandController> {
 
+    private GameObject knife;
+    /// <summary>
+    /// 食物种类
+    /// </summary>
+    private FoodType foodType;
    private Animator ani;
     /// <summary>
     /// 手上是否有东西
@@ -29,12 +34,15 @@ public class PlayerHandController : Singleton<PlayerHandController> {
     /// 触发器碰到除物品外的所有东西
     /// </summary>
     private List<GameObject> allThings;
+    private bool isCute;
+
     private void Start()
     {
         ani = transform.root.GetComponent<Animator>();
         handObj = new List<PickTings>();
         allThings = new List<GameObject>();
-        
+        knife = transform.parent.GetChild(3).GetChild(0).gameObject;
+        knife.SetActive(false);
     }
     /// <summary>
     /// 东西端在手上
@@ -45,7 +53,6 @@ public class PlayerHandController : Singleton<PlayerHandController> {
       
         other.transform.parent = transform;
         other.transform.localPosition = Vector3.zero;
-        
         other.GetComponent<Rigidbody>().isKinematic = true;
         RemoveLight();
      
@@ -55,7 +62,7 @@ public class PlayerHandController : Singleton<PlayerHandController> {
         IsObjectInHand();
         ani.SetBool("snackAttack", isPick);
         //扔
-        if (isPick && Input.GetKeyUp(KeyCode.LeftShift))
+        if (isPick && Input.GetKeyUp(KeyCode.LeftShift)&&foodType.canThrow)
         {
             ThrowThings(transform.GetChild(0).gameObject);
             ani.SetTrigger("Push");
@@ -66,11 +73,18 @@ public class PlayerHandController : Singleton<PlayerHandController> {
             //TODO.显示箭头
         }
         //放下
-        if (isPick && Input.GetKeyDown(KeyCode.Tab))
+        if (isPick && Input.GetKeyDown(KeyCode.Tab) && foodType.canDropDown)
         {
             LayDownThings(transform.GetChild(0).gameObject);
 
         }
+       
+        if (ani.GetFloat("Walk") > 0)
+        {
+            isCute = false;
+        }
+        knife.SetActive(isCute);
+        ani.SetBool("Cute", isCute);
     }
 
     private void OnTriggerStay(Collider other)
@@ -80,8 +94,8 @@ public class PlayerHandController : Singleton<PlayerHandController> {
             //拿东西
             if (other.tag=="Thing"&& Input.GetKeyDown(KeyCode.Space)&&!isPick)
             {
+                FoodsType(other.gameObject);
                 PickUp(handObj[0].gameObject);
-
                 RemoveAllLight();
             }
            
@@ -93,9 +107,18 @@ public class PlayerHandController : Singleton<PlayerHandController> {
             {
                 if (other.name.Contains("Tomato"))
                 {
+                    FoodsType(other.gameObject);
                     EventCenter.Broadcast<int>(EventType.CreateTomaTo,0);
                 }
-                
+            }
+            if (other.transform.Find("Plant").childCount==1)
+            {
+                FoodsType(other.transform.Find("Plant").GetChild(0).gameObject);
+            }
+            //TODO... 
+            if(other.name=="CuttingBoard"&&foodType.canCut&& Input.GetKeyDown(KeyCode.E))
+            {
+                isCute = true;
             }
             //放到台子上
             if (isPick && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2)
@@ -226,5 +249,36 @@ public class PlayerHandController : Singleton<PlayerHandController> {
         return false;
         //ToDo.........
     }
-  
+     private void FoodsType(GameObject other)
+    {
+        if (other.name.Contains("Cube"))
+        {
+            FoodType type = new FoodType(true, true, true,false);
+            foodType = type;
+        }
+        if (other.name.Contains("Tomato"))
+        {
+            FoodType type = new FoodType(true,true,false,false);
+            foodType = type;
+        }
+        if (other.name.Contains("P"))
+        {
+
+        }
+    }
+}
+
+public class FoodType
+{
+    public bool canPick;
+    public bool canDropDown;
+    public bool canThrow;
+    public bool canCut;
+    public FoodType(bool canPick, bool canDropDown, bool canThrow, bool canCut)
+    {
+        this.canPick = canPick;
+        this.canDropDown = canDropDown;
+        this.canThrow = canThrow;
+        this.canCut = canCut;
+    }
 }

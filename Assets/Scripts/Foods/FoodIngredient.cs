@@ -31,18 +31,28 @@ public class FoodIngredient : MonoBehaviour {
     /// <summary>
     /// 对应不同状态的网格
     /// </summary>
-    private Dictionary<FoodIngredientState, GameObject> usingMesh;
+    private Dictionary<FoodIngredientState, string> usingMesh;
     private Dictionary<FoodIngredientState, float> usingTime;
     /// <summary>
     /// 当前的操作进度
     /// </summary>
     public float actionTime = 2;
+    /// <summary>
+    /// 当前使用模型
+    /// </summary>
+    public GameObject curMesh;
 
     private float curProgress = 0;  // 当前进度
     private GameObject progressBar; // 进度条
     private bool isActive = false;  // 是否正在进行操作
     private bool isFirstTime = true;    // 是否第一次进行操作
+    /// <summary>
+    /// 石材模型
+    /// </summary>
     private FoodIngredientModel foodIModel;
+    /// <summary>
+    /// 食物状态机
+    /// </summary>
     private FoodIngredientMachine stateMachine;
     private Action finishCallback;      // 完成切换状态时的回调函数
 
@@ -50,20 +60,23 @@ public class FoodIngredient : MonoBehaviour {
     private GameObject canvas;
     private Transform iconPoint;
     private Transform progressPoint;
+    private Transform modelPoint;
 
 
     private void Awake() {
+        usingMesh = new Dictionary<FoodIngredientState, string>();
+        usingTime = new Dictionary<FoodIngredientState, float>();
         stateMachine = new FoodIngredientMachine();
+
         // 实例一个进度条
         progressBar = Instantiate(Resources.Load<GameObject>(UIConst.PROGRESS_BAR));
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         iconPoint = transform.Find("IconPoint").transform;
         progressPoint = transform.Find("ProgressPoint").transform;
+        modelPoint = transform.Find("ModelPoint").transform;
     }
 
     private void Start() {
-        usingMesh = new Dictionary<FoodIngredientState, GameObject>();
-        usingTime = new Dictionary<FoodIngredientState, float>();
         progressBar.transform.SetParent(canvas.transform);
         progressBar.gameObject.SetActive(false);
     }
@@ -85,9 +98,13 @@ public class FoodIngredient : MonoBehaviour {
     /// </summary>
     public FoodIngredient InitFoodIngredient(FoodIngredientModel food){
         foodIModel = food;
+        //状态机设置状态
         stateMachine.SetState(this, food.curState);
 
         SetUsingDict(food);     // 设置状态 网格和时间 字典
+        // 加载当前状态的预制体，赋值
+        ChangeCurMesh(food.curState);
+        actionTime = 0;
 
         isCooked = false;
         curProgress = 0;
@@ -110,7 +127,8 @@ public class FoodIngredient : MonoBehaviour {
     /// <summary>
     /// 继续当前的操作
     /// </summary>
-    public void DoCurrentAction(){
+    public void DoCurrentAction(FoodIngredientState state){
+        actionTime = usingTime[state];
         if(!isActive){
             isActive = true;
             StartCoroutine("ChangingStatus");
@@ -120,12 +138,13 @@ public class FoodIngredient : MonoBehaviour {
     
     // public void StopChangingState(){}
 
-    /// <summary>
-    /// 做当前的操作
-    /// </summary>
-    public void DoAction(FoodIngredientState state, Action finishCallback){
+
+    /// <param name="state">要转换到的状态</param>
+    /// <param name="finishCallback">完成时的回调函数</param>
+    /// <returns>是否可以做这个操作</returns>
+    public bool DoAction(FoodIngredientState state, Action finishCallback){
         this.finishCallback = finishCallback;
-        stateMachine.ChangeState(this, state);
+        return stateMachine.ChangeState(this, state);
     }
 
     /// <summary>
@@ -158,37 +177,47 @@ public class FoodIngredient : MonoBehaviour {
             }
         }
         Debug.Log("切换完成，用时 " + curProgress);
-        stateMachine.FinishChange(this);
+        stateMachine.FinishChange(ChangeCurMesh);
         HideProgras();
         curProgress = 0;
         isActive = false;
         if(finishCallback != null){
+            Debug.Log("我有用");
             finishCallback();
         }
     }
 
 
+    private void ChangeCurMesh(FoodIngredientState state){
+        ObjectPool.instance.RecycleObj(curMesh);
+        curMesh = ObjectPool.instance.CreateObject(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state]);
+        curMesh.transform.SetParent(modelPoint);
+        curMesh.transform.localPosition = Vector3.zero;
+    }
+
+
     private void SetUsingDict(FoodIngredientModel food){
+        Debug.Log(usingMesh);
         if(food.normalPrefab != null){
-            usingMesh.Add(food.curState, Resources.Load<GameObject>(food.normalPrefab));
+            usingMesh.Add(food.curState, food.normalPrefab);
         }
         if(food.cutPrefab != null){
-            usingMesh.Add(FoodIngredientState.Cut, Resources.Load<GameObject>(food.cutPrefab));
+            usingMesh.Add(FoodIngredientState.Cut, food.cutPrefab);
             usingTime.Add(FoodIngredientState.Cut, food.cutTime);
         }
         if(food.friedPrefab != null){
-            usingMesh.Add(FoodIngredientState.Fried, Resources.Load<GameObject>(food.friedPrefab));
+            usingMesh.Add(FoodIngredientState.Fried, food.friedPrefab);
             usingTime.Add(FoodIngredientState.Fried, food.friedTime);
         }
         if(food.poachPrefab != null){
-            usingMesh.Add(FoodIngredientState.Poach, Resources.Load<GameObject>(food.poachPrefab));
+            usingMesh.Add(FoodIngredientState.Poach, food.poachPrefab);
             usingTime.Add(FoodIngredientState.Poach, food.poachTime);
         }
         if(food.inPlate != null){
-            usingMesh.Add(FoodIngredientState.InPlate, Resources.Load<GameObject>(food.inPlate));
+            usingMesh.Add(FoodIngredientState.InPlate, food.inPlate);
         }
         if(food.breakPrefab != null){
-            usingMesh.Add(FoodIngredientState.Break, Resources.Load<GameObject>(food.breakPrefab));
+            usingMesh.Add(FoodIngredientState.Break, food.breakPrefab);
         }
     }
 }

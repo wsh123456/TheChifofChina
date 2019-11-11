@@ -15,19 +15,27 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using Photon.Pun;
 
-public class CreateTingsManager : MonoBehaviour {
-
-   // public GameObject food;
+public class CreateTingsManager : MonoBehaviour, IPunObservable
+{
+    private int networkInt = 0;
+    // public GameObject food;
     public void Awake()
     {
-       // food = Resources.Load<GameObject>("Cube1");
+     
         EventCenter.AddListener<int>(EventType.CreateTomaTo,CreateObject);
     }
     public void OnDestroy()
     {
         EventCenter.RemoveListener<int>(EventType.CreateTomaTo, CreateObject);
     }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        throw new NotImplementedException();
+    }
+
     private void CreateObject(int arg)
     {
         if (arg==0)
