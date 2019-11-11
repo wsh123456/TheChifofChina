@@ -1,6 +1,4 @@
 {
-  "ingredient": [
-    {
       "Cabbage": {
         "FoodIngredientType": 0,
         "normalPrefab": "FoodTexAndPrb/Lettuce/Prefabs/m_ingredients_lettuce_01",
@@ -9,9 +7,7 @@
         "cutTime": 2,
         "inPlate": "FoodTexAndPrb/Lettuce/Prefabs/Salad_Lettuce",
         "breakPrefab": "FoodTexAndPrb/Raw"
-      }
     },
-    {
       "Tomato": {
         "FoodIngredientType": 0,
         "normalPrefab": "FoodTexAndPrb/tomato/Prefabs/Tomato",
@@ -20,9 +16,7 @@
         "cutTime": 2,
         "inPlate": "FoodTexAndPrb/tomato/Prefabs/Salad_Tomato",
         "breakPrefab": "FoodTexAndPrb/Raw"
-      }
     },
-    {
       "Potato": {
         "FoodIngredientType": 0,
         "normalPrefab": "FoodTexAndPrb/Potato/Prefabs/Potato",
@@ -33,9 +27,7 @@
         "breakPrefab": "FoodTexAndPrb/Raw",
         "friedPrefab":"FoodTexAndPrb/Chip/Prefabs/Chips_Basket_Uncooked",
         "friedTime": 15
-      }
     },
-    {
       "Chicken": {
         "FoodIngredientType": 0,
         "normalPrefab": "FoodTexAndPrb/Chicken/Prefabs/Chicken",
@@ -46,7 +38,5 @@
         "breakPrefab": "FoodTexAndPrb/Raw",
         "friedPrefab":"FoodTexAndPrb/Chicken/Prefabs/Chicken_InBurrito",
         "friedTime": 15
-      }
     }
-  ]
 }

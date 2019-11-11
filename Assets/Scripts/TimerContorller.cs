@@ -5,21 +5,19 @@ using UnityEngine.UI;
 using System;
 public class TimerContorller : MonoBehaviour
 {
-  protected  Timer gameTimer;//总体游戏计时器
+  
     Text timerNum;//计时器数字
     float persent;//计时器进度条UI百分比
     Image timerBarImage;//计时器进度条
     TimeSpan timeSpan;//将秒换为分
-    protected Timer menuTimer;
-  public  AddMenu addMenu;
-    protected Timer destoryFoodMenuTimer;
+    Timer gameTimer;
+    public AddMenu addMenu;
+
     void Start()
     {
+        gameTimer = TimerInstance.instance.gameTimer;
         timerNum = GameObject.Find("Timer_banner/Timer_Number").GetComponent<Text>();
         timerBarImage = GameObject.Find("Timer_bar_banner/Timer_bar_image").GetComponent<Image>();
-        gameTimer = Timer.Register(240f, null, null, false, false, null);//给予计时器240s的倒计时
-        menuTimer = Timer.Register(2f, null, null, true, false, null);//上菜时间
-        destoryFoodMenuTimer = Timer.Register(30f, null,null, false, false, null);//毁单时间
     }
     // Update is called once per frame
     void Update()
@@ -28,14 +26,6 @@ public class TimerContorller : MonoBehaviour
         timerNum.text = timeSpan.Minutes.ToString() + ":" + timeSpan.Seconds.ToString();//打印倒计时
         timerBarImage.fillAmount = gameTimer.GetRatioRemaining();//控制时间进度条的变化
         //Debug.Log(menuTimer.GetTimeRemaining());
-        AddMenu();
-    }
-    void AddMenu()
-    {
-        if (menuTimer.GetTimeRemaining() == 0)
-        {
-            addMenu.AddMenuPanel();
-            Debug.Log("+1道菜");
-        }
+        
     }
 }
