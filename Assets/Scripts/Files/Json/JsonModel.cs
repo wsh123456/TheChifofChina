@@ -27,6 +27,7 @@ public class LevelModel{
 public class FoodModel{
     public List<FoodModel_FoodIngredient> foodIngredient = new List<FoodModel_FoodIngredient>();
     public float price;
+    public string normalUI;
 }
 
 

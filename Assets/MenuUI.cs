@@ -18,9 +18,14 @@ public class MenuUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		
+        A();
 	}
     void A()
     {
+        foreach (KeyValuePair<string,FoodModel> item in levelFood)
+        {
+           Sprite a = Resources.Load<Sprite>(item.Value.normalUI);
+          food.sprite=Instantiate(a);
+        }
     }
 }

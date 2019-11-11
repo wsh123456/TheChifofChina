@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MenuManage : MonoBehaviour {
     public static readonly MenuManage menuManage = new MenuManage();
     private MenuManage() { }
@@ -13,6 +13,9 @@ public class MenuManage : MonoBehaviour {
     public Timer destoryFoodMenuTimer;
     public Dictionary<string, FoodModel> levelFood = new Dictionary<string, FoodModel>();
     public List<string> menu;
+    public Image food;
+    Image meterial;
+    Image cook;
     //public List<Timer> MenuTimer;
     bool isDestory = true;
     bool isAddMenu = true;
@@ -20,15 +23,22 @@ public class MenuManage : MonoBehaviour {
     bool isMenuAdd = true;
     void Awake()
     {
+        meterial = GameObject.Find("materialMenu/materialPannel/material").GetComponent<Image>();
+        cook = GameObject.Find("materialMenu/cookPannel/cook").GetComponent<Image>();
         menu = new List<string>();
         destoryFoodMenuTimer = TimerInstance.instance.destoryFoodMenuTimer;
         menuTimer = TimerInstance.instance.menuTimer;
         levelTimer = TimerInstance.instance.levelTimer;
         levelFood = LevelInstance._instance.levelFood;
+        food = GameObject.Find("MenuFood/MenuFood/food").GetComponent<Image>();
         //foreach (KeyValuePair<string,FoodModel> item in levelFood)
         //{
         //    Debug.Log(item.Value.foodIngredient[0].state);
         //}
+    }
+    void Start()
+    {
+        menu = ForeachLevelFood(levelFood);
     }
     void Update()
     {
@@ -101,10 +111,12 @@ public class MenuManage : MonoBehaviour {
     }
     public void RandomMenu()
     {
-        menu = ForeachLevelFood(levelFood);
-            if (TimerInstance.instance.menuTimer.isDone&& isMenuAdd)
-            {
+        if (TimerInstance.instance.menuTimer.isDone && isMenuAdd)
+        {
             Debug.Log(menu[RandomLevelFoodKey()]);
+            string menuStr = menu[RandomLevelFoodKey()];
+            string foodSprite = levelFood[menuStr].normalUI;
+            food.sprite = Resources.Load<Sprite>(foodSprite);
             isMenuAdd = false;
         }
     }

@@ -609,6 +609,7 @@ MonoBehaviour:
   currentMenuNum: 0
   maxMenuNum: 6
   menu: []
+  food: {fileID: 0}
 --- !u!4 &1015063043
 Transform:
   m_ObjectHideFlags: 0
@@ -1044,7 +1045,7 @@ GameObject:
   - component: {fileID: 2049428567}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

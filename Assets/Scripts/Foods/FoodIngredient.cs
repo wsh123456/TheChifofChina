@@ -77,6 +77,7 @@ public class FoodIngredient : MonoBehaviour {
     }
 
     private void Start() {
+
         progressBar.transform.SetParent(canvas.transform);
         progressBar.gameObject.SetActive(false);
     }
