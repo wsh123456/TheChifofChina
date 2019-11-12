@@ -19,11 +19,12 @@ public class LevelInstance{
 
     public Dictionary<string,FoodModel> levelFood;
     public Dictionary<string,FoodIngredientModel> levelIngredient;
-
+    public List<string> foodMenu;
     public static readonly LevelInstance _instance = new LevelInstance();
     private LevelInstance(){
         levelFood = new Dictionary<string, FoodModel>();
         levelIngredient = new Dictionary<string, FoodIngredientModel>();
+        foodMenu = new List<string>();
         LoadLevel(1);
     }
 
@@ -32,10 +33,14 @@ public class LevelInstance{
         levelTime = message.levelTime;
         menuTimer = message.menuTimer;
         destoryFoodMenuTimer = message.destoryFoodMenuTimer;
+        levelIngredient= LoadFoodIngredient(new List<string> { "Cabbage", "Tomato", "Potato", "Chicken" });
+
+        foodMenu = message.foodMenu;
+         Debug.Log("aaaa, " + levelTime + ", " + foodMenu.Count+"|"+destoryFoodMenuTimer);
         // 加载本关菜单
 
-        levelFood = LoadFood(message.foodMenu);
-        levelIngredient= LoadFoodIngredient(new List<string> { "Cabbage", "Tomato", "Potato", "Chicken" });
+        levelFood = LoadFood(foodMenu);
+
     }
 
     public Dictionary<string,FoodModel> LoadFood(List<string> foodMenu){
@@ -45,6 +50,7 @@ public class LevelInstance{
         for (int i = 0; i < foodMenu.Count; i++)
         {
             levelFood.Add(foodMenu[i], levelFoodA[i]);
+            //Debug.Log(foodMenu[0]);
         }
         return levelFood;
     }
