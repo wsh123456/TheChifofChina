@@ -24,11 +24,11 @@ public class CreateTingsManager : MonoBehaviour, IPunObservable
     public void Awake()
     {
      
-        EventCenter.AddListener<int>(EventType.CreateTomaTo,CreateObject);
+        EventCenter.AddListener<string>(EventType.CreateTomaTo,CreateObject);
     }
     public void OnDestroy()
     {
-        EventCenter.RemoveListener<int>(EventType.CreateTomaTo, CreateObject);
+        EventCenter.RemoveListener<string>(EventType.CreateTomaTo, CreateObject);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -36,17 +36,16 @@ public class CreateTingsManager : MonoBehaviour, IPunObservable
         throw new NotImplementedException();
     }
 
-    private void CreateObject(int arg)
+    private void CreateObject(string arg)
     {
-        if (arg==0)
-        {
-         GameObject go=ObjectPool.instance.CreateObject(AssetConst.Tomato);
-          //  go.GetComponent<FoodIngredient>().InitFoodIngredient(LevelInstance._instance.levelFood[arg]);
+            GameObject go=ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient");
+            go.GetComponent<FoodIngredient>().InitFoodIngredient(LevelInstance._instance.levelIngredient[arg]);
             go.AddComponent<Rigidbody>();
+            go.tag = "Thing";
             go.GetComponent<Rigidbody>().isKinematic = true;
             go.transform.parent = PlayerHandController.Instance.transform;
             go.transform.localPosition = Vector3.zero;
-        }
+        
         //if (arg==1)
         //{
             //包材番茄炸鸡 土豆  生菜 

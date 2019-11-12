@@ -16,10 +16,11 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using HighlightingSystem;
+using System;
 
 public class PlayerHandController : Singleton<PlayerHandController> {
 
-    private LevelInstance Levelins = LevelInstance._instance;
+    private LevelInstance Levelins ;
 
     private GameObject knife;
     /// <summary>
@@ -38,14 +39,18 @@ public class PlayerHandController : Singleton<PlayerHandController> {
     private List<GameObject> allThings;
     private bool isCute;
 
+    private GameObject UserObj;
     private GameObject inHandObj;
     private void Start()
     {
+        Levelins = LevelInstance._instance;
+        menu = new Dictionary<string, List<string>>();
         ani = transform.root.GetComponent<Animator>();
         handObj = new List<PickTings>();
         allThings = new List<GameObject>();
         knife = transform.parent.GetChild(3).GetChild(0).gameObject;
         knife.SetActive(false);
+        Menu();
     }
     /// <summary>
     /// 东西端在手上
@@ -108,51 +113,63 @@ public class PlayerHandController : Singleton<PlayerHandController> {
         }
         if (other.tag == "Plant")
         {
-            Debug.Log(other.gameObject.GetComponentsInChildren<Transform>().Length);
+            string name = null;
             //取食材
-            if (!isPick&&Input.GetKeyDown(KeyCode.Space)&&other.gameObject.GetComponentsInChildren<Transform>().Length==2)
+         
+            Debug.Log(other.gameObject.GetComponentsInChildren<Transform>().Length);
+            if (!isPick&&Input.GetKeyDown(KeyCode.Space)&&other.gameObject.GetComponentsInChildren<Transform>().Length==2&&other.name=="Chicken")
             {
-                if (other.name.Contains("Tomato"))
+                Debug.Log("两个击退");
+                isPick = false;
+                if (other.name.Contains("(Clone)"))
                 {
-                    FoodsType(other.gameObject);
-                    EventCenter.Broadcast<int>(EventType.CreateTomaTo,0);
+                    name = other.name.Substring(0,other.name.LastIndexOf("("));
                 }
-                if (other.name.Contains("Potato"))
-                {
+                    name = other.name;
                     FoodsType(other.gameObject);
-                    EventCenter.Broadcast<int>(EventType.CreateTomaTo, 1);
-                }
+                    EventCenter.Broadcast<string>(EventType.CreateTomaTo, name);
+               
             }
             //---------------切的状态 完成
             if(!isPick&&other.name=="CuttingBoard"&& Input.GetKeyDown(KeyCode.E)&&
-                other.transform.Find("Plant").GetChild(0).gameObject.GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Cut,null))
+                other.transform.GetChild(0).GetChild(0).gameObject.GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Cut,StopCut))
             {
-                isCute = true;
+                UserObj = other.transform.GetChild(0).GetChild(0).gameObject;
+               isCute = true;
             }
-            if (!isCute)
+            if (!isCute&&ani.GetFloat("Walk")!=0)
             {
-                other.gameObject.GetComponent<FoodIngredient>().BreakCurrentAction();
+                if (UserObj != null)
+                {
+                    UserObj.GetComponent<FoodIngredient>().BreakCurrentAction();
+                    UserObj = null;
+                }
             }
             //------------------！！！！！
-
+          //  Debug.Log(other.transform.childCount);
             //放到台子上
             if (isPick && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2)
             {
                 Debug.Log("放到台子上");
+                Debug.Log(handObj[0].gameObject);
                 handObj[0].gameObject.transform.parent = other.gameObject.transform.GetChild(0);
                 handObj[0].gameObject.transform.localPosition = Vector3.zero;
                 handObj[0].gameObject.transform.localEulerAngles = Vector3.zero;
             }
-            if (other.transform.GetChild(0).GetChild(0) != null)
+            if (other.gameObject.GetComponentsInChildren<Transform>().Length >=3)
             {
+                Debug.Log(other.gameObject.GetComponentsInChildren<Transform>().Length);
                 //物体是盘子
-
                 if (isPick && Input.GetKeyDown(KeyCode.Space) && other.transform.GetChild(0).GetChild(0).name.Contains("Plate"))
                 {
-                    //TODO......
+                    Debug.Log("333");
                     if (inHandObj == null)
                         return;
                     //状态不等于Normal
+                    if (inHandObj.GetComponent<FoodIngredient>()==null)
+                    
+                        return;
+                    
                     if (inHandObj.GetComponent<FoodIngredient>().curState != FoodIngredientState.Normal)
                     {
                         //检测重复
@@ -169,8 +186,16 @@ public class PlayerHandController : Singleton<PlayerHandController> {
                            
                         }
                         //满足食谱条件
-                        if (true)
+                        foreach (var item in menu)
                         {
+                            if (item.Value.Contains(inHandObj.GetComponent<FoodIngredient>().GetIType().ToString())&& inHandObj.GetComponent<FoodIngredient>().DoAction(FoodIngredientState.InPlate, null))
+                            {
+                                inHandObj.transform.parent = other.transform.GetChild(0).GetChild(0);
+                                inHandObj.transform.localPosition = Vector3.zero;
+                                inHandObj.transform.localEulerAngles = Vector3.zero;
+                                Destroy(inHandObj.transform.GetComponent<Rigidbody>());
+                                inHandObj.tag = "Untagged";
+                            }  
 
                         }
                     }
@@ -178,6 +203,12 @@ public class PlayerHandController : Singleton<PlayerHandController> {
             }
         }
     }
+
+    private void StopCut()
+    {
+        isCute = false;
+    }
+
     /// <summary>
     /// 触碰飞来的游戏物体
     /// </summary>
@@ -196,10 +227,6 @@ public class PlayerHandController : Singleton<PlayerHandController> {
             {
                 PickUp(other.gameObject);
             }
-           
-        }
-        if (other.tag=="Thing")
-        {
            PickTings  pickTings=other.gameObject.AddComponent<PickTings>();
             handObj.Add(pickTings);
             handObj.Sort();
@@ -308,34 +335,35 @@ public class PlayerHandController : Singleton<PlayerHandController> {
     /// <param name="other"></param>
      private void FoodsType(GameObject other)
     {
-        if (other.name.Contains("Cube"))
-        {
-            FoodType type = new FoodType(true, true, true,false);
-            foodType = type;
-        }
-        if (other.name.Contains("Tomato"))
-        {
-            FoodType type = new FoodType(true,true,true,false);
-            foodType = type;
-        }
+        FoodType type = new FoodType(true, true, true);
+        foodType = type;
         if (other.name.Contains("Plate"))
         {
-            FoodType type = new FoodType(true, true, false, false);
+             type = new FoodType(true, true, false);
             foodType = type;
         }
         if (other.name.Contains("Extinguisher"))
         {
             Debug.Log("灭火器");
-            FoodType type = new FoodType(true, true, false, false);
+             type = new FoodType(true, true, false);
             foodType = type;
         }
     }
+    private Dictionary<string, List<string>> menu;
+   
    //拿到菜谱 
+
     private void Menu()
     {
         foreach (var item in Levelins.levelFood)
         {
-            
+           
+            List<string> CName = new List<string>();
+            foreach (var i in item.Value.foodIngredient)
+            {
+                CName.Add(i.name);
+            }
+            menu.Add(item.Key, CName);
         }
        
     }
@@ -346,13 +374,12 @@ public class FoodType
     public bool canPick;
     public bool canDropDown;
     public bool canThrow;
-    public bool canCut;
-    public FoodType(bool canPick, bool canDropDown, bool canThrow, bool canCut)
+   
+    public FoodType(bool canPick, bool canDropDown, bool canThrow)
     {
         this.canPick = canPick;
         this.canDropDown = canDropDown;
         this.canThrow = canThrow;
-        this.canCut = canCut;
     }
 }
 

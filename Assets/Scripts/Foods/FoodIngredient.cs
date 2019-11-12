@@ -83,25 +83,25 @@ public class FoodIngredient : MonoBehaviour {
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.Q)){
-            DoAction(FoodIngredientState.Cut, null);
-        }
+        //if(Input.GetKeyDown(KeyCode.Q)){
+        //    DoAction(FoodIngredientState.Cut, null);
+        //}
 
-        if(Input.GetKeyDown(KeyCode.W)){
-            DoAction(FoodIngredientState.Fried, null);
-        }
+        //if(Input.GetKeyDown(KeyCode.W)){
+        //    DoAction(FoodIngredientState.Fried, null);
+        //}
 
-        if(Input.GetKeyDown(KeyCode.E)){
-            DoAction(FoodIngredientState.InPlate, null);
-        }
+        //if(Input.GetKeyDown(KeyCode.E)){
+        //    DoAction(FoodIngredientState.InPlate, null);
+        //}
 
-        if(Input.GetKeyDown(KeyCode.R)){
-            DoAction(FoodIngredientState.Break, null);
-        }
+        //if(Input.GetKeyDown(KeyCode.R)){
+        //    DoAction(FoodIngredientState.Break, null);
+        //}
 
-        if(Input.GetKeyDown(KeyCode.S)){
-            BreakCurrentAction();
-        }
+        //if(Input.GetKeyDown(KeyCode.S)){
+        //    BreakCurrentAction();
+        //}
 
         progressBar.transform.position = Camera.main.WorldToScreenPoint(progressPoint.position);
     }
@@ -136,6 +136,8 @@ public class FoodIngredient : MonoBehaviour {
     /// </summary>
     public void BreakCurrentAction(){
         isActive = false;
+        Debug.Log("暂停");
+        Debug.Log("暂停");
         StopCoroutine("ChangingStatus");
     }
 
@@ -167,7 +169,7 @@ public class FoodIngredient : MonoBehaviour {
     /// 显示进度条
     /// </summary>
     public void ShowProgras(){
-        Debug.Log("当前进度: " + curProgress / actionTime);
+        //Debug.Log("当前进度: " + curProgress / actionTime);
         // 显示进度条
         progressBar.SetActive(true);
         progressBar.transform.Find("Slider").GetComponent<Slider>().value = curProgress / actionTime;
@@ -187,6 +189,7 @@ public class FoodIngredient : MonoBehaviour {
 
     // 转换状态
     private IEnumerator ChangingStatus(){
+
         Debug.Log(curProgress + ", " + actionTime);
         while(true){
             if(actionTime > 0){
