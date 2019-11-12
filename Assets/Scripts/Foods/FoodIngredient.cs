@@ -77,17 +77,31 @@ public class FoodIngredient : MonoBehaviour {
     }
 
     private void Start() {
+
         progressBar.transform.SetParent(canvas.transform);
         progressBar.gameObject.SetActive(false);
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.Q)){
-            DoAction(FoodIngredientState.Cut, null);
-        }
-        if(Input.GetKeyDown(KeyCode.S)){
-            BreakCurrentAction();
-        }
+        //if(Input.GetKeyDown(KeyCode.Q)){
+        //    DoAction(FoodIngredientState.Cut, null);
+        //}
+
+        //if(Input.GetKeyDown(KeyCode.W)){
+        //    DoAction(FoodIngredientState.Fried, null);
+        //}
+
+        //if(Input.GetKeyDown(KeyCode.E)){
+        //    DoAction(FoodIngredientState.InPlate, null);
+        //}
+
+        //if(Input.GetKeyDown(KeyCode.R)){
+        //    DoAction(FoodIngredientState.Break, null);
+        //}
+
+        //if(Input.GetKeyDown(KeyCode.S)){
+        //    BreakCurrentAction();
+        //}
 
         progressBar.transform.position = Camera.main.WorldToScreenPoint(progressPoint.position);
     }
@@ -103,6 +117,8 @@ public class FoodIngredient : MonoBehaviour {
 
         SetUsingDict(food);     // 设置状态 网格和时间 字典
         // 加载当前状态的预制体，赋值
+        Debug.Log(food.normalPrefab);
+        Debug.Log(food.foodIType.ToString());
         ChangeCurMesh(food.curState);
         actionTime = 0;
 
@@ -120,6 +136,8 @@ public class FoodIngredient : MonoBehaviour {
     /// </summary>
     public void BreakCurrentAction(){
         isActive = false;
+        Debug.Log("暂停");
+        Debug.Log("暂停");
         StopCoroutine("ChangingStatus");
     }
 
@@ -151,7 +169,7 @@ public class FoodIngredient : MonoBehaviour {
     /// 显示进度条
     /// </summary>
     public void ShowProgras(){
-        Debug.Log("当前进度: " + curProgress / actionTime);
+        //Debug.Log("当前进度: " + curProgress / actionTime);
         // 显示进度条
         progressBar.SetActive(true);
         progressBar.transform.Find("Slider").GetComponent<Slider>().value = curProgress / actionTime;
@@ -164,12 +182,19 @@ public class FoodIngredient : MonoBehaviour {
         Debug.Log("隐藏进度条");
         progressBar.gameObject.SetActive(false);
     }
+    public FoodIngredientType GetIType()
+    {
+        return foodIModel.foodIType;
+    }
 
     // 转换状态
     private IEnumerator ChangingStatus(){
+
         Debug.Log(curProgress + ", " + actionTime);
         while(true){
-            ShowProgras();
+            if(actionTime > 0){
+                ShowProgras();
+            }
             yield return new WaitForSeconds(Time.fixedDeltaTime);
             curProgress += Time.fixedDeltaTime;
             if(curProgress >= actionTime){
@@ -189,6 +214,7 @@ public class FoodIngredient : MonoBehaviour {
 
 
     private void ChangeCurMesh(FoodIngredientState state){
+        curState = state;
         ObjectPool.instance.RecycleObj(curMesh);
         curMesh = ObjectPool.instance.CreateObject(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state]);
         curMesh.transform.SetParent(modelPoint);
@@ -200,6 +226,7 @@ public class FoodIngredient : MonoBehaviour {
         Debug.Log(usingMesh);
         if(food.normalPrefab != null){
             usingMesh.Add(food.curState, food.normalPrefab);
+            usingTime.Add(food.curState, 0);
         }
         if(food.cutPrefab != null){
             usingMesh.Add(FoodIngredientState.Cut, food.cutPrefab);
@@ -215,9 +242,11 @@ public class FoodIngredient : MonoBehaviour {
         }
         if(food.inPlate != null){
             usingMesh.Add(FoodIngredientState.InPlate, food.inPlate);
+            usingTime.Add(FoodIngredientState.InPlate, 0);
         }
         if(food.breakPrefab != null){
             usingMesh.Add(FoodIngredientState.Break, food.breakPrefab);
+            usingTime.Add(FoodIngredientState.Break, 0);
         }
     }
 }

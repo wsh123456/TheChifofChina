@@ -17,13 +17,15 @@ public class LevelInstance{
     public float menuTimer;
     public float destoryFoodMenuTimer;
 
-    public List<FoodModel> levelFood;
-    public List<FoodIngredientModel> levelIngredient;
-
+    public Dictionary<string,FoodModel> levelFood;
+    public Dictionary<string,FoodIngredientModel> levelIngredient;
+    public List<string> foodMenu;
     public static readonly LevelInstance _instance = new LevelInstance();
     private LevelInstance(){
-        levelFood = new List<FoodModel>();
-        levelIngredient = new List<FoodIngredientModel>();
+        levelFood = new Dictionary<string, FoodModel>();
+        levelIngredient = new Dictionary<string, FoodIngredientModel>();
+        foodMenu = new List<string>();
+        LoadLevel(1);
     }
 
     public void LoadLevel(int level){
@@ -31,13 +33,36 @@ public class LevelInstance{
         levelTime = message.levelTime;
         menuTimer = message.menuTimer;
         destoryFoodMenuTimer = message.destoryFoodMenuTimer;
-        // Debug.Log("aaaa, " + levelTime + ", " + message.foodMenu.Count);
+        levelIngredient= LoadFoodIngredient(new List<string> { "Cabbage", "Tomato", "Potato", "Chicken" });
+
+        foodMenu = message.foodMenu;
+         Debug.Log("aaaa, " + levelTime + ", " + foodMenu.Count+"|"+destoryFoodMenuTimer);
         // 加载本关菜单
 
-        levelFood = LoadFood(message.foodMenu);
+        levelFood = LoadFood(foodMenu);
+
     }
 
-    public List<FoodModel> LoadFood(List<string> foodMenu){
-        return JsonFileControl.LoadFood(foodMenu);
+    public Dictionary<string,FoodModel> LoadFood(List<string> foodMenu){
+
+        Dictionary<string, FoodModel> levelFood = new Dictionary<string, FoodModel>();
+        List<FoodModel>levelFoodA=JsonFileControl.LoadFood(foodMenu);
+        for (int i = 0; i < foodMenu.Count; i++)
+        {
+            levelFood.Add(foodMenu[i], levelFoodA[i]);
+            //Debug.Log(foodMenu[0]);
+        }
+        return levelFood;
+    }
+
+    public Dictionary<string,FoodIngredientModel> LoadFoodIngredient(List<string> foodIMenu)
+    {
+        Dictionary<string, FoodIngredientModel> result = new Dictionary<string, FoodIngredientModel>();
+      List<FoodIngredientModel>  temp =JsonFileControl.LoadFoodIngredient(foodIMenu);
+        for (int i = 0; i < foodIMenu.Count; i++)
+        {
+            result.Add(foodIMenu[i],temp[i]);
+        }
+        return result;
     }
 }

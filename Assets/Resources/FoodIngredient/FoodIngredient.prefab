@@ -50,6 +50,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4188650067152958}
   - component: {fileID: 114764119844656986}
+  - component: {fileID: 65979221022077808}
   m_Layer: 0
   m_Name: FoodIngredient
   m_TagString: Untagged
@@ -105,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1726716372762802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.987, z: 0}
+  m_LocalPosition: {x: 37.306602, y: 0.29999304, z: -18.741802}
   m_LocalScale: {x: 1, y: 0.32629326, z: 1}
   m_Children:
   - {fileID: 4067521586711376}
@@ -127,6 +128,18 @@ Transform:
   m_Father: {fileID: 4188650067152958}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65979221022077808
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1726716372762802}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114764119844656986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,3 +154,4 @@ MonoBehaviour:
   curState: 0
   isCooked: 0
   actionTime: 2
+  curMesh: {fileID: 0}

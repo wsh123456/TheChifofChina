@@ -3,8 +3,8 @@
         {
             "level":1,
           "levelTime": 240,
-          "menuTimer": 30,
-          "destoryFoodMenuTimer": 60,
+          "menuTimer": 5,
+          "destoryFoodMenuTimer": 10,
             "foodMenu":[
                 "CabbageSalad","CabbageTomatoSalad","Chips","FriedChicken","FriedChickenChips"
             ]
