@@ -17,23 +17,35 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
-
+   
     private Animator ani;
     public static  PlayerMoveController instance;
     private PhotonView phView;
     private int networkInt;
-
     private  void Awake()
     {
+       
         instance = this;
         ani = GetComponent<Animator>();
+        phView = GetComponent<PhotonView>();
+    }
+    private void Start()
+    {
+        if (phView.IsMine)
+        {
+            HumanGameController.ins.currentPlayer = phView;
+        }
     }
     private void Update()
     {
-        
-            networkInt = 666;
+
+        Debug.Log(phView.IsMine);
+        networkInt = 666;
+        if (!phView.IsMine)
+            return;
         Move();
     }
     /// <summary>

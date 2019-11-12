@@ -16,15 +16,21 @@ public class JsonFileControl{
 		StreamReader json;
 		// 如果没有文件先创建文件
 		try{
-			json = File.OpenText(Application.dataPath + "/Data/LevelMessage.json");
+			json = File.OpenText(Application.streamingAssetsPath+"/Data/LevelMessage.json");
 		}catch{
-			File.WriteAllText(Application.dataPath + "/Data/LevelMessage.json", "{}");
-			json = File.OpenText(Application.dataPath + "/Data/LevelMessage.json");
+			File.WriteAllText(Application.streamingAssetsPath + "/Data/LevelMessage.json", "{}");
+			json = File.OpenText(Application.streamingAssetsPath + "/Data/LevelMessage.json");
 		}
+        //读取字符串
 		string jsonText = json.ReadToEnd();
 		json.Close();
-
+        //
 		List<LevelModel> result = JsonMapper.ToObject<List<LevelModel>>(jsonText);
+        foreach (var item in result)
+        {
+            Debug.Log(item.foodMenu);
+        }
+      
 		return result;
 	}
 
@@ -36,10 +42,10 @@ public class JsonFileControl{
 		StreamReader json;
 		// 如果没有文件先创建文件
 		try{
-			json = File.OpenText(Application.dataPath + "/Data/LevelMessage.json");
+			json = File.OpenText(Application.streamingAssetsPath + "/Data/LevelMessage.json");
 		}catch{
-			File.WriteAllText(Application.dataPath + "/Data/LevelMessage.json", "{}");
-			json = File.OpenText(Application.dataPath + "/Data/LevelMessage.json");
+			File.WriteAllText(Application.streamingAssetsPath + "/Data/LevelMessage.json", "{}");
+			json = File.OpenText(Application.streamingAssetsPath + "/Data/LevelMessage.json");
 		}
 		string jsonText = json.ReadToEnd();
 		json.Close();
@@ -54,9 +60,9 @@ public class JsonFileControl{
 		StreamReader json;
 		// 如果没有文件先创建文件
 		try{
-			json = File.OpenText(Application.dataPath + "/Data/Foods.json");
+			json = File.OpenText(Application.streamingAssetsPath + "/Data/Foods.json");
 		}catch{
-			Debug.LogError("未找到：" + Application.dataPath + "/Data/Foods.json");
+			Debug.LogError("未找到：" + Application.streamingAssetsPath + "/Data/Foods.json");
 			return null;
 		}
 		string jsonText = json.ReadToEnd();
@@ -79,9 +85,9 @@ public class JsonFileControl{
 	public static List<FoodIngredientModel> LoadFoodIngredient(List<string> ingredient){
 		StreamReader json;
 		try{
-			json = File.OpenText(Application.dataPath + "/Data/FoodIngredient.json");
+			json = File.OpenText(Application.streamingAssetsPath + "/Data/FoodIngredient.json");
 		}catch{
-			Debug.LogError("未找到：" + Application.dataPath + "/Data/FoodIngredient.json");
+			Debug.LogError("未找到：" + Application.streamingAssetsPath + "/Data/FoodIngredient.json");
 			return null;
 		}
 		string jsonText = json.ReadToEnd();

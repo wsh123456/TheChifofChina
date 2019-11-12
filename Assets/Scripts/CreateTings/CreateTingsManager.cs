@@ -20,10 +20,8 @@ using Photon.Pun;
 public class CreateTingsManager : MonoBehaviour, IPunObservable
 {
     private int networkInt = 0;
-    // public GameObject food;
     public void Awake()
     {
-     
         EventCenter.AddListener<string>(EventType.CreateTomaTo,CreateObject);
     }
     public void OnDestroy()
@@ -38,26 +36,12 @@ public class CreateTingsManager : MonoBehaviour, IPunObservable
 
     private void CreateObject(string arg)
     {
-            GameObject go=ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient");
+            GameObject go=ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient",Vector3.zero);
             go.GetComponent<FoodIngredient>().InitFoodIngredient(LevelInstance._instance.levelIngredient[arg]);
             go.AddComponent<Rigidbody>();
             go.tag = "Thing";
             go.GetComponent<Rigidbody>().isKinematic = true;
             go.transform.parent = PlayerHandController.Instance.transform;
             go.transform.localPosition = Vector3.zero;
-        
-        //if (arg==1)
-        //{
-            //包材番茄炸鸡 土豆  生菜 
-
-        //}
-        //if (arg == 2)
-        //{
-
-        //}
-        //if (arg == 3)
-        //{
-
-        //}
     }
 }
