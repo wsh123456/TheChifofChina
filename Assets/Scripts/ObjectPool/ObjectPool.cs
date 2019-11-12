@@ -65,9 +65,16 @@ public class ObjectPool
         //生成预设体
         tempObj = UnityEngine.Object.Instantiate(prefab);
 
-        
         //todo... 对象的行为脚本名字全名
-        string typeFullName = objName +GameConst.Menu ;
+        string typeFullName = null;
+        if (objName ==GameConst.Plate)
+        {
+            typeFullName = objName + "Behaviour";
+        }
+        else
+        {
+            typeFullName = objName + GameConst.Menu;
+        }
         //如果行为脚本有命名空间，名字前添加命名空间
        // if (!string.IsNullOrEmpty(namespace))
         //{}
@@ -134,7 +141,6 @@ public class ObjectPool
         //将对象返回
         return tempObj;
     }
-
 
     /// <summary>
     /// 回收对象
