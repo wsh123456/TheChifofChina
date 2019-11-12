@@ -7,8 +7,8 @@ public class BoatMoveRoute : MonoBehaviour {
     private float moveTime = 0f;//每次移动时间
     private float moveSpeed = 0.35f;
     private float currentTime=2;//当前时间
-    public Transform BoatFront;//前面小船
-    public Transform BoatBehind;//后面小船
+    private Transform BoatFront;//前面小船
+    private Transform BoatBehind;//后面小船
 
     Vector3 targetPos_BoateFront;
     Vector3 targetPos_BoateBehind;
@@ -16,8 +16,9 @@ public class BoatMoveRoute : MonoBehaviour {
     Vector3 starPos_BoateBehind;
     private void Awake()
     {
-        //BoatFront = transform.Find("Design (merge)/Boat/Animated Objects/Raft Two").GetComponent<Transform>();
-        //BoatBehind = transform.Find("Design (merge)/Boat/Animated Objects/Raft One").GetComponent<Transform>();
+        BoatFront = GameObject.Find("Design (merge)/Boat/Animated Objects/Raft Two").GetComponent<Transform>();
+        BoatBehind = GameObject.Find("Design (merge)/Boat/Animated Objects/Raft One").GetComponent<Transform>();
+        //前船和后船的初始位置
         starPos_BoateFront = BoatFront.localPosition;
         starPos_BoateBehind = BoatBehind.localPosition;
     }
