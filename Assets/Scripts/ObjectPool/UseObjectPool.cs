@@ -16,8 +16,8 @@ public class UseObjectPool : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            g1 = ObjectPool.instance.CreateObject(GameConst.Cube);
-            g3 = ObjectPool.instance.CreateObject(GameConst.Cube);
+            //g1 = ObjectPool.instance.CreateObject(GameConst.Cube);
+            //g3 = ObjectPool.instance.CreateObject(GameConst.Cube);
             g2 = ObjectPool.instance.CreateObject(GameConst.Plate);
 
             pb = g2.GetComponent<PlateBehaviour>();

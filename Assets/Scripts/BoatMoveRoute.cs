@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 船移动路线脚本
+/// </summary>
 public class BoatMoveRoute : MonoBehaviour {
     private float waitTime = 0f;//每次等待时间
     private float moveTime = 0f;//每次移动时间
-    private float moveSpeed = 0.35f;
-    private float currentTime=2;//当前时间
+    private float moveSpeed ;//默认移动速度
     private Transform BoatFront;//前面小船
     private Transform BoatBehind;//后面小船
 
@@ -25,16 +27,18 @@ public class BoatMoveRoute : MonoBehaviour {
 
     private IEnumerator Start()
     {
-        while (currentTime > 0f)
+        while (true)
         {
             //重置前船和后船的初始位置
             BoatFront.localPosition = starPos_BoateFront;
             BoatBehind.localPosition = starPos_BoateBehind;
 
-            //等待10s开始第一次移动
-            BoateStop(0f);
+            //移动速度
+            moveSpeed = 0.35f;
+
+            //等待5s开始第一次移动
+            BoateStop(5f);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("开始第一次移动");
 
             //开始第一次移动
             //第一次移动时间
@@ -42,14 +46,16 @@ public class BoatMoveRoute : MonoBehaviour {
             while (moveTime>=0)
             {
                 //前船和后船的移动
-                BoateMove(new Vector3(-0.003f, 0f, -0.01f),Vector3.zero,0.35f);
-                yield return new WaitForFixedUpdate();
+                BoateMove(new Vector3(-0.003f, 0f, -0.01f),Vector3.zero, moveSpeed);
+                yield return new WaitForFixedUpdate();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
             }
 
-            //等待30s开始第二次移动
-            BoateStop(0f);
+            //重新更改moveSpeed值
+            moveSpeed = 0.325f;
+
+            //等待20s开始第二次移动
+            BoateStop(20f);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("开始第二次移动");
 
             //开始第二次移动
             //第二次移动时间
@@ -57,14 +63,13 @@ public class BoatMoveRoute : MonoBehaviour {
             while (moveTime>=0)
             {
                 //前船和后船的移动
-                BoateMove(new Vector3(-0.045f, 0f, 0.01f), new Vector3(0.03f, 0f, 0f), 0.325f);
+                BoateMove(new Vector3(-0.045f, 0f, 0.01f), new Vector3(0.03f, 0f, 0f), moveSpeed);
                 yield return new WaitForFixedUpdate();
             }
 
-            //等待1s开始第三次移动
-            BoateStop(0f);
+            //等待10s开始第三次移动
+            BoateStop(10f);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("开始第三次移动");
 
             //开始第三次移动
             //第三次移动时间
@@ -72,14 +77,13 @@ public class BoatMoveRoute : MonoBehaviour {
             while (moveTime >= 0)
             {
                 //前船和后船的移动
-                BoateMove(new Vector3(0f, 0f, -0.023f), new Vector3(0f, 0f, 0.025f), 0.325f);
+                BoateMove(new Vector3(0f, 0f, -0.023f), new Vector3(0f, 0f, 0.025f), moveSpeed);
                 yield return new WaitForFixedUpdate();
             }
 
-            //等待5s开始第四次移动
-            BoateStop(0f);
+            //等待6s开始第四次移动
+            BoateStop(6f);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("开始第四次移动");
 
             //开始第四次移动
             //第四次移动时间
@@ -87,14 +91,13 @@ public class BoatMoveRoute : MonoBehaviour {
             while (moveTime >= 0)
             {
                 //前船和后船的移动
-                BoateMove(new Vector3(0.007f, 0f, 0f), new Vector3(-0.018f, 0f, 0f), 0.325f);
+                BoateMove(new Vector3(0.007f, 0f, 0f), new Vector3(-0.018f, 0f, 0f), moveSpeed);
                 yield return new WaitForFixedUpdate();
             }
 
-            //等待5s开始第五次移动
-            BoateStop(0f);
+            //等待25s开始第五次移动
+            BoateStop(25f);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("开始第四次移动");
 
             //开始第五次移动
             //第五次移动时间
@@ -102,14 +105,13 @@ public class BoatMoveRoute : MonoBehaviour {
             while (moveTime >= 0)
             {
                 //前船和后船的移动
-                BoateMove(new Vector3(-0.007f, 0f, 0f), new Vector3(0.018f, 0f, 0f), 0.325f);
+                BoateMove(new Vector3(-0.007f, 0f, 0f), new Vector3(0.018f, 0f, 0f), moveSpeed);
                 yield return new WaitForFixedUpdate();
             }
 
-            //等待s开始第六次移动
-            BoateStop(0f);
+            //等待11s开始第六次移动
+            BoateStop(11f);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("开始第四次移动");
 
             //开始第六次移动
             //第六次移动时间
@@ -117,14 +119,16 @@ public class BoatMoveRoute : MonoBehaviour {
             while (moveTime >= 0)
             {
                 //前船和后船的移动
-                BoateMove(new Vector3(0f, 0f, 0.023f), new Vector3(0f, 0f, -0.025f), 0.325f);
+                BoateMove(new Vector3(0f, 0f, 0.023f), new Vector3(0f, 0f, -0.025f), moveSpeed);
                 yield return new WaitForFixedUpdate();
             }
 
-            //等待s开始第七次移动
-            BoateStop(0f);
+            //等待2s开始第七次移动
+            BoateStop(2f);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("开始第四次移动");
+
+            //更改速度
+            moveSpeed = 0.5f;
 
             //开始第七次移动
             //第七次移动时间
@@ -135,14 +139,10 @@ public class BoatMoveRoute : MonoBehaviour {
                 Vector3 frontPos = -(BoatFront.localPosition + (-new Vector3(0.01f,0.01f,0.1f)));
                 Vector3 behindPos = -(BoatBehind.localPosition + (-new Vector3(0, 0.01f, 0)));
                 //前船和后船的移动
-                BoateMove(frontPos, behindPos, 0.5f);
+                BoateMove(frontPos, behindPos, moveSpeed);
                 yield return new WaitForFixedUpdate();
             }
-
-            moveTime = -1f;
-            currentTime = currentTime - 1;
         }
-        Debug.Log("停止");
     }
 
     /// <summary>
@@ -152,7 +152,6 @@ public class BoatMoveRoute : MonoBehaviour {
     private void BoateStop(float time)
     {
         waitTime = time;
-        currentTime = currentTime - waitTime;
     }
 
     /// <summary>

@@ -117,8 +117,7 @@ public class FoodIngredient : MonoBehaviour {
 
         SetUsingDict(food);     // 设置状态 网格和时间 字典
         // 加载当前状态的预制体，赋值
-        Debug.Log(food.normalPrefab);
-        Debug.Log(food.foodIType.ToString());
+
         ChangeCurMesh(food.curState);
         actionTime = 0;
 
@@ -136,8 +135,6 @@ public class FoodIngredient : MonoBehaviour {
     /// </summary>
     public void BreakCurrentAction(){
         isActive = false;
-        Debug.Log("暂停");
-        Debug.Log("暂停");
         StopCoroutine("ChangingStatus");
     }
 
@@ -152,11 +149,6 @@ public class FoodIngredient : MonoBehaviour {
             StartCoroutine("ChangingStatus");
         }
     }
-
-    
-    // public void StopChangingState(){}
-
-
     /// <param name="state">要转换到的状态</param>
     /// <param name="finishCallback">完成时的回调函数</param>
     /// <returns>是否可以做这个操作</returns>
@@ -179,7 +171,6 @@ public class FoodIngredient : MonoBehaviour {
     /// 隐藏进度条
     /// </summary>
     public void HideProgras(){
-        Debug.Log("隐藏进度条");
         progressBar.gameObject.SetActive(false);
     }
     public FoodIngredientType GetIType()
@@ -208,6 +199,7 @@ public class FoodIngredient : MonoBehaviour {
         isActive = false;
         if(finishCallback != null){
             Debug.Log("我有用");
+
             finishCallback();
         }
     }
@@ -216,14 +208,16 @@ public class FoodIngredient : MonoBehaviour {
     private void ChangeCurMesh(FoodIngredientState state){
         curState = state;
         ObjectPool.instance.RecycleObj(curMesh);
-        curMesh = ObjectPool.instance.CreateObject(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state]);
+        curMesh = ObjectPool.instance.CreateObject(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state],Vector3.zero);
         curMesh.transform.SetParent(modelPoint);
         curMesh.transform.localPosition = Vector3.zero;
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="food"></param>
     private void SetUsingDict(FoodIngredientModel food){
-        Debug.Log(usingMesh);
         if(food.normalPrefab != null){
             usingMesh.Add(food.curState, food.normalPrefab);
             usingTime.Add(food.curState, 0);
