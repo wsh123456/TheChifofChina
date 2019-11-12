@@ -47,7 +47,7 @@ public class BoatMoveRoute : MonoBehaviour {
             {
                 //前船和后船的移动
                 BoateMove(new Vector3(-0.003f, 0f, -0.01f),Vector3.zero, moveSpeed);
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForFixedUpdate();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
             }
 
             //重新更改moveSpeed值
