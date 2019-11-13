@@ -28,12 +28,12 @@ public class MenuUI : MonoBehaviour {
         meterial.sprite = Resources.Load<Sprite>(levelIngredient[meterialStr].normalUI);
         food.sprite = Resources.Load<Sprite>(foodSprite);
 
-        Debug.Log("simple : " + menuStr);
+        //Debug.Log("simple : " + menuStr);
     }
         // Update is called once per frame
         void Update ()
     {
-        Debug.Log(foodSprite);
+        //Debug.Log(foodSprite);
 
         
         AddMenu();

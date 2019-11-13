@@ -60,9 +60,9 @@ public class FoodIngredientMachine{
         Type t = Type.GetType("FoodIState_" + state.ToString());
         FieldInfo info = t.GetField("_ins", BindingFlags.Static | BindingFlags.Public);
         //获取字段内容信息
-        Debug.Log(info);
-        Debug.Log(info.Name);
-        Debug.Log(info.GetValue(info.Name));
+        //Debug.Log(info);
+        //Debug.Log(info.Name);
+        //Debug.Log(info.GetValue(info.Name));
 
         return info.GetValue(info.Name) as FoodIState;
     }

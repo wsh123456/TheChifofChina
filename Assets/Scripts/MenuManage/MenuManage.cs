@@ -33,7 +33,7 @@ public class MenuManage : MonoBehaviour {
         levelTimer = TimerInstance.instance.levelTimer;
         levelFood = LevelInstance._instance.levelFood;
         addMenu = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AddMenu>();
-        Debug.Log("awake");
+        //Debug.Log("awake");
         //foreach (KeyValuePair<string,FoodModel> item in levelFood)
         //{
         //    Debug.Log(item.Value.foodIngredient[0].state);
@@ -73,9 +73,14 @@ public class MenuManage : MonoBehaviour {
             //RandomMenu();
             //Debug.Log("Init");
             //Debug.Log("+2道菜");
-    public void CheckMenu()
+    public List<FoodIngredientType> GetFoodType(List<string>foodList,Dictionary<string, FoodIngredientModel> levelFood)
     {
-
+        List<FoodIngredientType> foodType = new List<FoodIngredientType>();
+        for (int i = 0; i < foodList.Count; i++)
+        {
+            foodType.Add( levelFood[foodList[i]].foodIType);
+        }
+        return foodType;
     }
    public void AddMenu()
     {
@@ -94,7 +99,7 @@ public class MenuManage : MonoBehaviour {
             if (isMenuDone)
             {
                 currentMenuNum += 1;
-                Debug.Log("AddMenuPanel");
+                //Debug.Log("AddMenuPanel");
                 addMenu.AddMenuPanel(out menuStr);
                 isMenuAdd = true;
                  
@@ -122,7 +127,7 @@ public class MenuManage : MonoBehaviour {
     public string FoodSprite(string menuStr)
     {
        
-        Debug.Log(menuStr);
+        //Debug.Log(menuStr);
        string foodSprite = levelFood[menuStr].normalUI;
        
         return foodSprite;

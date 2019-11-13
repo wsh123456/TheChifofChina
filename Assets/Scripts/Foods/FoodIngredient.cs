@@ -24,6 +24,7 @@ public class FoodIngredient : MonoBehaviour {
     /// 食材当前的状态
     /// </summary>
     public FoodIngredientState curState = FoodIngredientState.Normal;
+    public FoodIngredientState previousState;
     /// <summary>
     /// 是否为熟食(煮过,炸过)
     /// </summary>
@@ -114,6 +115,7 @@ public class FoodIngredient : MonoBehaviour {
         foodIModel = food;
         //状态机设置状态
         stateMachine.SetState(this, food.curState);
+        previousState = curState;
 
         SetUsingDict(food);     // 设置状态 网格和时间 字典
         // 加载当前状态的预制体，赋值
@@ -207,6 +209,7 @@ public class FoodIngredient : MonoBehaviour {
 
 
     private void ChangeCurMesh(FoodIngredientState state){
+        previousState = curState;
         curState = state;
         ObjectPool.instance.RecycleObj(curMesh);
         curMesh = ObjectPool.instance.CreateObject(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state],Vector3.zero);

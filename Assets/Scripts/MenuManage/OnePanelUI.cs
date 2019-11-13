@@ -34,7 +34,7 @@ public class OnePanelUI : MonoBehaviour {
         meterial.sprite = Resources.Load<Sprite>(levelIngredient[meterialStr].normalUI);
         mterialTwo.sprite = Resources.Load<Sprite>(levelIngredient[meterialTwoStr].normalUI);
 
-        Debug.Log("double : " + menuStr);
+        //Debug.Log("double : " + menuStr);
     }
 	
 	// Update is called once per frame
