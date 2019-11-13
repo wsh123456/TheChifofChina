@@ -20,7 +20,7 @@ using ExitGames.Client.Photon;
 public class HumanGameController : MonoBehaviourPunCallbacks {
 
     public static HumanGameController ins;
-      public PhotonView currentPlayer;
+    public PhotonView currentPlayer;
     private void Awake()
     {
         //开始同步连接
@@ -34,19 +34,23 @@ public class HumanGameController : MonoBehaviourPunCallbacks {
     IEnumerator Start()
     {
         yield return new WaitForSeconds(1f);
-        RoomOptions room = new RoomOptions();
-        room.IsVisible = true;
-        room.MaxPlayers = 4;
-        room.IsOpen = true;
+        // RoomOptions room = new RoomOptions();
+        // room.IsVisible = true;
+        // room.MaxPlayers = 4;
+        // room.IsOpen = true;
         
-        PhotonNetwork.JoinOrCreateRoom("1", room, TypedLobby.Default);
+        // PhotonNetwork.JoinOrCreateRoom("1", room, TypedLobby.Default);
     }
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("进入房间");
-    }
-    public override void OnCreatedRoom()
-    {
-        Debug.Log("新建了一个房间");
-    }
+    // public override void OnJoinedRoom()
+    // {
+    //     Debug.Log("进入房间");
+    // }
+    // public override void OnCreatedRoom()
+    // {
+    //     Debug.Log("新建了一个房间");
+    // }
+
+    // public override void OnConnectedToMaster(){
+    //     Debug.Log("连接至主机");
+    // }
 }
