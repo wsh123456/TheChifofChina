@@ -17,17 +17,36 @@ using System.Collections;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
-public class HumanGameController : MonoBehaviour {
+public class HumanGameController : MonoBehaviourPunCallbacks {
 
     public static HumanGameController ins;
+      public PhotonView currentPlayer;
     private void Awake()
     {
         //开始同步连接
         PhotonNetwork.ConnectUsingSettings();
         ins = this;
+
         //设置网络同步速率
         PhotonNetwork.SendRate = 40;
 
     }
-
+    IEnumerator Start()
+    {
+        yield return new WaitForSeconds(1f);
+        RoomOptions room = new RoomOptions();
+        room.IsVisible = true;
+        room.MaxPlayers = 4;
+        room.IsOpen = true;
+        
+        PhotonNetwork.JoinOrCreateRoom("1", room, TypedLobby.Default);
+    }
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("进入房间");
+    }
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("新建了一个房间");
+    }
 }

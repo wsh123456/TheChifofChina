@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 /// <summary>
 /// 对象池
 /// </summary>
@@ -65,9 +65,16 @@ public class ObjectPool
         //生成预设体
         tempObj = UnityEngine.Object.Instantiate(prefab);
 
-        
         //todo... 对象的行为脚本名字全名
-        string typeFullName = objName +GameConst.Menu ;
+        string typeFullName = null;
+        if (objName ==GameConst.Plate)
+        {
+            typeFullName = objName + "Behaviour";
+        }
+        else
+        {
+            typeFullName = objName + GameConst.Menu;
+        }
         //如果行为脚本有命名空间，名字前添加命名空间
        // if (!string.IsNullOrEmpty(namespace))
         //{}
@@ -82,7 +89,7 @@ public class ObjectPool
     /// <summary>
     /// 传入路径，生成对象
     /// </summary>
-    public GameObject CreateObject(string objName, string path)
+    public GameObject CreateObject(string objName, string path,Vector3 pos)
     {
         //定义一个临时对象
         GameObject tempObj = null;
@@ -120,7 +127,7 @@ public class ObjectPool
         
 
         //生成预设体
-        tempObj = UnityEngine.Object.Instantiate(prefab);
+        tempObj = PhotonNetwork.Instantiate(path,pos,Quaternion.identity);
 
         
         //todo... 对象的行为脚本名字全名
@@ -129,12 +136,11 @@ public class ObjectPool
        // if (!string.IsNullOrEmpty(namespace))
         //{}
         //给预设体添加行为脚本
-        tempObj.AddComponent(Type.GetType(typeFullName));
+       // tempObj.AddComponent(Type.GetType(typeFullName));
 
         //将对象返回
         return tempObj;
     }
-
 
     /// <summary>
     /// 回收对象

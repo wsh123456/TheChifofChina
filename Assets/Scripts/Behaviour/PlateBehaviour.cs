@@ -21,7 +21,7 @@ public class PlateBehaviour : MonoBehaviour
     /// <returns>返回当前盘子所装的食材游戏对象</returns>
     public List<GameObject> AddFoodInPlate(GameObject food, GameObject currPlate)
     {
-        if (!currPlate.GetComponent<PlateBehaviour>().isClean)
+        if (!isClean)
         {
             Debug.Log("该盘子是脏盘子，无法放食材");
             return null;
@@ -29,7 +29,7 @@ public class PlateBehaviour : MonoBehaviour
         else
         {
             //获取当前盘子的行为脚本里的foodsList
-            foodsList = currPlate.GetComponent<PlateBehaviour>().foodsList;
+            //foodsList = currPlate.GetComponent<PlateBehaviour>().foodsList;
             //将要添加的食材添加到foodsList列表里
             foodsList.Add(food);
 
@@ -63,18 +63,29 @@ public class PlateBehaviour : MonoBehaviour
         ObjectPool.instance.RecycleObj(currPlate);
     }
 
-
-
-
+    /// <summary>
+    /// 获取盘子里食材的string类型列表
+    /// </summary>
+    /// <returns>返回string类型食材列表</returns>
+    public List<string> GetFoodList()
+    {
+        List<string> foodList = new List<string>();
+        for (int i = 0; i < foodsList.Count; i++)
+        {
+            foodList.Add(foodsList[i].name);
+            Debug.Log(foodsList[i].name);
+        }
+        return foodList;
+    }
 
     /// <summary>
-    /// 清空食物
+    /// 定义一个清空食物的方法
     /// </summary>
     /// <param name="currPlate">要清空的盘子</param>
     private void ClearFoods(GameObject currPlate)
     {
         //获取当前盘子的foodsList列表
-        foodsList = currPlate.GetComponent<PlateBehaviour>().foodsList;
+        //foodsList = currPlate.GetComponent<PlateBehaviour>().foodsList;
         if (foodsList.Count <= 0)
         {
             return;

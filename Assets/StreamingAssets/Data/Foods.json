@@ -1,0 +1,57 @@
+{
+    "CabbageSalad":{
+        "foodIngredient":[
+            {
+                "name":"Cabbage",
+                "state":"Cut"
+            }
+        ],
+      "price": 1,
+      "normalUI": "FoodTexAndPrb/Lettuce/ui_lettucesalad_01"
+    },
+    "CabbageTomatoSalad":{
+        "foodIngredient":[
+            {
+                "name":"Tomato",
+                "state":"Cut"
+            },{
+                "name":"Cabbage",
+                "state":"Cut"
+            }
+        ],
+      "price": 1,
+      "normalUI": "FoodTexAndPrb/ui_lettucetomatosalad_01"
+    },
+    "Chips":{
+        "foodIngredient":[
+            {
+                "name":"Potato",
+                "state":"Fried"
+            }
+        ],
+      "price": 1,
+      "normalUI": "FoodTexAndPrb/Chip/t_icon_chips_d"
+    },
+    "FriedChicken":{
+        "foodIngredient":[
+            {
+                "name":"Chicken",
+                "state":"Fried"
+            }
+        ],
+      "price": 1,
+      "normalUI": "FoodTexAndPrb/Chicken/Chicken_Icon"
+    },
+    "FriedChickenChips":{
+        "foodIngredient":[
+            {
+                "name":"Potato",
+                "state":"Fried"
+            },{
+                "name":"Chicken",
+                "state":"Fried"
+            }],
+      "price": 1,
+      "normalUI": "FoodTexAndPrb/t_icon_chicken_nuggets_chips_d"
+    }
+}

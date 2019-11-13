@@ -60,6 +60,10 @@ public class FoodIngredientMachine{
         Type t = Type.GetType("FoodIState_" + state.ToString());
         FieldInfo info = t.GetField("_ins", BindingFlags.Static | BindingFlags.Public);
         //获取字段内容信息
+        Debug.Log(info);
+        Debug.Log(info.Name);
+        Debug.Log(info.GetValue(info.Name));
+
         return info.GetValue(info.Name) as FoodIState;
     }
 }
@@ -82,7 +86,7 @@ public class FoodIState
 
     // 进入这个状态
     public virtual void EnterState(Action<FoodIngredientState> action){
-        Debug.Log("进入状态 " + stateName);
+        //回调
         action(this.state);
     }
 
@@ -91,7 +95,7 @@ public class FoodIState
         foodI.DoCurrentAction(tState);
     }        
 
-    // 结束这个状态
+    // 结束这个状态的提示
     public virtual void ExitState(FoodIState state){
         Debug.Log("由 " + stateName + " 转换为 " + state.stateName);
     }
