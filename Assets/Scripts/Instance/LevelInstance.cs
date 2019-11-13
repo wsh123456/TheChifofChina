@@ -35,9 +35,10 @@ public class LevelInstance{
         destoryFoodMenuTimer = message.destoryFoodMenuTimer;
         levelIngredient= LoadFoodIngredient(new List<string> { "Cabbage", "Tomato", "Potato", "Chicken" });
         foodMenu = message.foodMenu;
+
         // 加载本关菜单
         levelFood = LoadFood(foodMenu);
-
+        //Debug.Log("aaaa, " + levelTime + ", " + foodMenu.Count + "|" + levelFood);
     }
 
     public Dictionary<string,FoodModel> LoadFood(List<string> foodMenu){

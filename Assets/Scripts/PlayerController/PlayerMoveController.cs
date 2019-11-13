@@ -29,7 +29,7 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
     {
        
         instance = this;
-        ani = GetComponent<Animator>();
+        ani =GetComponent<Animator>();
         phView = GetComponent<PhotonView>();
     }
     private void Start()

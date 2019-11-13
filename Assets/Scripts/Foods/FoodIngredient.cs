@@ -18,12 +18,15 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class FoodIngredient : MonoBehaviour {
+public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable {
+    PhotonView photonView;
     /// <summary>
     /// 食材当前的状态
     /// </summary>
     public FoodIngredientState curState = FoodIngredientState.Normal;
+    public FoodIngredientState previousState;
     /// <summary>
     /// 是否为熟食(煮过,炸过)
     /// </summary>
@@ -61,7 +64,7 @@ public class FoodIngredient : MonoBehaviour {
     private Transform iconPoint;
     private Transform progressPoint;
     private Transform modelPoint;
-
+    private bool isShowPrograss;
 
     private void Awake() {
         usingMesh = new Dictionary<FoodIngredientState, string>();
@@ -78,6 +81,7 @@ public class FoodIngredient : MonoBehaviour {
 
     private void Start() {
 
+        photonView = HumanGameController.ins.photonView;
         progressBar.transform.SetParent(canvas.transform);
         progressBar.gameObject.SetActive(false);
     }
@@ -114,6 +118,7 @@ public class FoodIngredient : MonoBehaviour {
         foodIModel = food;
         //状态机设置状态
         stateMachine.SetState(this, food.curState);
+        previousState = curState;
 
         SetUsingDict(food);     // 设置状态 网格和时间 字典
         // 加载当前状态的预制体，赋值
@@ -163,7 +168,8 @@ public class FoodIngredient : MonoBehaviour {
     public void ShowProgras(){
         //Debug.Log("当前进度: " + curProgress / actionTime);
         // 显示进度条
-        progressBar.SetActive(true);
+        isShowPrograss = false;
+        progressBar.SetActive(isShowPrograss);
         progressBar.transform.Find("Slider").GetComponent<Slider>().value = curProgress / actionTime;
     }
 
@@ -171,7 +177,10 @@ public class FoodIngredient : MonoBehaviour {
     /// 隐藏进度条
     /// </summary>
     public void HideProgras(){
-        progressBar.gameObject.SetActive(false);
+
+        isShowPrograss = false;
+        progressBar.gameObject.SetActive(isShowPrograss);
+
     }
     public FoodIngredientType GetIType()
     {
@@ -203,9 +212,24 @@ public class FoodIngredient : MonoBehaviour {
             finishCallback();
         }
     }
-
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            //展示
+            stream.SendNext(isShowPrograss);
+            stream.SendNext(curProgress);
+        }
+        else
+        {
+            //networkInt = (int)stream.ReceiveNext();
+            isShowPrograss = (bool)stream.ReceiveNext();
+            curProgress = (float)stream.ReceiveNext();
+        }
+    }
 
     private void ChangeCurMesh(FoodIngredientState state){
+        previousState = curState;
         curState = state;
         ObjectPool.instance.RecycleObj(curMesh);
         curMesh = ObjectPool.instance.CreateObject(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state],Vector3.zero);
@@ -243,6 +267,8 @@ public class FoodIngredient : MonoBehaviour {
             usingTime.Add(FoodIngredientState.Break, 0);
         }
     }
+
+    
 }
 
 /// <summary>

@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curState: 0
+  previousState: 0
   isCooked: 0
   actionTime: 2
   curMesh: {fileID: 0}

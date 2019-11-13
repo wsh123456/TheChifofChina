@@ -20,9 +20,11 @@ using Photon.Pun;
 public class CreateTingsManager : MonoBehaviour, IPunObservable
 {
     private int networkInt = 0;
+    private Transform handContainer;
     public void Awake()
     {
         EventCenter.AddListener<string>(EventType.CreateTomaTo,CreateObject);
+        handContainer = transform.Find("Hand");
     }
     public void OnDestroy()
     {
@@ -41,7 +43,7 @@ public class CreateTingsManager : MonoBehaviour, IPunObservable
             go.AddComponent<Rigidbody>();
             go.tag = "Thing";
             go.GetComponent<Rigidbody>().isKinematic = true;
-            go.transform.parent = PlayerHandController.Instance.transform;
+            go.transform.parent = PlayerHandController.Instance.handContainer;
             go.transform.localPosition = Vector3.zero;
     }
 }
