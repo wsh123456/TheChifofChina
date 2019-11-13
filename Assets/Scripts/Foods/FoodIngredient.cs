@@ -18,8 +18,10 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class FoodIngredient : MonoBehaviour {
+public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable {
+    PhotonView photonView;
     /// <summary>
     /// 食材当前的状态
     /// </summary>
@@ -61,7 +63,7 @@ public class FoodIngredient : MonoBehaviour {
     private Transform iconPoint;
     private Transform progressPoint;
     private Transform modelPoint;
-
+    private bool isShowPrograss;
 
     private void Awake() {
         usingMesh = new Dictionary<FoodIngredientState, string>();
@@ -78,6 +80,7 @@ public class FoodIngredient : MonoBehaviour {
 
     private void Start() {
 
+        photonView = HumanGameController.ins.photonView;
         progressBar.transform.SetParent(canvas.transform);
         progressBar.gameObject.SetActive(false);
     }
@@ -163,7 +166,8 @@ public class FoodIngredient : MonoBehaviour {
     public void ShowProgras(){
         //Debug.Log("当前进度: " + curProgress / actionTime);
         // 显示进度条
-        progressBar.SetActive(true);
+        isShowPrograss = false;
+        progressBar.SetActive(isShowPrograss);
         progressBar.transform.Find("Slider").GetComponent<Slider>().value = curProgress / actionTime;
     }
 
@@ -171,7 +175,10 @@ public class FoodIngredient : MonoBehaviour {
     /// 隐藏进度条
     /// </summary>
     public void HideProgras(){
-        progressBar.gameObject.SetActive(false);
+
+        isShowPrograss = false;
+        progressBar.gameObject.SetActive(isShowPrograss);
+
     }
     public FoodIngredientType GetIType()
     {
@@ -203,7 +210,21 @@ public class FoodIngredient : MonoBehaviour {
             finishCallback();
         }
     }
-
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            //展示
+            stream.SendNext(isShowPrograss);
+            stream.SendNext(curProgress);
+        }
+        else
+        {
+            //networkInt = (int)stream.ReceiveNext();
+            isShowPrograss = (bool)stream.ReceiveNext();
+            curProgress = (float)stream.ReceiveNext();
+        }
+    }
 
     private void ChangeCurMesh(FoodIngredientState state){
         curState = state;
@@ -243,6 +264,8 @@ public class FoodIngredient : MonoBehaviour {
             usingTime.Add(FoodIngredientState.Break, 0);
         }
     }
+
+    
 }
 
 /// <summary>

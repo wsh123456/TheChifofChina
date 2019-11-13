@@ -44,18 +44,21 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     private PhotonView phView;
     private GameObject UserObj;
     private GameObject inHandObj;
+    //手上容器
+    public Transform handContainer;
     public  static  PlayerHandController Instance;
     private void Start()
     {
         Instance = this;
         Levelins = LevelInstance._instance;
         menu = new Dictionary<string, List<string>>();
-        ani = transform.root.GetComponent<Animator>();
+        ani = transform.parent.GetComponent<Animator>();
         handObj = new List<PickTings>();
         allThings = new List<GameObject>();
-        knife = transform.parent.GetChild(3).GetChild(0).gameObject;
+        knife = transform.GetChild(0).GetChild(1).GetChild(0).GetChild(3).GetChild(0).gameObject;
         knife.SetActive(false);
         Menu();
+        handContainer = transform.parent.Find("Hand");
     }
     /// <summary>
     /// 东西端在手上
@@ -64,7 +67,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     private void PickUp(GameObject other)
     {
         inHandObj = other;
-        other.transform.parent = transform;
+        other.transform.parent = handContainer;
         other.transform.localPosition = Vector3.zero;
         other.transform.localEulerAngles = Vector3.zero;
         other.GetComponent<Rigidbody>().isKinematic = true;
@@ -80,7 +83,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (isPick && Input.GetKeyUp(KeyCode.LeftShift)&&foodType.canThrow)
         {
-            ThrowThings(transform.GetChild(0).gameObject);
+            ThrowThings(handContainer.GetChild(0).gameObject);
             ani.SetTrigger("Push");
 
         }
@@ -91,7 +94,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         //放下
         if (isPick && Input.GetKeyDown(KeyCode.Tab) && foodType.canDropDown)
         {
-            LayDownThings(transform.GetChild(0).gameObject);
+            LayDownThings(handContainer.GetChild(0).gameObject);
 
         }
        
@@ -296,7 +299,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// </summary>
     private void IsObjectInHand()
     {
-        if (transform.childCount != 0)
+        if (handContainer.childCount != 0)
         {
             isPick = true;
          
@@ -367,11 +370,14 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(networkInt);
+            //切的动作
+            stream.SendNext(isCute);
 
         }
         else
         {
             networkInt = (int)stream.ReceiveNext();
+            isCute = (bool)stream.ReceiveNext();
         }
     }
 }
