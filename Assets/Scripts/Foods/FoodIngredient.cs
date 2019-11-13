@@ -118,7 +118,7 @@ public class FoodIngredient : MonoBehaviour {
         SetUsingDict(food);     // 设置状态 网格和时间 字典
         // 加载当前状态的预制体，赋值
         Debug.Log(food.normalPrefab);
-        Debug.Log(food.foodIType.ToString());
+        //Debug.Log(food.foodIType.ToString());
         ChangeCurMesh(food.curState);
         actionTime = 0;
 
@@ -179,7 +179,7 @@ public class FoodIngredient : MonoBehaviour {
     /// 隐藏进度条
     /// </summary>
     public void HideProgras(){
-        Debug.Log("隐藏进度条");
+        //Debug.Log("隐藏进度条");
         progressBar.gameObject.SetActive(false);
     }
     public FoodIngredientType GetIType()
