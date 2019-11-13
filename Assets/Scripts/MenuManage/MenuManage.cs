@@ -3,39 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class MenuManage : MonoBehaviour {
-    public static readonly MenuManage menuManage = new MenuManage();
-    private MenuManage()
-    {
-
-    }
-    public int minMenuNum = 2;
+    public static MenuManage menuManage;
+    public int minMenuNum = 0;
     public int currentMenuNum = 0;
     public int maxMenuNum = 6;
     public Timer menuTimer;
     public Timer levelTimer;
     public Timer destoryFoodMenuTimer;
-    public Dictionary<string, FoodModel> levelFood = new Dictionary<string, FoodModel>();
+    public Dictionary<string, FoodModel> levelFood;
     public List<string> foodMenu;
-    public Image food;
-    Image meterial;
-    Image cook;
+    public  string menuStr;
     AddMenu addMenu;
     //public List<Timer> MenuTimer;
     bool isDestory = true;
-    bool isAddMenu = true;
-    bool isMenuDone = false;
-    bool isMenuAdd = true;
+    public bool isAddMenu = true;
+    public bool isMenuDone = false;
+    public bool isMenuAdd = true;
+    public Image food;
     void Awake()
     {
-        
+        menuManage = this;
         foodMenu = new List<string>();
-        //foreach (KeyValuePair<string,FoodModel> item in levelFood)
-        //{
-        //    Debug.Log(item.Value.foodIngredient[0].state);
-        //}
-    }
-    void Start()
-    {
+        levelFood = new Dictionary<string, FoodModel>();
+        isMenuAdd = true;
         
         foodMenu = LevelInstance._instance.foodMenu;
         destoryFoodMenuTimer = TimerInstance.instance.destoryFoodMenuTimer;
@@ -43,6 +33,17 @@ public class MenuManage : MonoBehaviour {
         levelTimer = TimerInstance.instance.levelTimer;
         levelFood = LevelInstance._instance.levelFood;
         addMenu = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AddMenu>();
+        Debug.Log("awake");
+        //foreach (KeyValuePair<string,FoodModel> item in levelFood)
+        //{
+        //    Debug.Log(item.Value.foodIngredient[0].state);
+        //}
+        //menuStr = RandomMenu();
+    }
+    void Start()
+    {
+
+        Initmenu();
     }
     void Update()
     {
@@ -52,76 +53,79 @@ public class MenuManage : MonoBehaviour {
         //Debug.Log(menuTimer.GetTimeRemaining());
         //Debug.Log(levelFood);
         //Debug.Log(destoryFoodMenuTimer.GetTimeRemaining());
-        Initmenu();
+        //menuStr = RandomMenu();
+        
         AddMenu();
-        DestoryMenu();
-        RandomMenu();
-
+        
 
     }
     public void Initmenu()
     {
-        if (currentMenuNum ==0&& isAddMenu)
-        {
-            currentMenuNum = 2;
-            addMenu .AddMenuPanel();
-            addMenu.AddMenuPanel();
-            //Debug.Log(currentMenuNum);
+        if (currentMenuNum == 0)
+            for (int i = 0; i < 2; i++)
+            {
+                addMenu.AddMenuPanel(out menuStr);
+                currentMenuNum += 1;
+            }
+    }
+            
+            //RandomMenu();  
+            //RandomMenu();
+            //Debug.Log("Init");
             //Debug.Log("+2道菜");
-            isAddMenu = false;   
-        } 
-    }
-    public void DestoryMenu()
-    {
-    if (destoryFoodMenuTimer.isDone && isDestory)
-        {
-
-            currentMenuNum -= 1;
-            Debug.Log("-1道菜");
-            Debug.Log(currentMenuNum);
-            Debug.Log(isDestory);
-            isDestory = false;
-            //Debug.Log("-1道菜");
-        }
-        //isDestory = false;
-        //Debug.Log(currentMenuNum);
-        
-    }
     public void CheckMenu()
     {
 
     }
    public void AddMenu()
     {
-        if (menuTimer.isDone)
-        { 
-            if (!isMenuDone)
-            {
-                currentMenuNum += 2;
-                addMenu.AddMenuPanel();
-                //Debug.Log("+2道菜");
-                //Debug.Log(currentMenuNum);
-            }
-            isMenuDone = true;
-        }
-    }
-
-    public int RandomLevelFoodKey()
-    {
-      int  random = Random.Range(0, 5);
-        return random;
-    }
-    public void RandomMenu()
-    {
-        if (TimerInstance.instance.menuTimer.isDone && isMenuAdd)
+        if (menuTimer.GetTimeRemaining()<0.00000001f)
         {
-            food = GameObject.Find("MenuFood/MenuFood/food").GetComponent<Image>();
-            Debug.Log(foodMenu[RandomLevelFoodKey()]);
-            string menuStr = foodMenu[RandomLevelFoodKey()];
-            string foodSprite = levelFood[menuStr].normalUI;
-            food.sprite = Resources.Load<Sprite>(foodSprite);
-            isMenuAdd = false;
+            
+            if (currentMenuNum == maxMenuNum)
+            {
+                isMenuDone = false;
+               
+            }
+            else
+            {
+                isMenuDone = true;      
+            }
+            if (isMenuDone)
+            {
+                currentMenuNum += 1;
+                Debug.Log("AddMenuPanel");
+                addMenu.AddMenuPanel(out menuStr);
+                isMenuAdd = true;
+                 
+            }
+            isMenuDone = false;
         }
+        //Debug.Log("+2道菜");
+        //Debug.Log(currentMenuNum);
+
+    }
+    public  string RandomMenu()
+    {
+        string menuStr="";
+        int random = Random.Range(0, 5);
+        if (isMenuAdd)
+        {
+            //Debug.Log(foodMenu[RandomLevelFoodKey()]);
+             menuStr = foodMenu[random];
+              
+        }
+        //Debug.Log(menuStr
+           // +"111111111111111111111111111111111111");
+        return menuStr;
+    }
+    public string FoodSprite(string menuStr)
+    {
+       
+        Debug.Log(menuStr);
+       string foodSprite = levelFood[menuStr].normalUI;
+       
+        return foodSprite;
     }
 }
 

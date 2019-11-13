@@ -175,8 +175,10 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable {
     /// 隐藏进度条
     /// </summary>
     public void HideProgras(){
+
         isShowPrograss = false;
         progressBar.gameObject.SetActive(isShowPrograss);
+
     }
     public FoodIngredientType GetIType()
     {
