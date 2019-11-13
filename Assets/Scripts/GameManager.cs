@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviourPunCallbacks {
         Transform point = initPoints[PhotonNetwork.LocalPlayer.ActorNumber-1].transform;
         GameObject player = PhotonNetwork.Instantiate("ChefPlayer", point.position, Quaternion.identity); 
         player.transform.SetParent(point);
+        // 换头
+        // player.GetComponent<>();
     }
 
 
