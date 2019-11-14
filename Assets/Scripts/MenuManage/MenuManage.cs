@@ -12,7 +12,10 @@ public class MenuManage : MonoBehaviour {
     public Timer destoryFoodMenuTimer;
     public Dictionary<string, FoodModel> levelFood;
     public List<string> foodMenu;
+    public List<Dictionary<string, string>> menu;
+    public List<string> menuList = new List<string>();
     public  string menuStr;
+    public float price=0;
     AddMenu addMenu;
     //public List<Timer> MenuTimer;
     bool isDestory = true;
@@ -26,24 +29,25 @@ public class MenuManage : MonoBehaviour {
         foodMenu = new List<string>();
         levelFood = new Dictionary<string, FoodModel>();
         isMenuAdd = true;
-        
         foodMenu = LevelInstance._instance.foodMenu;
         destoryFoodMenuTimer = TimerInstance.instance.destoryFoodMenuTimer;
         menuTimer = TimerInstance.instance.menuTimer;
         levelTimer = TimerInstance.instance.levelTimer;
         levelFood = LevelInstance._instance.levelFood;
         addMenu = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AddMenu>();
+        menu = new List<Dictionary<string, string>>();
         //Debug.Log("awake");
         //foreach (KeyValuePair<string,FoodModel> item in levelFood)
         //{
         //    Debug.Log(item.Value.foodIngredient[0].state);
         //}
         //menuStr = RandomMenu();
+
     }
     void Start()
     {
-
         Initmenu();
+
     }
     void Update()
     {
@@ -56,8 +60,6 @@ public class MenuManage : MonoBehaviour {
         //menuStr = RandomMenu();
         
         AddMenu();
-        
-
     }
     public void Initmenu()
     {
@@ -65,6 +67,7 @@ public class MenuManage : MonoBehaviour {
             for (int i = 0; i < 2; i++)
             {
                 addMenu.AddMenuPanel(out menuStr);
+                //menuUI.Add();//
                 currentMenuNum += 1;
             }
     }
@@ -113,7 +116,8 @@ public class MenuManage : MonoBehaviour {
     public  string RandomMenu()
     {
         string menuStr="";
-        int random = Random.Range(0, 5);
+        int random = Random.Range(0,5);
+        //Debug.Log(random);
         if (isMenuAdd)
         {
             //Debug.Log(foodMenu[RandomLevelFoodKey()]);
@@ -132,5 +136,6 @@ public class MenuManage : MonoBehaviour {
        
         return foodSprite;
     }
+    
 }
 

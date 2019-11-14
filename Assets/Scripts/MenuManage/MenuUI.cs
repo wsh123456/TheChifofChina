@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MenuUI : MonoBehaviour {
     Image cook;
     Timer destoryFoodMenuTimer;
-    public Image food;
+    Image food;
     Image meterial;
     string foodSprite;
     Dictionary<string, FoodModel> levelFood;
@@ -19,18 +19,26 @@ public class MenuUI : MonoBehaviour {
         levelIngredient = LevelInstance._instance.levelIngredient;
         food = transform.Find("FoodPoint/MenuFood/food"). GetComponent<Image>();
         addMenu = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AddMenu>();
-        meterial = transform.Find("materialPoint/mterial/materialPannel/material").GetComponent<Image>();
+        
         //cook = transform.Find("cookPannel/cook").GetComponent<Image>();
         //Debug.Log(meterialStr);
         menuStr = MenuManage.menuManage.menuStr;
-        meterialStr=levelFood[menuStr].foodIngredient[0].name;
+        for (int i = 0; i < levelFood[menuStr].foodIngredient.Count; i++)
+        {
+            meterialStr = levelFood[menuStr].foodIngredient[i].name;
+        }
+        
         foodSprite = levelFood[menuStr].normalUI;
-        meterial.sprite = Resources.Load<Sprite>(levelIngredient[meterialStr].normalUI);
+        
         food.sprite = Resources.Load<Sprite>(foodSprite);
-
+        
         //Debug.Log("simple : " + menuStr);
     }
         // Update is called once per frame
+        void Start()
+    {
+        
+    }
         void Update ()
     {
         //Debug.Log(foodSprite);
@@ -43,6 +51,7 @@ public class MenuUI : MonoBehaviour {
     {
          destoryFoodMenuTimer= Timer.Register(LevelInstance._instance.destoryFoodMenuTimer, null, null, false, true, null);
         
+
     }
         void AddMenu()
     {
@@ -55,6 +64,7 @@ public class MenuUI : MonoBehaviour {
             //food.sprite = Resources.Load<Sprite>(foodSprite);
             destoryFoodMenuTimer.Cancel();
             ObjectPool.instance.RecycleObj(gameObject);
+            MenuManage.menuManage.menuList.Remove(menuStr);
             }
         
         }
