@@ -31,4 +31,6 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - SetParent
+  - CreateFoodIngredient
   DisableAutoOpenWizard: 1

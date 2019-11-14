@@ -2745,6 +2745,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4e3656650a7b7489e845771d62d6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handController: {fileID: 0}
+  creatFIView: {fileID: 0}
 --- !u!114 &114976937849442378
 MonoBehaviour:
   m_ObjectHideFlags: 1

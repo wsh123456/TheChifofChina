@@ -23,12 +23,12 @@ public class CreateTingsManager : MonoBehaviour, IPunObservable
     private Transform handContainer;
     public void Awake()
     {
-        EventCenter.AddListener<string>(EventType.CreateTomaTo,CreateObject);
+        // EventCenter.AddListener<string>(EventType.CreateTomaTo,CreateObject);
         handContainer = transform.Find("Hand");
     }
     public void OnDestroy()
     {
-        EventCenter.RemoveListener<string>(EventType.CreateTomaTo, CreateObject);
+        // EventCenter.RemoveListener<string>(EventType.CreateTomaTo, CreateObject);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -36,14 +36,16 @@ public class CreateTingsManager : MonoBehaviour, IPunObservable
         throw new NotImplementedException();
     }
 
-    private void CreateObject(string arg)
-    {
-            GameObject go=ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient",Vector3.zero);
-            go.GetComponent<FoodIngredient>().InitFoodIngredient(LevelInstance._instance.levelIngredient[arg]);
-            go.AddComponent<Rigidbody>();
-            go.tag = "Thing";
-            go.GetComponent<Rigidbody>().isKinematic = true;
-            go.transform.parent = PlayerHandController.Instance.handContainer;
-            go.transform.localPosition = Vector3.zero;
-    }
+    // public GameObject CreateObject(string arg)
+    // {
+    //     GameObject go=ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient",Vector3.zero);
+    //     go.GetComponent<FoodIngredient>().InitFoodIngredient(LevelInstance._instance.levelIngredient[arg]);
+    //     go.AddComponent<Rigidbody>();
+    //     go.tag = "Thing";
+    //     go.GetComponent<Rigidbody>().isKinematic = true;
+    //     go.transform.parent = handContainer;
+    //     go.transform.localPosition = Vector3.zero;
+
+    //     return go;
+    // }
 }

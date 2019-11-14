@@ -24,10 +24,8 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
     private Animator ani;
     public static  PlayerMoveController instance;
     private PhotonView phView;
-    private int networkInt;
     private  void Awake()
     {
-       
         instance = this;
         ani =GetComponent<Animator>();
         phView = GetComponent<PhotonView>();
@@ -41,9 +39,6 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
     }
     private void Update()
     {
-
-        Debug.Log(phView.IsMine);
-        networkInt = 666;
         if (!phView.IsMine)
             return;
         Move();
@@ -83,12 +78,9 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(networkInt);
-
         }
         else
         {
-            networkInt = (int)stream.ReceiveNext();
         }
     }
 }

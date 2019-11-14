@@ -20,6 +20,8 @@ using Photon;
 public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable {
 
     // private PhotonView photonView;
+    public PlayerHandController handController;
+    public PhotonView creatFIView;
 
     private int curHead = 0;
     public int CurHead{
@@ -33,8 +35,18 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable {
 
     private Transform headList;
 
+    private Transform parentTrans;
+    // public Transform ParentTrans{
+    //     get{return parentTrans;}
+    //     set{
+    //         parentTrans = value;
+    //         transform.SetParent(value);
+    //     }
+    // }
+
     private void Awake() {
         headList = transform.Find("Player 4/Chef/Mesh/Chef_Head");
+        handController = transform.Find("Player 4").GetComponent<PlayerHandController>();
         // photonView = GetComponent<PhotonView>();
     }
 
@@ -56,11 +68,22 @@ public class PlayerController : MonoBehaviourPunCallbacks,IPunObservable {
         CurHead = index;
     }
 
+    [PunRPC]
+    /// <summary>
+    /// 设置父物体
+    /// </summary>
+    public void SetParent(int parentIndex){
+        // ParentTrans = parent;
+        transform.SetParent(GameManager._ins.initPoints[parentIndex].transform);
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
         if(stream.IsWriting){
             stream.SendNext(CurHead);
+            // stream.SendNext(ParentTrans);
         }else{
             CurHead = (int)stream.ReceiveNext();
+            // ParentTrans = (Transform)stream.ReceiveNext();
         }
     }
 }

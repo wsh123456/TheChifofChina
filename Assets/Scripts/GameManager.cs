@@ -18,8 +18,12 @@ public class GameManager : MonoBehaviourPunCallbacks {
     // 1.检测所有玩家都加载完成
     // 2.生成玩家使用的角色并同步倒计时
     // 3.同步开始游戏
-    private GameObject[] initPoints;
+    public static GameManager _ins;
+    public GameObject[] initPoints;
+    public PlayerController curPlayer;
+
     private void Awake() {
+        _ins = this;
         // 找到玩家生成的点
         initPoints = GameObject.FindGameObjectsWithTag("PlayerPoint");
     }
@@ -46,12 +50,13 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
 
     private void InitPlayer(){
-        Debug.Log("qqqq" + initPoints.Length);
         Transform point = initPoints[PhotonNetwork.LocalPlayer.ActorNumber-1].transform;
         GameObject player = PhotonNetwork.Instantiate("ChefPlayer", point.position, Quaternion.identity); 
-        player.transform.SetParent(point);
+        // player.GetComponent<PlayerController>().photonView.RPC("SetParent", RpcTarget.All, point);
+        curPlayer = player.GetComponent<PlayerController>();
+        curPlayer.photonView.RPC("SetParent", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber-1);
         // 换头
-        // player.GetComponent<>();
+        curPlayer.ChangeChiefHead(Random.Range(0,6));
     }
 
 
@@ -71,9 +76,24 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged){
         object temp;
+        object temp1;
         if(propertiesThatChanged.TryGetValue("CanInitPlayer", out temp)){
             if((bool)temp){
                 InitPlayer();
+            }
+        }
+
+        if(propertiesThatChanged.TryGetValue("CreatFoodIngredient", out temp) 
+        && propertiesThatChanged.TryGetValue("CreatFoodViewID", out temp1)){
+            if(temp != null && temp1 != null){
+                PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().CreateFoodIngredient(PhotonView.Find((int)temp).gameObject);
+            }
+        }
+
+        if(propertiesThatChanged.TryGetValue("ThrowThingInHand", out temp) 
+        && propertiesThatChanged.TryGetValue("ThrowThingViewID", out temp1)){
+            if(temp != null){
+                PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().ThrowThings(PhotonView.Find((int)temp).gameObject);
             }
         }
     }

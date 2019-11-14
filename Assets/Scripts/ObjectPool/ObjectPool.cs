@@ -127,7 +127,8 @@ public class ObjectPool
         
 
         //生成预设体
-        tempObj = PhotonNetwork.Instantiate(path,pos,Quaternion.identity);
+        // tempObj = UnityEngine.Object.Instantiate(prefab);
+        tempObj = PhotonNetwork.Instantiate(path, pos, Quaternion.identity);
 
         
         //todo... 对象的行为脚本名字全名

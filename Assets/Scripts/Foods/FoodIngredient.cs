@@ -1,9 +1,6 @@
 ﻿#region 模块信息
 // **********************************************************************
-// Copyright (C) 2019 QIANFENG EDUCATION
-//
 // 文件名(File Name):FoodBase.cs
-// 公司(Company):#COMPANY#
 // 作者(Author): 王舜华
 // 版本号(Version):#VERSION#
 // Unity版本	(Unity Version):2017.4.20f
@@ -20,8 +17,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable {
-    PhotonView photonView;
+public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     /// <summary>
     /// 食材当前的状态
     /// </summary>
@@ -81,15 +77,18 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable {
 
     private void Start() {
 
-        photonView = HumanGameController.ins.photonView;
         progressBar.transform.SetParent(canvas.transform);
         progressBar.gameObject.SetActive(false);
     }
 
     private void Update() {
-        //if(Input.GetKeyDown(KeyCode.Q)){
-        //    DoAction(FoodIngredientState.Cut, null);
-        //}
+        if(photonView.IsMine){
+            Debug.Log("aaaa");
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q)){
+            DoAction(FoodIngredientState.Cut, null);
+        }
 
         //if(Input.GetKeyDown(KeyCode.W)){
         //    DoAction(FoodIngredientState.Fried, null);
@@ -222,7 +221,6 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable {
         }
         else
         {
-            //networkInt = (int)stream.ReceiveNext();
             isShowPrograss = (bool)stream.ReceiveNext();
             curProgress = (float)stream.ReceiveNext();
         }
@@ -267,6 +265,33 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable {
             usingTime.Add(FoodIngredientState.Break, 0);
         }
     }
+
+    #region Interface method
+        
+    // 捡
+    public bool Pick(PlayerHandController player, Action<GameObject> callback){
+        callback(gameObject);
+        return true;
+    }
+
+    // 扔
+    public bool Throw(PlayerHandController player, Action<GameObject> callback){
+        if(isCooked){
+            return false;
+        }
+
+        callback(gameObject);
+        return true;
+    }
+    // 放
+    public bool PutDown(PlayerHandController player, Action<GameObject> callback){
+        callback(gameObject);
+        return true;
+    }
+
+
+    #endregion
+
 
     
 }
