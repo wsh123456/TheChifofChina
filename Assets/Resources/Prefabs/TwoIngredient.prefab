@@ -52,7 +52,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224553944380855316}
-  - component: {fileID: 114888586758470360}
   m_Layer: 5
   m_Name: TwoIngredient
   m_TagString: Untagged
@@ -371,20 +370,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114888586758470360
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1181139103076094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dcd7007a43639846a8776e6996f01ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  food: {fileID: 0}
-  meterial: {fileID: 0}
-  mterialTwo: {fileID: 0}
 --- !u!114 &114923682310653862
 MonoBehaviour:
   m_ObjectHideFlags: 1

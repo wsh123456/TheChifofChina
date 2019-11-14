@@ -4,7 +4,7 @@
             "level":1,
           "levelTime": 240,
           "menuTimer": 10,
-          "destoryFoodMenuTimer": 60,
+          "destoryFoodMenuTimer": 5,
             "foodMenu":[
                 "CabbageSalad","CabbageTomatoSalad","Chips","FriedChicken","FriedChickenChips"
             ]

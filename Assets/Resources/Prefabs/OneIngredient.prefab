@@ -52,7 +52,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224747159435940346}
-  - component: {fileID: 114777984825984856}
   m_Layer: 5
   m_Name: OneIngredient
   m_TagString: Untagged
@@ -217,18 +216,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114777984825984856
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1258806668135330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38c2ca46249a74459f918672905ca8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  food: {fileID: 0}
 --- !u!114 &114812096777984572
 MonoBehaviour:
   m_ObjectHideFlags: 1

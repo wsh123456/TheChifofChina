@@ -22,7 +22,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     /// 食材当前的状态
     /// </summary>
     public FoodIngredientState curState = FoodIngredientState.Normal;
-    public FoodIngredientState previousState;
+    public FoodIngredientState previousState;//装盘之前的状态
     /// <summary>
     /// 是否为熟食(煮过,炸过)
     /// </summary>
