@@ -38,7 +38,7 @@ public class LevelInstance{
 
         // 加载本关菜单
         levelFood = LoadFood(foodMenu);
-        Debug.Log("aaaa, " + levelTime + ", " + foodMenu.Count + "|" + levelFood);
+        //Debug.Log("aaaa, " + levelTime + ", " + foodMenu.Count + "|" + levelFood);
     }
 
     public Dictionary<string,FoodModel> LoadFood(List<string> foodMenu){

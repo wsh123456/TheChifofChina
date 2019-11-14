@@ -20,4 +20,5 @@ public class GameConst
 {
     public const string Menu = "Menu";
     public const string Plate = "Plate";
+    public const string Smoke = "smoke";
 }
