@@ -415,13 +415,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void PutOnTable(int targetID, int handID)
     {
-
         GameObject target = PhotonView.Find(targetID).gameObject;
         GameObject handObj = PhotonView.Find(handID).gameObject;
-
-
-        Debug.Log("台子：" + target);
-        Debug.Log("东西：" + handObj);
         // handObj.GetComponent<MeshRenderer>().material.color = Color.red;
         handObj.transform.SetParent(target.transform);
         handObj.transform.localPosition = Vector3.zero;

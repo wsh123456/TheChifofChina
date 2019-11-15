@@ -40,4 +40,5 @@ MonoBehaviour:
   - LayDownThings
   - DoFoodCut
   - PutOnTable
+  - ClearFoods
   DisableAutoOpenWizard: 1
