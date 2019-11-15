@@ -143,6 +143,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     /// <summary>
     /// 打断当前的操作(煮，切等操作)
     /// </summary>
+    [PunRPC]
     public void BreakCurrentAction(){
         isActive = false;
         StopCoroutine("ChangingStatus");
@@ -245,11 +246,13 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
             //展示
             stream.SendNext(isShowPrograss);
             stream.SendNext(curProgress);
+            stream.SendNext(isActive);
         }
         else
         {
             isShowPrograss = (bool)stream.ReceiveNext();
             curProgress = (float)stream.ReceiveNext();
+            isActive = (bool)stream.ReceiveNext();
         }
     }
 

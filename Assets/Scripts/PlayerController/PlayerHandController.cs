@@ -89,6 +89,9 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     {
         inHandObj = GetOnHand();
 
+        knife.SetActive(isCute);
+        ani.SetBool("Cute", isCute);
+
         if (!photonView.IsMine)
         {
             return;
@@ -103,12 +106,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (inHandObj.GetComponent<IHand>().Throw(this, null))
                 {
-                    photonView.RPC("ThrowThings", RpcTarget.All);
                     // 同步扔
-                    // Hashtable hashtable = new Hashtable();
-                    // hashtable.Add("ThrowThingInHand", inHandObj.GetComponent<PhotonView>().ViewID);
-                    // hashtable.Add("ThrowThingViewID", photonView.ViewID);
-                    // PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+                    photonView.RPC("ThrowThings", RpcTarget.All);
                 }
             }
             if (Input.GetKey(KeyCode.LeftShift))
@@ -127,8 +126,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         {
             isCute = false;
         }
-        knife.SetActive(isCute);
-        ani.SetBool("Cute", isCute);
+
+
     }
 
 
@@ -164,14 +163,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 if (inHandObj == null)
                 {
                     GameObject go = ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient", handContainer.position);
-                    // go.GetComponent<FoodIngredient>().InitFoodIngredient(LevelInstance._instance.levelIngredient[name]);
                     go.GetComponent<FoodIngredient>().photonView.RPC("InitFoodIngredient", RpcTarget.All, name);
                     go.GetComponent<FoodIngredient>().photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID);
-                    // Debug.Log("调用=======RPC");
-                    // Hashtable hashtable = new Hashtable();
-                    // hashtable.Add("CreatFoodIngredient", go.GetComponent<FoodIngredient>().photonView.ViewID);
-                    // hashtable.Add("CreatFoodViewID", photonView.ViewID);
-                    // PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
                 }
 
             }
@@ -190,8 +183,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (UserObj != null)
                 {
-                    UserObj.GetComponent<FoodIngredient>().BreakCurrentAction();
-                    UserObj = null;
+                    photonView.RPC("BreakCurrentAction", RpcTarget.All);
                 }
             }
             //放到台子上
@@ -403,6 +395,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (PhotonView.Find(viewID).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Cut, StopCut))
         {
+            Debug.Log("asdadasdasdasdasdasdasdsa");
             UserObj = PhotonView.Find(viewID).gameObject;
             isCute = true;
         }
@@ -417,14 +410,23 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     {
         GameObject target = PhotonView.Find(targetID).gameObject;
         GameObject handObj = PhotonView.Find(handID).gameObject;
-        // handObj.GetComponent<MeshRenderer>().material.color = Color.red;
+
         handObj.transform.SetParent(target.transform);
         handObj.transform.localPosition = Vector3.zero;
         handObj.transform.localEulerAngles = Vector3.zero;
-        //handObj.GetComponent<Rigidbody>().isk
-        // handObj.GetComponent<Rigidbody>().isKinematic = false;
+        handObj.GetComponent<Rigidbody>().isKinematic = false;
+    }
 
 
+    /// <summary>
+    /// 打断当前动作
+    /// </summary>
+    [PunRPC]
+    public void BreakCurrentAction(){
+        if(UserObj){
+            UserObj.GetComponent<FoodIngredient>().BreakCurrentAction();
+            UserObj = null;
+        }
     }
 
     #endregion 
