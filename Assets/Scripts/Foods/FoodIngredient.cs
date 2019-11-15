@@ -317,7 +317,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     }
     // 放
     public bool PutDown(PlayerHandController player, Action<GameObject> callback){
-        callback(gameObject);
+        //callback(gameObject);
         return true;
     }
 

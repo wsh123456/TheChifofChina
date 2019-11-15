@@ -36,4 +36,6 @@ MonoBehaviour:
   - InitFoodIngredient
   - ChangeCurMesh
   - ThrowThings
+  - PickUp
+  - LayDownThings
   DisableAutoOpenWizard: 1

@@ -8,6 +8,8 @@ using UnityEngine.UI;
 /// </summary>
 public class DirtyPlateBehaviour : PlateBehaviour
 {
+
+
     /// <summary>
     /// 销毁脏盘子
     /// </summary>

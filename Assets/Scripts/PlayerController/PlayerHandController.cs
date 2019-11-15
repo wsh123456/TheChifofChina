@@ -25,7 +25,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-    private LevelInstance Levelins ;
+   
     private GameObject knife;
     /// <summary>
     /// 食物种类
@@ -42,21 +42,20 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// </summary>
     private List<GameObject> allThings;
     private bool isCute;
-    private PhotonView phView;
     private GameObject UserObj;
     private GameObject inHandObj;
     //手上容器
     public Transform handContainer;
     // public static PlayerHandController Instance;
     private CreateTingsManager thingManager;    // 生成东西
-
+    private GameObject canPickUpThings;
 
     private void Awake() {
         // Instance = this;
         thingManager = transform.parent.GetComponent<CreateTingsManager>();
         ani = transform.parent.GetComponent<Animator>();
-        Levelins = LevelInstance._instance;
-        menu = new Dictionary<string, List<string>>();
+       
+      
         handObj = new List<PickTings>();
         allThings = new List<GameObject>();
         // knife = transform.Find("Chef/Skeleton/Base/RightHand/Knife").gameObject;
@@ -64,25 +63,27 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Start()
     {
+        canPickUpThings= GameObject.Find("CanPickUpThings");
         knife = transform.GetChild(0).GetChild(1).GetChild(0).GetChild(3).GetChild(0).gameObject;
         knife.SetActive(false);
-        Menu();
+        
         handContainer = transform.parent.Find("Hand");
 
     }
 
-
+    [PunRPC]
     /// <summary>
     /// 东西端在手上
     /// </summary>
     /// <param name="other"></param>
-    private void PickUp(GameObject other)
+    private void PickUp(int index)
     {
-        inHandObj = other;
-        other.transform.parent = handContainer;
-        other.transform.localPosition = Vector3.zero;
-        other.transform.localEulerAngles = Vector3.zero;
-        other.GetComponent<Rigidbody>().isKinematic = true;
+        Debug.Log("进入RPCPickUp");
+        inHandObj =PhotonView.Find(index).gameObject;
+        inHandObj.transform.parent = handContainer;
+        inHandObj.transform.localPosition = Vector3.zero;
+        inHandObj.transform.localEulerAngles = Vector3.zero;
+        inHandObj.GetComponent<Rigidbody>().isKinematic = true;
         RemoveLight();
      
     }
@@ -114,13 +115,13 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 //TODO.自己显示箭头
             }
             //放下
-            // if (isPick && Input.GetKeyDown(KeyCode.Tab) && foodType.canDropDown)
-            // {
-            //     LayDownThings(handContainer.GetChild(0).gameObject);
-
-            // }
+             if (inHandObj && Input.GetKeyDown(KeyCode.Tab)&&inHandObj.GetComponent<IHand>().PutDown(this,null))
+            {
+               // LayDownThings();
+                photonView.RPC("LayDownThings",RpcTarget.All,canPickUpThings.GetComponent<PhotonView>().ViewID,handContainer.GetChild(0).GetComponent<PhotonView>().ViewID);
+            }
         }
-       
+
         if (ani.GetFloat("Walk") > 0)
         {
             isCute = false;
@@ -139,7 +140,10 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             //拿东西
             if (other.tag=="Thing"&& Input.GetKeyDown(KeyCode.Space)&&!isPick)
             {
-                PickUp(handObj[0].gameObject);
+                Debug.Log(handObj[0].gameObject.GetComponent<PhotonView>().ViewID+"++++++++");
+                Debug.Log(handObj[0].gameObject.GetComponent<FoodIngredient>().photonView.ViewID + "---------");
+                photonView.RPC("PickUp",RpcTarget.All, handObj[0].gameObject.GetComponent<PhotonView>().ViewID);
+                Debug.Log("进入");
                 RemoveAllLight();
             }
         }
@@ -201,41 +205,13 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
                     if (inHandObj == null)
                         return;
-                    //状态不等于Normal
-                    if (inHandObj.GetComponent<FoodIngredient>() == null)
-
-                        return;
-
-                    if (inHandObj.GetComponent<FoodIngredient>().curState != FoodIngredientState.Normal)
+                    if (other.transform.GetChild(0).GetChild(0).GetComponent<PlateBehaviour>().CanInPlate(inHandObj.GetComponent<FoodIngredient>(), inHandObj))
                     {
-                        //检测重复
-                        if (other.transform.GetChild(0).GetChild(0).childCount != 0)
-                        {
-                            //盘子中的食材
-                            for (int i = 0; i < other.transform.GetChild(0).GetChild(0).childCount; i++)
-                            {
-                                if (inHandObj.GetComponent<FoodIngredient>().GetIType() == other.transform.GetChild(0).GetChild(0).GetChild(i).gameObject.GetComponent<FoodIngredient>().GetIType())
-                                {
-                                    return;
-                                }
-                            }
-
-                        }
-                        //满足食谱条件
-                        foreach (var item in menu)
-                        {
-                            if (item.Value.Contains(inHandObj.GetComponent<FoodIngredient>().GetIType().ToString()) && inHandObj.GetComponent<FoodIngredient>().DoAction(FoodIngredientState.InPlate, null))
-                            {
-                                inHandObj.transform.parent = other.transform.GetChild(0).GetChild(0);
-                                inHandObj.transform.localPosition = Vector3.zero;
-                                inHandObj.transform.localEulerAngles = Vector3.zero;
-                                Destroy(inHandObj.transform.GetComponent<Rigidbody>());
-                                inHandObj.tag = "Untagged";
-                            }
-
-                        }
+                        Debug.Log("放入盘子");
+                        //TODO。。。。。 改变物体贴图
                     }
                 }
+
             }
         }
 
@@ -270,9 +246,10 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 handObj[0].gameObject.AddComponent<HighlighterFlashing>();
                 handObj[0].gameObject.AddComponent<Highlighter>();
             }
-            if (!isPick && other.GetComponent<Rigidbody>().velocity.z > 3 || other.GetComponent<Rigidbody>().velocity.z < -3)
+            if (inHandObj==null && other.GetComponent<Rigidbody>().velocity.z > 3 || other.GetComponent<Rigidbody>().velocity.z < -3)
             {
-                PickUp(other.gameObject);
+               
+                photonView.RPC("PickUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
     }
@@ -307,6 +284,11 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         { 
             for (int i = 0; i < handObj.Count; i++)
             {
+                if (handObj[i].gameObject==null)
+                {
+                    handObj.Remove(handObj[i]);
+                    Destroy(handObj[i].GetComponent<PickTings>());
+                }
                 if (other.gameObject==handObj[i].gameObject)
                 {
                     if (i == 0)
@@ -329,33 +311,20 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    
+    [PunRPC]
     /// <summary>
     /// 放下东西
     /// </summary>
-    private void LayDownThings(GameObject other)
+    private void LayDownThings(int emptyIndex,int handThingIndex)
     {
-        other.GetComponent<Rigidbody>().isKinematic = false;
-       
-        other.transform.parent = GameObject.Find("CanPickUpThings").transform;
+         Debug.Log( PhotonView.Find(emptyIndex));
+        PhotonView.Find(handThingIndex).GetComponent<Rigidbody>().isKinematic = false;
+
+        PhotonView.Find(handThingIndex).transform.parent = PhotonView.Find(emptyIndex).transform;
     }
 
 
-    private Dictionary<string, List<string>> menu;
-   
-   //拿到菜谱 
-    private void Menu()
-    {
-        foreach (var item in Levelins.levelFood)
-        {
-            List<string> CName = new List<string>();
-            foreach (var i in item.Value.foodIngredient)
-            {
-                CName.Add(i.name);
-            }
-            menu.Add(item.Key, CName);
-        }
-    }
+  
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -409,7 +378,6 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         inHandObj.GetComponent<Rigidbody>().isKinematic = false;
         inHandObj.GetComponent<Rigidbody>().AddForce(transform.forward*500f);
         inHandObj.transform.parent=GameObject.Find("CanPickUpThings").transform;
-
         ani.SetTrigger("Push");
     }
 

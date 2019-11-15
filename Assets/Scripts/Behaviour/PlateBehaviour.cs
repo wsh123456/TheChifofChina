@@ -8,11 +8,17 @@ using UnityEngine.UI;
 /// </summary>
 public class PlateBehaviour : MonoBehaviour
 {
+    private LevelInstance Levelins;
     //声明一个列表存储盘子里的食材
     public List<GameObject> foodsList = new List<GameObject>();
     //声明isClean，默认true
     public bool isClean = true;
-
+    private void Start()
+    {
+        Levelins = LevelInstance._instance;
+        menu = new Dictionary<string, List<string>>();
+        Menu();
+    }
     /// <summary>
     ///  添加新食材到盘子里
     /// </summary>
@@ -98,4 +104,62 @@ public class PlateBehaviour : MonoBehaviour
         //清空foodsList列表
         foodsList.Clear();
     }
+    private Dictionary<string, List<string>> menu;
+
+    //拿到菜谱 
+    private void Menu()
+    {
+        foreach (var item in Levelins.levelFood)
+        {
+            List<string> CName = new List<string>();
+            foreach (var i in item.Value.foodIngredient)
+            {
+                CName.Add(i.name);
+            }
+            menu.Add(item.Key, CName);
+        }
+    }
+
+    /// <summary>
+    /// 可以放到盘子里
+    /// </summary>
+    /// <returns></returns>
+    public bool CanInPlate(FoodIngredient food, GameObject inPlateObj)
+    {
+        if (transform.childCount < 0)
+        {    //判断重读
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if (food.GetType() == transform.GetChild(i).GetComponent<FoodIngredient>().GetType())
+                {
+                    return false;
+                }
+
+            }
+            foreach (var item in menu)
+            {
+                if (item.Value.Contains(food.GetIType().ToString()) && food.DoAction(FoodIngredientState.InPlate, null))
+                {
+                    transform.parent = inPlateObj.transform;
+                    inPlateObj.transform.localPosition = Vector3.zero;
+                    inPlateObj.transform.localEulerAngles = Vector3.zero;
+                    Destroy(inPlateObj.transform.GetComponent<Rigidbody>());
+                    inPlateObj.tag = "Untagged";
+                    return true;
+                }
+
+            }
+                    return false;
+        }
+        else
+        {
+            //判断状态
+            if (food.curState != FoodIngredientState.Normal)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
 }
