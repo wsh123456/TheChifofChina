@@ -38,4 +38,6 @@ MonoBehaviour:
   - ThrowThings
   - PickUp
   - LayDownThings
+  - DoFoodCut
+  - PutOnTable
   DisableAutoOpenWizard: 1

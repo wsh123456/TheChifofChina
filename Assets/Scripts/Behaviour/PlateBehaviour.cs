@@ -13,6 +13,7 @@ public class PlateBehaviour : MonoBehaviour
     public List<GameObject> foodsList = new List<GameObject>();
     //声明isClean，默认true
     public bool isClean = true;
+    public List<string> foodName;
     private void Start()
     {
         Levelins = LevelInstance._instance;
@@ -76,9 +77,9 @@ public class PlateBehaviour : MonoBehaviour
     public List<string> GetFoodList()
     {
         List<string> foodList = new List<string>();
-        for (int i = 0; i < foodsList.Count; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            foodList.Add(foodsList[i].name);
+            foodList.Add(transform.GetChild(i).GetComponent<FoodIngredient>().GetIType().ToString());
             Debug.Log(foodsList[i].name);
         }
         return foodList;
@@ -126,11 +127,12 @@ public class PlateBehaviour : MonoBehaviour
     /// <returns></returns>
     public bool CanInPlate(FoodIngredient food, GameObject inPlateObj)
     {
-        if (transform.childCount < 0)
+      
+        if (transform.childCount > 0)
         {    //判断重读
             for (int i = 0; i < transform.childCount; i++)
             {
-                if (food.GetType() == transform.GetChild(i).GetComponent<FoodIngredient>().GetType())
+                if (food.GetIType() == transform.GetChild(i).GetComponent<FoodIngredient>().GetIType())
                 {
                     return false;
                 }
@@ -145,6 +147,7 @@ public class PlateBehaviour : MonoBehaviour
                     inPlateObj.transform.localEulerAngles = Vector3.zero;
                     Destroy(inPlateObj.transform.GetComponent<Rigidbody>());
                     inPlateObj.tag = "Untagged";
+                    
                     return true;
                 }
 
@@ -154,12 +157,22 @@ public class PlateBehaviour : MonoBehaviour
         else
         {
             //判断状态
-            if (food.curState != FoodIngredientState.Normal)
+            if (food.curState == FoodIngredientState.Normal)
             {
-                return true;
+
+                return false;
             }
             return false;
         }
     }
-
+    /// <summary>
+    /// 持续检测盘子中的食物
+    /// </summary>
+    private void UpdateCheckPlate()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            
+        }
+    }
 }
