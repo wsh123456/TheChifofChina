@@ -83,19 +83,19 @@ public class GameManager : MonoBehaviourPunCallbacks {
             }
         }
 
-        if(propertiesThatChanged.TryGetValue("CreatFoodIngredient", out temp) 
-        && propertiesThatChanged.TryGetValue("CreatFoodViewID", out temp1)){
-            if(temp != null && temp1 != null){
-                PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().CreateFoodIngredient(PhotonView.Find((int)temp).gameObject);
-            }
-        }
+        // if(propertiesThatChanged.TryGetValue("CreatFoodIngredient", out temp) 
+        // && propertiesThatChanged.TryGetValue("CreatFoodViewID", out temp1)){
+        //     if(temp != null && temp1 != null){
+        //         PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().CreateFoodIngredient(PhotonView.Find((int)temp).gameObject);
+        //     }
+        // }
 
-        if(propertiesThatChanged.TryGetValue("ThrowThingInHand", out temp) 
-        && propertiesThatChanged.TryGetValue("ThrowThingViewID", out temp1)){
-            if(temp != null){
-                PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().ThrowThings(PhotonView.Find((int)temp).gameObject);
-            }
-        }
+        // if(propertiesThatChanged.TryGetValue("ThrowThingInHand", out temp) 
+        // && propertiesThatChanged.TryGetValue("ThrowThingViewID", out temp1)){
+        //     if(temp != null){
+        //         PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().ThrowThings(PhotonView.Find((int)temp).gameObject);
+        //     }
+        // }
     }
 
 

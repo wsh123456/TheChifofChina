@@ -109,11 +109,15 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         progressBar.transform.position = Camera.main.WorldToScreenPoint(progressPoint.position);
     }
 
-
+    
     /// <summary>
     /// 初始化食材属性并返回这个对象
     /// </summary>
-    public FoodIngredient InitFoodIngredient(FoodIngredientModel food){
+    [PunRPC]
+    // public FoodIngredient InitFoodIngredient(FoodIngredientModel food){
+    public FoodIngredient InitFoodIngredient(string name){
+        Debug.Log("进入InitFoodIngredient");
+        FoodIngredientModel food = LevelInstance._instance.levelIngredient[name];
         foodIModel = food;
         //状态机设置状态
         stateMachine.SetState(this, food.curState);
@@ -122,7 +126,9 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         SetUsingDict(food);     // 设置状态 网格和时间 字典
         // 加载当前状态的预制体，赋值
 
-        ChangeCurMesh(food.curState);
+        // photonView.RPC("ChangeCurMesh", RpcTarget.MasterClient, (int)food.curState);
+        ChangeCurMesh((int)food.curState);
+
         actionTime = 0;
 
         isCooked = false;
@@ -211,6 +217,27 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
             finishCallback();
         }
     }
+
+
+    #region RPC method
+
+    [PunRPC]
+    /// <summary>
+    /// 设置父物体
+    /// </summary>
+    public void SetParent(int viewID){
+        // ParentTrans = parent;
+        Debug.Log(viewID + " qweqweqweqw");
+        transform.tag = "Thing";
+        transform.GetComponent<Rigidbody>().isKinematic = true;
+        transform.SetParent(PhotonView.Find(viewID).GetComponent<PlayerHandController>().handContainer);
+        transform.transform.localPosition = Vector3.zero;
+    }
+        
+    #endregion
+
+
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -226,19 +253,24 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         }
     }
 
-    private void ChangeCurMesh(FoodIngredientState state){
+    // [PunRPC]
+    private void ChangeCurMesh(int target){
+        Debug.Log("生成新的网格模型");
+        if(target <= 2){
+            isCooked = true;
+        }
+        FoodIngredientState state = (FoodIngredientState)target;
         previousState = curState;
         curState = state;
         ObjectPool.instance.RecycleObj(curMesh);
-        curMesh = ObjectPool.instance.CreateObject(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state],Vector3.zero);
+        // curMesh = ObjectPool.instance.CreateObject(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state],Vector3.zero);
+        curMesh = ObjectPool.instance.CreateObjectLocal(foodIModel.foodIType.ToString() + state.ToString(), usingMesh[state], Vector3.zero);
         curMesh.transform.SetParent(modelPoint);
         curMesh.transform.localPosition = Vector3.zero;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="food"></param>
+    
+    // 设置使用的操作和时间
     private void SetUsingDict(FoodIngredientModel food){
         if(food.normalPrefab != null){
             usingMesh.Add(food.curState, food.normalPrefab);
@@ -270,7 +302,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         
     // 捡
     public bool Pick(PlayerHandController player, Action<GameObject> callback){
-        callback(gameObject);
+        // callback(gameObject);
         return true;
     }
 
@@ -280,7 +312,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
             return false;
         }
 
-        callback(gameObject);
+        // callback(gameObject);
         return true;
     }
     // 放
@@ -301,7 +333,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
 /// </summary>
 public enum FoodIngredientState
 {
-    Normal,     // 默认状态(原材料)
+    Normal=0,     // 默认状态(原材料)
     NormalCanPlate, // 默认可装盘
     Cut,        // 切块状态
     Fried,      // 炸状态

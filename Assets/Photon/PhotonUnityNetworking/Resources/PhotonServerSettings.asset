@@ -33,4 +33,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - SetParent
   - CreateFoodIngredient
+  - InitFoodIngredient
+  - ChangeCurMesh
+  - ThrowThings
   DisableAutoOpenWizard: 1

@@ -100,12 +100,13 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             //扔
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                if(inHandObj.GetComponent<IHand>().Throw(this, ThrowThings)){
+                if(inHandObj.GetComponent<IHand>().Throw(this, null)){
+                    photonView.RPC("ThrowThings", RpcTarget.All);
                     // 同步扔
-                    Hashtable hashtable = new Hashtable();
-                    hashtable.Add("ThrowThingInHand", inHandObj.GetComponent<PhotonView>().ViewID);
-                    hashtable.Add("ThrowThingViewID", photonView.ViewID);
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+                    // Hashtable hashtable = new Hashtable();
+                    // hashtable.Add("ThrowThingInHand", inHandObj.GetComponent<PhotonView>().ViewID);
+                    // hashtable.Add("ThrowThingViewID", photonView.ViewID);
+                    // PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
                 }
             }
             if (Input.GetKey(KeyCode.LeftShift))
@@ -158,12 +159,14 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 // 如果手上没东西
                 if(inHandObj == null){
                     GameObject go = ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient",handContainer.position);
-                    go.GetComponent<FoodIngredient>().InitFoodIngredient(LevelInstance._instance.levelIngredient[name]);
-                    
-                    Hashtable hashtable = new Hashtable();
-                    hashtable.Add("CreatFoodIngredient", go.GetComponent<FoodIngredient>().photonView.ViewID);
-                    hashtable.Add("CreatFoodViewID", photonView.ViewID);
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+                    // go.GetComponent<FoodIngredient>().InitFoodIngredient(LevelInstance._instance.levelIngredient[name]);
+                    go.GetComponent<FoodIngredient>().photonView.RPC("InitFoodIngredient", RpcTarget.All, name);
+                    go.GetComponent<FoodIngredient>().photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID);
+                    // Debug.Log("调用=======RPC");
+                    // Hashtable hashtable = new Hashtable();
+                    // hashtable.Add("CreatFoodIngredient", go.GetComponent<FoodIngredient>().photonView.ViewID);
+                    // hashtable.Add("CreatFoodViewID", photonView.ViewID);
+                    // PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
                 }
                 
             }
@@ -400,11 +403,12 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// <summary>
     /// 扔东西
     /// </summary>
-    public void ThrowThings(GameObject thing)
+    [PunRPC]
+    public void ThrowThings()
     {
-        thing.GetComponent<Rigidbody>().isKinematic = false;
-        thing.GetComponent<Rigidbody>().AddForce(transform.forward*500f);
-        thing.transform.parent=GameObject.Find("CanPickUpThings").transform;
+        inHandObj.GetComponent<Rigidbody>().isKinematic = false;
+        inHandObj.GetComponent<Rigidbody>().AddForce(transform.forward*500f);
+        inHandObj.transform.parent=GameObject.Find("CanPickUpThings").transform;
 
         ani.SetTrigger("Push");
     }

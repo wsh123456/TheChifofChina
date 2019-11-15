@@ -47,7 +47,7 @@ public class FoodIngredientMachine{
     /// <summary>
     /// 完成转换
     /// </summary>
-    public void FinishChange(Action<FoodIngredientState> action){
+    public void FinishChange(Action<int> action){
         curState.ExitState(targetState);
         targetState.EnterState(action);
     }
@@ -85,9 +85,9 @@ public class FoodIState
     }
 
     // 进入这个状态
-    public virtual void EnterState(Action<FoodIngredientState> action){
+    public virtual void EnterState(Action<int> action){
         //回调
-        action(this.state);
+        action((int)this.state);
     }
 
     // 转换过程
