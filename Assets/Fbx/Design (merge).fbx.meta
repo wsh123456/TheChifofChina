@@ -11373,7 +11373,12 @@ ModelImporter:
     13700446: Wheelchair 1
     13700448: Wheelchair 2
     13700450: Wheelchair 3
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brown
+    second: {fileID: 2100060, guid: 88b91a099c38952469453d382e37a904, type: 3}
   materials:
     importMaterials: 1
     materialName: 0
