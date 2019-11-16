@@ -27,5 +27,17 @@ MonoBehaviour:
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
-  RpcList: []
-  DisableAutoOpenWizard: 0
+  RpcList:
+  - BreakCurrentAction
+  - ClearFoods
+  - DestroySpaceship
+  - DoFoodCut
+  - Fire
+  - InitFoodIngredient
+  - LayDownThings
+  - PickUp
+  - PutOnTable
+  - RespawnSpaceship
+  - SetParent
+  - ThrowThings
+  DisableAutoOpenWizard: 1
