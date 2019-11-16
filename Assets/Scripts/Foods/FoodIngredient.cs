@@ -44,9 +44,9 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     private float curProgress = 0;  // 当前进度
     private GameObject progressBar; // 进度条
     private bool isActive = false;  // 是否正在进行操作
-    private bool isFirstTime = true;    // 是否第一次进行操作
+    // private bool isFirstTime = true;    // 是否第一次进行操作
     /// <summary>
-    /// 石材模型
+    /// 食材模型
     /// </summary>
     private FoodIngredientModel foodIModel;
     /// <summary>
@@ -55,6 +55,18 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     private FoodIngredientMachine stateMachine;
     private Action finishCallback;      // 完成切换状态时的回调函数
 
+    // 完成状态转换标记
+    private bool isFinish = false;
+    private bool IsFinish{
+        get{
+            return isFinish;
+        }set{
+            if(value){
+                photonView.RPC("FinishAction", RpcTarget.All);
+            }
+            isFinish = value;
+        }
+    }
 
     private GameObject canvas;
     private Transform iconPoint;
@@ -82,13 +94,9 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     }
 
     private void Update() {
-        if(photonView.IsMine){
-            Debug.Log("aaaa");
-        }
-
-        if(Input.GetKeyDown(KeyCode.Q)){
-            DoAction(FoodIngredientState.Cut, null);
-        }
+        // if(Input.GetKeyDown(KeyCode.Q)){
+        //     DoAction(FoodIngredientState.Cut, null);
+        // }
 
         //if(Input.GetKeyDown(KeyCode.W)){
         //    DoAction(FoodIngredientState.Fried, null);
@@ -134,7 +142,8 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         isCooked = false;
         curProgress = 0;
         isActive = false;
-        isFirstTime = true;
+        // isFirstTime = true;
+        isFinish = false;
 
         HideProgras();
         return this;
@@ -154,6 +163,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     /// 继续当前的操作
     /// </summary>
     public void DoCurrentAction(FoodIngredientState state){
+        isFinish = false;
         actionTime = usingTime[state];
         if(!isActive){
             isActive = true;
@@ -172,9 +182,9 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     /// 显示进度条
     /// </summary>
     public void ShowProgras(){
-        //Debug.Log("当前进度: " + curProgress / actionTime);
+        Debug.Log("当前进度: " + curProgress / actionTime);
         // 显示进度条
-        isShowPrograss = false;
+        isShowPrograss = true;
         progressBar.SetActive(isShowPrograss);
         progressBar.transform.Find("Slider").GetComponent<Slider>().value = curProgress / actionTime;
     }
@@ -183,10 +193,8 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     /// 隐藏进度条
     /// </summary>
     public void HideProgras(){
-
         isShowPrograss = false;
         progressBar.gameObject.SetActive(isShowPrograss);
-
     }
     public FoodIngredientType GetIType()
     {
@@ -195,28 +203,29 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
 
     // 转换状态
     private IEnumerator ChangingStatus(){
-
-        Debug.Log(curProgress + ", " + actionTime);
         while(true){
             if(actionTime > 0){
                 ShowProgras();
             }
             yield return new WaitForSeconds(Time.fixedDeltaTime);
             curProgress += Time.fixedDeltaTime;
-            if(curProgress >= actionTime){
+            if(curProgress > actionTime){
                 break;
             }
         }
-        Debug.Log("切换完成，用时 " + curProgress);
-        stateMachine.FinishChange(ChangeCurMesh);
-        HideProgras();
-        curProgress = 0;
-        isActive = false;
-        if(finishCallback != null){
-            Debug.Log("我有用");
+        IsFinish = true;
+    }
 
+
+    [PunRPC]
+    private void FinishAction(){
+        HideProgras();
+        stateMachine.FinishChange(ChangeCurMesh);
+        if(finishCallback != null){
             finishCallback();
         }
+        curProgress = 0;
+        isActive = false;
     }
 
 
@@ -244,22 +253,22 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         if (stream.IsWriting)
         {
             //展示
-            stream.SendNext(isShowPrograss);
+            // stream.SendNext(isShowPrograss);
+            stream.SendNext(isFinish);
             stream.SendNext(curProgress);
-            stream.SendNext(isActive);
         }
         else
         {
-            isShowPrograss = (bool)stream.ReceiveNext();
+            // isShowPrograss = (bool)stream.ReceiveNext();
+            isFinish = (bool)stream.ReceiveNext();
             curProgress = (float)stream.ReceiveNext();
-            isActive = (bool)stream.ReceiveNext();
         }
     }
 
     // [PunRPC]
     private void ChangeCurMesh(int target){
         Debug.Log("生成新的网格模型");
-        if(target <= 2){
+        if(target > 2){
             isCooked = true;
         }
         FoodIngredientState state = (FoodIngredientState)target;
