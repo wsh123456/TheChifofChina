@@ -36,10 +36,7 @@ public class AddMenu : MonoBehaviour {
     public void AddMenuPanel( out string menuStr )
     {
         AddMenuPanelFuc(out menuStr);
-        foreach (string v in foodIngredientStr.Values)
-        {
-            Debug.Log(v);
-        }
+ 
 
         }
     /// <summary>
@@ -137,7 +134,7 @@ public class AddMenu : MonoBehaviour {
         {
            int sibling = menuPrb.transform.GetSiblingIndex();
           string meterialStr = levelFood[menuStr].foodIngredient[i].name;//菜材料的名字
-            Debug.Log(meterialStr);
+            //Debug.Log(meterialStr);
             //Debug.Log(sibling);
             AddMenuMterialUI(sibling,meterialStr);
         }
