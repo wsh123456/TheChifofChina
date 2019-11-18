@@ -15,10 +15,11 @@ using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class GameManager : MonoBehaviourPunCallbacks {
+    // 1.检测所有玩家都加载完成
+    // 2.生成玩家使用的角色并同步倒计时
+    // 3.同步开始游戏
     public static GameManager _ins;
     public GameObject[] initPoints;
-
-    [HideInInspector]
     public PlayerController curPlayer;
 
     private void Awake() {
@@ -33,7 +34,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
         hashtable.Add("LoadLevelDone", true);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
     }
-
 
     /// <summary>
     /// 检测是否所有玩家都加载并进入场景
@@ -57,10 +57,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
         curPlayer.photonView.RPC("SetParent", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber-1);
         // 换头
         curPlayer.ChangeChiefHead(Random.Range(0,6));
-
-        Hashtable hashtable = new Hashtable();
-        hashtable.Add("FinishInitPlayer", true);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
     }
 
 
@@ -69,7 +65,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
         if(!PhotonNetwork.IsMasterClient){
             return;
         }
-
         // 房主判断所有人加载完毕
         if(CheckAllLoadAndStart()){
             // 通知所有人生成英雄
@@ -77,53 +72,30 @@ public class GameManager : MonoBehaviourPunCallbacks {
             hashtable.Add("CanInitPlayer", true);
             PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
         }
-
-        // // 判断所有人生成玩家成功后
-        // if(CheckAllPlayersInit()){
-        //     // 通知所有人开始倒计时
-        //     Hashtable hashtable = new Hashtable();
-        //     hashtable.Add("CanInitPlayer", true);
-        //     PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
-        // }
-
-        // // 判断所有人倒计时结束
-        // if(CheckAllOverCountNum()){
-        //     // 通知所有人可以开始操作了
-        //     Hashtable hashtable = new Hashtable();
-        //     hashtable.Add("CanInitPlayer", true);
-        //     PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
-
-        // }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged){
         object temp;
-
-        // 初始化，生成玩家
+        object temp1;
         if(propertiesThatChanged.TryGetValue("CanInitPlayer", out temp)){
             if((bool)temp){
                 InitPlayer();
             }
         }
 
-        // // 通知所有人开始倒计时
-        // if(propertiesThatChanged.TryGetValue("", out temp)){
-        //     if(temp != null){
+        // if(propertiesThatChanged.TryGetValue("CreatFoodIngredient", out temp) 
+        // && propertiesThatChanged.TryGetValue("CreatFoodViewID", out temp1)){
+        //     if(temp != null && temp1 != null){
+        //         PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().CreateFoodIngredient(PhotonView.Find((int)temp).gameObject);
         //     }
         // }
 
-        // // 通知所有人可以开始操作
-        // if(propertiesThatChanged.TryGetValue("", out temp)){
+        // if(propertiesThatChanged.TryGetValue("ThrowThingInHand", out temp) 
+        // && propertiesThatChanged.TryGetValue("ThrowThingViewID", out temp1)){
         //     if(temp != null){
-        //         // 开始场景动作(船)
-        //         // 开启菜单列表
-        //         // 开启倒计时同步
-        //         // 开启玩家控制
+        //         PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().ThrowThings(PhotonView.Find((int)temp).gameObject);
         //     }
         // }
-
-
-
     }
 
 

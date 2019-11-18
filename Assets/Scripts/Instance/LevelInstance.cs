@@ -33,7 +33,7 @@ public class LevelInstance{
         levelTime = message.levelTime;
         menuTimer = message.menuTimer;
         destoryFoodMenuTimer = message.destoryFoodMenuTimer;
-        levelIngredient= LoadFoodIngredient(new List<string> { "Cabbage", "Tomato", "Potato", "Chicken" });
+        levelIngredient= LoadFoodIngredient(new List<string> { "Cabbage", "Tomato", "Potato", "Chicken","Rice"});
         foodMenu = message.foodMenu;
 
         // 加载本关菜单

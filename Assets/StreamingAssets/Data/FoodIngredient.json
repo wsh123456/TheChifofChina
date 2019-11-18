@@ -1,46 +1,56 @@
 {
-      "Cabbage": {
-        "foodIType": 0,
-        "curState": 0,
-        "normalPrefab": "FoodTexAndPrb/Lettuce/Prefabs/m_ingredients_lettuce_01",
-        "normalUI": "FoodTexAndPrb/Lettuce/Lettuce_Icon",
-        "cutPrefab": "FoodTexAndPrb/Lettuce/Prefabs/Salad_Lettuce",
-        "cutTime": 2,
-        "inPlate": "FoodTexAndPrb/Lettuce/Prefabs/Salad_Lettuce",
-        "breakPrefab": "FoodTexAndPrb/Raw"
-    },
-      "Tomato": {
-        "foodIType": 1,
-        "curState": 0,
-        "normalPrefab": "FoodTexAndPrb/tomato/Prefabs/Tomato",
-        "normalUI": "FoodTexAndPrb/tomato/Tomato_Icon",
-        "cutPrefab": "FoodTexAndPrb/tomato/Prefabs/Salad_Tomato",
-        "cutTime": 2,
-        "inPlate": "FoodTexAndPrb/tomato/Prefabs/Salad_Tomato",
-        "breakPrefab": "FoodTexAndPrb/Raw"
-    },
-      "Potato": {
-        "foodIType": 2,
-        "curState": 0,
-        "normalPrefab": "FoodTexAndPrb/Potato/Prefabs/Potato",
-        "normalUI": "FoodTexAndPrb/Chip/t_icon_chips_d",
-        "cutPrefab": "FoodTexAndPrb/Chip/Prefabs/Chips_Basket_Uncooked",
-        "cutTime": 2,
-        "inPlate": "FoodTexAndPrb/Chip/Prefabs/Chips_Basket_Uncooked",
-        "breakPrefab": "FoodTexAndPrb/Raw",
-        "friedPrefab":"FoodTexAndPrb/Chip/Prefabs/Chips_Basket_Uncooked",
-        "friedTime": 15
-    },
-      "Chicken": {
-        "foodIType": 3,
-        "curState": 0,
-        "normalPrefab": "FoodTexAndPrb/Chicken/Prefabs/Chicken",
-        "normalUI": "FoodTexAndPrb/Chicken/Chicken_Icon",
-        "cutPrefab": "FoodTexAndPrb/Chicken/Prefabs/Chicken_InPan",
-        "cutTime": 2,
-        "inPlate": "FoodTexAndPrb/Chicken/Prefabs/Chicken_InPan",
-        "breakPrefab": "FoodTexAndPrb/Raw",
-        "friedPrefab":"FoodTexAndPrb/Chicken/Prefabs/Chicken_InBurrito",
-        "friedTime": 15
-    }
+  "Cabbage": {
+    "foodIType": 0,
+    "curState": 0,
+    "normalPrefab": "FoodTexAndPrb/Lettuce/Prefabs/m_ingredients_lettuce_01",
+    "normalUI": "FoodTexAndPrb/Lettuce/Lettuce_Icon",
+    "cutPrefab": "FoodTexAndPrb/Lettuce/Prefabs/Salad_Lettuce",
+    "cutTime": 2,
+    "inPlate": "FoodTexAndPrb/Lettuce/Prefabs/Salad_Lettuce",
+    "breakPrefab": "FoodTexAndPrb/Raw"
+  },
+  "Tomato": {
+    "foodIType": 1,
+    "curState": 0,
+    "normalPrefab": "FoodTexAndPrb/tomato/Prefabs/Tomato",
+    "normalUI": "FoodTexAndPrb/tomato/Tomato_Icon",
+    "cutPrefab": "FoodTexAndPrb/tomato/Prefabs/Salad_Tomato",
+    "cutTime": 2,
+    "inPlate": "FoodTexAndPrb/tomato/Prefabs/Salad_Tomato",
+    "breakPrefab": "FoodTexAndPrb/Raw"
+  },
+  "Potato": {
+    "foodIType": 2,
+    "curState": 0,
+    "normalPrefab": "FoodTexAndPrb/Potato/Prefabs/Potato",
+    "normalUI": "FoodTexAndPrb/Chip/t_icon_chips_d",
+    "cutPrefab": "FoodTexAndPrb/Chip/Prefabs/Chips_Basket_Uncooked",
+    "cutTime": 2,
+    "inPlate": "FoodTexAndPrb/Chip/Prefabs/Chips_Basket_Uncooked",
+    "breakPrefab": "FoodTexAndPrb/Raw",
+    "friedPrefab": "FoodTexAndPrb/Chip/Prefabs/Chips_Basket_Uncooked",
+    "friedTime": 15
+  },
+  "Chicken": {
+    "foodIType": 3,
+    "curState": 0,
+    "normalPrefab": "FoodTexAndPrb/Chicken/Prefabs/Chicken",
+    "normalUI": "FoodTexAndPrb/Chicken/Chicken_Icon",
+    "cutPrefab": "FoodTexAndPrb/Chicken/Prefabs/Chicken_InPan",
+    "cutTime": 2,
+    "inPlate": "FoodTexAndPrb/Chicken/Prefabs/Chicken_InPan",
+    "breakPrefab": "FoodTexAndPrb/Raw",
+    "friedPrefab": "FoodTexAndPrb/Chicken/Prefabs/Chicken_InBurrito",
+    "friedTime": 15
+  },
+  "Rice": {
+    "foodIType": 4,
+    "curState": 0,
+    "normalPrefab": "FoodTexAndPrb/Chicken/Prefabs/Chicken",
+    "normalUI": "FoodTexAndPrb/Chicken/Chicken_Icon",
+    "inPlate": "FoodTexAndPrb/Chicken/Prefabs/Chicken_InPan",
+    "breakPrefab": "FoodTexAndPrb/Raw",
+    "friedPrefab": "FoodTexAndPrb/Chicken/Prefabs/Chicken_InBurrito",
+    "friedTime": 15
+  }
 }

@@ -10,8 +10,9 @@ using System;
 
 public class Jsontest : MonoBehaviour {
     private void Awake() {
-        List<FoodIngredientModel> test = JsonFileControl.LoadFoodIngredient(new List<string>{"Cabbage","Tomato","Potato","Chicken"});
+        List<FoodIngredientModel> test = JsonFileControl.LoadFoodIngredient(new List<string>{"Cabbage","Tomato","Potato","Chicken","Rice"});
         GameObject a = ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient",Vector3.zero);
-        // a.GetComponent<FoodIngredient>().InitFoodIngredient(test[3]);
+        Debug.Log(test[4]);
+         a.GetComponent<FoodIngredient>().InitFoodIngredient("Rice");
     }
 }

@@ -41,4 +41,6 @@ MonoBehaviour:
   - SetParent
   - ThrowThings
   - FinishAction
+  - DoActionFried
+  - DoActionPoach
   DisableAutoOpenWizard: 1

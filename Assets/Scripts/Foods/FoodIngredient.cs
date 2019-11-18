@@ -94,9 +94,13 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     }
 
     private void Update() {
-        // if(Input.GetKeyDown(KeyCode.Q)){
-        //     DoAction(FoodIngredientState.Cut, null);
-        // }
+        if(photonView.IsMine){
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q)){
+            DoAction(FoodIngredientState.Cut, null);
+        }
+
 
         //if(Input.GetKeyDown(KeyCode.W)){
         //    DoAction(FoodIngredientState.Fried, null);
@@ -124,7 +128,6 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     [PunRPC]
     // public FoodIngredient InitFoodIngredient(FoodIngredientModel food){
     public FoodIngredient InitFoodIngredient(string name){
-        Debug.Log("进入InitFoodIngredient");
         FoodIngredientModel food = LevelInstance._instance.levelIngredient[name];
         foodIModel = food;
         //状态机设置状态
@@ -155,6 +158,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     [PunRPC]
     public void BreakCurrentAction(){
         isActive = false;
+        Debug.Log("打断");
         StopCoroutine("ChangingStatus");
     }
 
@@ -182,7 +186,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     /// 显示进度条
     /// </summary>
     public void ShowProgras(){
-        Debug.Log("当前进度: " + curProgress / actionTime);
+      //  Debug.Log("当前进度: " + curProgress / actionTime);
         // 显示进度条
         isShowPrograss = true;
         progressBar.SetActive(isShowPrograss);
@@ -237,7 +241,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     /// </summary>
     public void SetParent(int viewID){
         // ParentTrans = parent;
-        Debug.Log(viewID + " qweqweqweqw");
+      
         transform.tag = "Thing";
         transform.GetComponent<Rigidbody>().isKinematic = true;
         transform.SetParent(PhotonView.Find(viewID).GetComponent<PlayerHandController>().handContainer);
@@ -359,5 +363,5 @@ public enum FoodIngredientState
 /// </summary>
 public enum FoodIngredientType
 {
-    Cabbage,Potato,Tomato,Chicken
+    Cabbage,Potato,Tomato,Chicken,Rice
 }

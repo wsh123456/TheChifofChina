@@ -32,7 +32,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// </summary>
     // private FoodType foodType;
     private Animator ani;
- 
+
     private List<PickTings> handObj;
     /// <summary>
     /// 触发器碰到除物品外的所有东西
@@ -85,7 +85,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         RemoveLight();
 
     }
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         inHandObj = GetOnHand();
 
         knife.SetActive(isCute);
@@ -134,18 +135,18 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnTriggerStay(Collider other)
     {
-        if(!photonView.IsMine){
+        if (!photonView.IsMine)
+        {
             return;
         }
         if (ani.GetCurrentAnimatorStateInfo(0).IsName("Idle") || ani.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
         {
             //拿东西
-            if (other.tag == "Thing" && Input.GetKeyDown(KeyCode.Space) &&inHandObj==null)
+            if (other.tag == "Thing" && Input.GetKeyDown(KeyCode.Space) && inHandObj == null)
             {
-                Debug.Log(handObj[0].gameObject.GetComponent<PhotonView>().ViewID + "++++++++");
-                Debug.Log(handObj[0].gameObject.GetComponent<FoodIngredient>().photonView.ViewID + "---------");
+
                 photonView.RPC("PickUp", RpcTarget.All, handObj[0].gameObject.GetComponent<PhotonView>().ViewID);
-                Debug.Log("进入");
+
                 RemoveAllLight();
             }
         }
@@ -153,7 +154,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         {
             string name = null;
             //取食材
-            if (inHandObj==null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2 && other.name == "Chicken")
+            if (inHandObj == null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2 && other.name == "Chicken")
             {
                 if (other.name.Contains("(Clone)"))
                 {
@@ -188,16 +189,24 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                     photonView.RPC("BreakCurrentAction", RpcTarget.All);
                 }
             }
+            Debug.Log(other.gameObject.GetComponentsInChildren<Transform>().Length   +"放下");
+            Debug.Log(other.name + "放下");
             //放到台子上
             if (inHandObj != null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2)
             {
-                try{
+                try
+                {
+                    Debug.Log(other.name + "长度" + other.gameObject.GetComponentsInChildren<Transform>().Length);
                     int targetID = other.gameObject.transform.GetChild(0).GetComponent<PhotonView>().ViewID;
+                    //放到台子上
+                    Debug.Log("放到台子上");
                     photonView.RPC("PutOnTable", RpcTarget.All, targetID, handContainer.GetChild(0).GetComponent<PhotonView>().ViewID);
-                }catch{
+                }
+                catch
+                {
                     return;
                 }
-               
+
 
             }
 
@@ -233,7 +242,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        if(!photonView.IsMine){
+        if (!photonView.IsMine)
+        {
             return;
         }
         if (other.tag == "Plant")
@@ -254,7 +264,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             }
             if (inHandObj == null && other.GetComponent<Rigidbody>().velocity.z > 3 || other.GetComponent<Rigidbody>().velocity.z < -3)
             {
-               photonView.RPC("PickUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
+                photonView.RPC("PickUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
     }
@@ -285,7 +295,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
-        if(!photonView.IsMine){
+        if (!photonView.IsMine)
+        {
             return;
         }
 
@@ -321,15 +332,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-
-
-
-
-
-
-
-
-    /// <summary>
+   /// <summary>
     /// 放下东西
     /// </summary>
     private void LayDownThings(int emptyIndex, int handThingIndex)
@@ -438,8 +441,10 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// 打断当前动作
     /// </summary>
     [PunRPC]
-    public void BreakCurrentAction(){
-        if(UserObj){
+    public void BreakCurrentAction()
+    {
+        if (UserObj)
+        {
             UserObj.GetComponent<FoodIngredient>().BreakCurrentAction();
             UserObj = null;
             isCute = false;
