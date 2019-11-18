@@ -18,8 +18,8 @@ public class BoatMoveRoute : MonoBehaviour {
     Vector3 starPos_BoateBehind;
     private void Awake()
     {
-        BoatFront = GameObject.Find("Design (merge)/Boat/Animated Objects/Raft Two").GetComponent<Transform>();
-        BoatBehind = GameObject.Find("Design (merge)/Boat/Animated Objects/Raft One").GetComponent<Transform>();
+        BoatFront = GameObject.Find("WaterAndBoat/Boat/Animated Objects/Raft Two").GetComponent<Transform>();
+        BoatBehind = GameObject.Find("WaterAndBoat/Boat/Animated Objects/Raft One").GetComponent<Transform>();
         //前船和后船的初始位置
         starPos_BoateFront = BoatFront.localPosition;
         starPos_BoateBehind = BoatBehind.localPosition;

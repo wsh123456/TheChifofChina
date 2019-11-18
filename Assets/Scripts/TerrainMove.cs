@@ -16,8 +16,8 @@ public class TerrainMove : MonoBehaviour
 
     private void Awake()
     {
-        sceneLeft = GameObject.Find("Design (merge)/Art_left").GetComponent<Transform>();
-        sceneRight = GameObject.Find("Design (merge)/Art_right").GetComponent<Transform>();
+        sceneLeft = GameObject.Find("Design/Art_left").GetComponent<Transform>();
+        sceneRight = GameObject.Find("Design/Art_right").GetComponent<Transform>();
         //场景移动的终点
         targetPos =new Vector3(89,1.7f,-1.5f);
         //场景重置的地点
@@ -35,7 +35,7 @@ public class TerrainMove : MonoBehaviour
             yield return new WaitForFixedUpdate();
 
             //场景移动
-            sceneLeft.localPosition += moveDis * speed;
+            sceneLeft.localPosition += moveDis * speed;//0.01*0.0191
             sceneRight.localPosition += moveDis * speed;
 
             //判断目标场景距离终点的距离

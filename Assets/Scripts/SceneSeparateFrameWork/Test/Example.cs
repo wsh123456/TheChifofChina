@@ -30,7 +30,6 @@ public class TestSceneObject : ISceneObject
     {
         if (m_LoadedPrefab)
         {
-            Debug.Log("移除");
             Object.Destroy(m_LoadedPrefab);
             m_LoadedPrefab = null;
             TestResManager.UnLoad(m_ResPath);
