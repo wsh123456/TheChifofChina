@@ -5,127 +5,57 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/DemoHub-Scene.unity
-    guid: 7dfd47dc8b9484dd79d8636d8603a9e5
-  - enabled: 0
-    path: Assets/Photon/PhotonChat/Demos/DemoChat/DemoChat-Scene.unity
-    guid: ec07267f6a28fb044ac89845274e79af
-  - enabled: 0
-    path: Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/DemoLoadBalancing-Scene.unity
-    guid: a73b0cac1a73cc346aaeb5f8dd0b53f1
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-GameScene.unity
-    guid: 98efc37d6307844488eb3e4247dde7e9
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-LobbyScene.unity
-    guid: c8a9d1312a49dc8488a9b32d83d659c7
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Procedural-Scene.unity
-    guid: e1fad393017993c4893877b645062417
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene.unity
-    guid: 711b38c07f2cf904f81b3422c67f1825
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Launcher.unity
-    guid: bff77b01b50254edbb6edeeaba5ae8b3
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room
-      for 1.unity
-    guid: 9b8561c6e396849a5ba48c3eb9524049
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room
-      for 2.unity
-    guid: 764428c63577f4580af4ce54ca9f4b1b
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room
-      for 3.unity
-    guid: e07afcca5bf1a41f5bd28f498656b7b8
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room
-      for 4.unity
-    guid: e7a7f9734636d415ca84ef3aaf7680f6
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/PunCockpit-Scene.unity
-    guid: 9d6d60c803e244e51ba945a84b88757d
-  - enabled: 0
-    path: Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene.unity
-    guid: 711b38c07f2cf904f81b3422c67f1825
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/01 Welcome.unity
     guid: c382f9f3d6926cb4e921a5e7ec61bc2f
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/02 Colors.unity
     guid: 59e908e3c60bc72468e5b708aa4ccf63
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/03 Transparency.unity
     guid: 1370a1d0ed9beaf43bfc46836a039fb0
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/04 Occlusion.unity
     guid: aba042a47785cb74ba0ea5598bd016c0
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/05 OccluderModes.unity
     guid: 5b66782cc0486db4f833f11916eafa4b
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/06 Scripting.unity
     guid: 57b5feb34ee0c084891bb42b215bc99e
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/07 Compound.unity
     guid: 15a9eea124bee7c4b9049ff0d2102b36
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/08 LODGroup.unity
     guid: cc87a4374b9d7354591ca05f33ddbde9
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/09 Mobile.unity
     guid: 8a0ca170fbb9648398c39973a7c6a6eb
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/10 Revealer.unity
     guid: 8e253c4cb225b894eacada6d58a72a4d
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/11 RenderTexture.unity
     guid: 9676e364f5129014b8a03d2023e683c8
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/12 ViewportRect.unity
     guid: 1593476ff62c25f42824c5f682b69ba2
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/13 CustomBlitter.unity
     guid: 7bed561b57f43df469cefebc3f687722
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/14 ClearFlags.unity
     guid: 6c0ec39b799087d4b8d9467bf0e05387
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/15 FPSCamera1.unity
     guid: d356e287c8e8b154f8e1bc8a41d301b9
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/16 FPSCamera2.unity
     guid: 7546a4c3be3cc2b4fa72351c7adea2ae
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/17 Toggle.unity
     guid: 5abba9bdb71577141bed8f325c44307e
-  - enabled: 0
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/18 VR.unity
     guid: 21572dcdd637aca40b8a94e57ed89823
-  - enabled: 1
-    path: Assets/Scenes/jumpSceneTest/mainpage.unity
-    guid: 577e769b00db0e44797eafd1fb8d1c89
-  - enabled: 1
-    path: Assets/Scenes/jumpSceneTest/LoadScene.unity
-    guid: 8d2e32868112fb840a4f931b1a26914b
-  - enabled: 1
-    path: Assets/Scenes/DongtaiLoad.unity
-    guid: 3f978dc5be66bdd43a5a562a159c32a4
-  - enabled: 0
-    path: Assets/__DELETED_GUID_Trash/0b5e555e3b979bc48a0f087f6e35b7c9
-    guid: 0b5e555e3b979bc48a0f087f6e35b7c9
-  - enabled: 1
-    path: Assets/Scenes/New.unity
-    guid: 0630b6848688ce64d8f071287a26a67f
-  - enabled: 0
-    path: Assets/Scenes/jumpSceneTest/gamepage.unity
-    guid: 1a12d2a75d7a8eb4ebe700d7521024a3
-  - enabled: 0
-    path: Assets/Demo.unity
-    guid: 00d2828b4b8e4ad4eb473f480e95becb
-  - enabled: 1
-    path: Assets/Scenes/boat.unity
-    guid: 7f49d0f2fae87234cb8487c7b3f2910b
