@@ -342,6 +342,36 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 434142205}
+    - target: {fileID: 114651595127290988, guid: eaedfea0d8d83324287909351bda950c,
+        type: 2}
+      propertyPath: viewIdField
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114651595127290988, guid: eaedfea0d8d83324287909351bda950c,
+        type: 2}
+      propertyPath: InstantiationId
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114713914676142720, guid: eaedfea0d8d83324287909351bda950c,
+        type: 2}
+      propertyPath: viewIdField
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114713914676142720, guid: eaedfea0d8d83324287909351bda950c,
+        type: 2}
+      propertyPath: InstantiationId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114641327221291612, guid: eaedfea0d8d83324287909351bda950c,
+        type: 2}
+      propertyPath: viewIdField
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114641327221291612, guid: eaedfea0d8d83324287909351bda950c,
+        type: 2}
+      propertyPath: InstantiationId
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eaedfea0d8d83324287909351bda950c, type: 2}
   m_IsPrefabParent: 0
@@ -353,7 +383,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 666352246}
-  - component: {fileID: 666352245}
   - component: {fileID: 666352247}
   - component: {fileID: 666352248}
   m_Layer: 0
@@ -363,17 +392,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &666352245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 666352244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7990f58b26ca39a4db735fbd8653c92e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &666352246
 Transform:
   m_ObjectHideFlags: 0
