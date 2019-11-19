@@ -38,7 +38,7 @@ public class BombBehaviour : Category {
     private void Update()
     {
        
-        if (transform.childCount==1)
+        if (transform.childCount>1)
         {
             //有灶台可以烹饪  可以继续  不可以暂停
             if (transform.parent.name== "CheckHearth" && isCanCook&&!isContinue)

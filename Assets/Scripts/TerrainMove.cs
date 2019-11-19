@@ -16,8 +16,8 @@ public class TerrainMove : MonoBehaviour
 
     private void Awake()
     {
-        sceneLeft = GameObject.Find("Design/Art_left").GetComponent<Transform>();
-        sceneRight = GameObject.Find("Design/Art_right").GetComponent<Transform>();
+        sceneLeft = GameObject.FindWithTag("left").GetComponent<Transform>();
+        sceneRight = GameObject.Find("right").GetComponent<Transform>();
         //场景移动的终点
         targetPos =new Vector3(89,1.7f,-1.5f);
         //场景重置的地点

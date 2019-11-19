@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditorInternal.VersionControl;
+//using UnityEditorInternal.VersionControl;
 
 /// <summary>
 /// 该触发器根据Transform的包围盒区域触发

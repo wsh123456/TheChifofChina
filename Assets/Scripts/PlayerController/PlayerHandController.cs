@@ -62,7 +62,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Start()
     {
-        canPickUpThings = GameObject.Find("CanPickUpThings");
+        canPickUpThings = transform.parent.parent.gameObject;
         knife = transform.GetChild(0).GetChild(1).GetChild(0).GetChild(3).GetChild(0).gameObject;
         knife.SetActive(false);
 
@@ -139,6 +139,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             //放下
             if (inHandObj && Input.GetKeyDown(KeyCode.Tab) && inHandObj.GetComponent<IHand>().PutDown(this, null))
             {
+                Debug.Log(canPickUpThings.GetComponent<PhotonView>().ViewID+"    " + handContainer.GetChild(0).GetComponent<PhotonView>().ViewID);
 
                 photonView.RPC("LayDownThings", RpcTarget.All, canPickUpThings.GetComponent<PhotonView>().ViewID, handContainer.GetChild(0).GetComponent<PhotonView>().ViewID);
             }
@@ -185,6 +186,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             string name = null;
 
             //取食材
+            Debug.Log(other.name+"名字");
             if (inHandObj == null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2)
             {
                 foreach (FoodIngredientType suit in Enum.GetValues(typeof(FoodIngredientType)))

@@ -107,7 +107,7 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
             return;
         }
         
-        photonView.RPC("SetParent",RpcTarget.All,inPot.GetComponent<PhotonView>().ViewID, photonView.ViewID);
+        photonView.RPC("SetParent",RpcTarget.All,inPot.GetComponent<PhotonView>().ViewID,transform.GetComponent<PhotonView>().ViewID);
     }
     //检测灶台
     protected virtual bool CheckHearth(GameObject game)
@@ -123,7 +123,7 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
         {
             if (transform.parent.name == "CheckHearth")
             {
-                Debug.Log("检测到了灶台");
+              //  Debug.Log("检测到了灶台");
                 return true;
             }
             if (transform.parent.name == "Hand")

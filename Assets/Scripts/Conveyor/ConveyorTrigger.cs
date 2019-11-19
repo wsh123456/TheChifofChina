@@ -31,11 +31,10 @@ public class ConveyorTrigger : MonoBehaviour {
     {
         if (other.tag=="Thing")
         {
-            if (other.transform.root.name=="CanPickUpThings")
-            {
+            
                 other.GetComponent<Rigidbody>().mass = 0f;
                 other.GetComponent<Rigidbody>().velocity = dir * speed;
-            }
+            
         }
         if (other.tag=="Player")
         {

@@ -9,6 +9,10 @@ TagManager:
   - Thing
   - Plant
   - ThingChange
+  - One
+  - Two
+  - right
+  - left
   layers:
   - Default
   - TransparentFX
