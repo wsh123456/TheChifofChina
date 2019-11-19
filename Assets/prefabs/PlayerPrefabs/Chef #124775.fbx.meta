@@ -487,13 +487,113 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: ee52d36e89b854f4ea273f9c1a67eaea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_body_red
+    second: {fileID: 2100000, guid: 5a856d1d86f21164aa7c29c55d3c8fa2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_cleaver
+    second: {fileID: 2100000, guid: cd7755775191c73498c0372bd08c5fbe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_clothes
+    second: {fileID: 2100000, guid: 4cc4885390e6cec47836b9e6dc83f805, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_hat_fancy
+    second: {fileID: 2100000, guid: be066ee5ffee15744a44ac283f6ee0a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_alien_green
+    second: {fileID: 2100000, guid: 8e0afb1f2246e5949b4f765b1440db9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_alien_pink
+    second: {fileID: 2100000, guid: 28ff57158ac8cef4ca721e0de82f16b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_beared
+    second: {fileID: 2100000, guid: bad1982b0e2d45c429567ea0a3848b71, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_buck
+    second: {fileID: 2100000, guid: 592cc564d19876148ab8a754ceff1c6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_crocodile
+    second: {fileID: 2100000, guid: c150869281b43304d80254218e61cdfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_dora
+    second: {fileID: 2100000, guid: 7dfeb7e8e1fe59449ad83f0666a5d842, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_gertie
+    second: {fileID: 2100000, guid: 5300d4351d3ed084885f45a81bfe0192, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_granny_grey
+    second: {fileID: 2100000, guid: 020e2e0a35ef5694eab6d807bfafae05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_mike
+    second: {fileID: 2100000, guid: 1f07518fb49ef894db06fdf16c363a1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: mat_chef_head_old_cat_black
-    second: {instanceID: 0}
+    second: {fileID: 2100000, guid: b84f6ee43feaf7a4585519ac869f7c82, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_chef_head_old_cat_ginger
-    second: {instanceID: 0}
+    second: {fileID: 2100000, guid: 7a95393ee7669bc47afd9205a993540a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_panda
+    second: {fileID: 2100000, guid: 06bd1f5fde7416c4d8cc218073978544, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_robot
+    second: {fileID: 2100000, guid: c349f5e088ebce84c8f12ac47fb064bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_specs
+    second: {fileID: 2100000, guid: 4617ff25525574e4fbaa94bf6f451dc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_head_wizard_boy
+    second: {fileID: 2100000, guid: 7b71b1737ebebe24fa8eee4bcd3168a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_knife
+    second: {fileID: 2100000, guid: cd645fc9f09d45947ba19b132cbb3e11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mat_chef_wheelchair
+    second: {fileID: 2100000, guid: 082adf1e80c3f884db0e4d7f530a07c3, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

@@ -21,11 +21,14 @@ public class GameManager : MonoBehaviourPunCallbacks {
     public static GameManager _ins;
     public GameObject[] initPoints;
     public PlayerController curPlayer;
+    
+    private GameCanvasController canvas;
 
     private void Awake() {
         _ins = this;
         // 找到玩家生成的点
         initPoints = GameObject.FindGameObjectsWithTag("PlayerPoint");
+        canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameCanvasController>();
     }
 
     private void Start() {
@@ -35,13 +38,12 @@ public class GameManager : MonoBehaviourPunCallbacks {
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
     }
 
-    /// <summary>
-    /// 检测是否所有玩家都加载并进入场景
-    /// </summary>
-    private bool CheckAllLoadAndStart(){
-        object isLoaded;
+
+    // 检测是否所有玩家都加载并进入场景
+    private bool CheckAllFinish(string key){
+        object value;
         for(int i = 0; i < PhotonNetwork.PlayerList.Length; i++){
-            if(!PhotonNetwork.PlayerList[i].CustomProperties.TryGetValue("LoadLevelDone", out isLoaded)){
+            if(!PhotonNetwork.PlayerList[i].CustomProperties.TryGetValue(key, out value)){
                 return false;
             }
         }
@@ -52,11 +54,36 @@ public class GameManager : MonoBehaviourPunCallbacks {
     private void InitPlayer(){
         Transform point = initPoints[PhotonNetwork.LocalPlayer.ActorNumber-1].transform;
         GameObject player = PhotonNetwork.Instantiate("ChefPlayer", point.position, Quaternion.identity); 
-        // player.GetComponent<PlayerController>().photonView.RPC("SetParent", RpcTarget.All, point);
         curPlayer = player.GetComponent<PlayerController>();
         curPlayer.photonView.RPC("SetParent", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber-1);
         // 换头
         curPlayer.ChangeChiefHead(Random.Range(0,6));
+
+        Hashtable hashtable = new Hashtable();
+        hashtable.Add("FinishInitPlayer", true);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
+    }
+
+    // 开始同步倒计时
+    private void StartCountDown(){
+        // 房主进行倒计时，同步结果给其他人
+        canvas.StartCountDown();
+    }
+
+    // 同步开始游戏
+    private void StartGame(){
+        // 房主通知所有人可以开始游戏
+        // 开启菜单列表
+        // 开启倒计时同步
+        canvas.StartGame();
+        
+        // 开始场景动作(船)
+        // todo：
+
+        // 开启玩家控制
+        Hashtable hashtable = new Hashtable();
+        hashtable.Add("PlayerCanMove", true);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
     }
 
 
@@ -65,37 +92,61 @@ public class GameManager : MonoBehaviourPunCallbacks {
         if(!PhotonNetwork.IsMasterClient){
             return;
         }
+        object temp;
+
         // 房主判断所有人加载完毕
-        if(CheckAllLoadAndStart()){
-            // 通知所有人生成英雄
-            Hashtable hashtable = new Hashtable();
-            hashtable.Add("CanInitPlayer", true);
-            PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+        if(changedProps.TryGetValue("LoadLevelDone", out temp)){
+            if(CheckAllFinish("LoadLevelDone")){
+                // 通知所有人生成英雄
+                Hashtable hashtable = new Hashtable();
+                hashtable.Add("CanInitPlayer", true);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+            }
+        }
+
+        // 判断所有人生成玩家成功后
+        if(changedProps.TryGetValue("FinishInitPlayer", out temp)){
+            if(CheckAllFinish("FinishInitPlayer")){
+                // 通知所有人开始倒计时
+                Hashtable hashtable = new Hashtable();
+                hashtable.Add("StartCountDown", true);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+            }
+        }
+
+        // // 判断所有人倒计时结束
+        if(changedProps.TryGetValue("FinishCountDown", out temp)){
+            if(CheckAllFinish("FinishCountDown")){
+                // 通知所有人可以开始操作了
+                Hashtable hashtable = new Hashtable();
+                hashtable.Add("StartGame", true);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+            }
         }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged){
         object temp;
-        object temp1;
+        // object temp1;
         if(propertiesThatChanged.TryGetValue("CanInitPlayer", out temp)){
             if((bool)temp){
                 InitPlayer();
             }
         }
 
-        // if(propertiesThatChanged.TryGetValue("CreatFoodIngredient", out temp) 
-        // && propertiesThatChanged.TryGetValue("CreatFoodViewID", out temp1)){
-        //     if(temp != null && temp1 != null){
-        //         PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().CreateFoodIngredient(PhotonView.Find((int)temp).gameObject);
-        //     }
-        // }
+        // // 通知所有人开始倒计时
+        if(propertiesThatChanged.TryGetValue("StartCountDown", out temp)){
+            if((bool)temp){
+                StartCountDown();
+            }
+        }
 
-        // if(propertiesThatChanged.TryGetValue("ThrowThingInHand", out temp) 
-        // && propertiesThatChanged.TryGetValue("ThrowThingViewID", out temp1)){
-        //     if(temp != null){
-        //         PhotonView.Find((int)temp1).transform.GetComponent<PlayerHandController>().ThrowThings(PhotonView.Find((int)temp).gameObject);
-        //     }
-        // }
+        // 通知所有人可以开始操作
+        if(propertiesThatChanged.TryGetValue("StartGame", out temp)){
+            if(temp != null){
+                StartGame();
+            }
+        }
     }
 
 

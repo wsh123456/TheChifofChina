@@ -276,7 +276,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
 
     // [PunRPC]
     private void ChangeCurMesh(int target){
-        Debug.Log("生成新的网格模型");
+        //Debug.Log("生成新的网格模型");
         if(target > 2){
             isCooked = true;
         }

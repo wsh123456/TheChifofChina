@@ -16,7 +16,7 @@ public class MenuManage : MonoBehaviour {
     public List<string> menuList = new List<string>();
     public  string menuStr;
     public float price=0;
-    AddMenu addMenu;
+    private AddMenu addMenu;
     //public List<Timer> MenuTimer;
     bool isDestory = true;
     public bool isAddMenu = true;
@@ -28,54 +28,42 @@ public class MenuManage : MonoBehaviour {
         menuManage = this;
         foodMenu = new List<string>();
         levelFood = new Dictionary<string, FoodModel>();
+        menu = new List<Dictionary<string, string>>();
+
         isMenuAdd = true;
         foodMenu = LevelInstance._instance.foodMenu;
         destoryFoodMenuTimer = TimerInstance.instance.destoryFoodMenuTimer;
         menuTimer = TimerInstance.instance.menuTimer;
         levelTimer = TimerInstance.instance.levelTimer;
         levelFood = LevelInstance._instance.levelFood;
-        addMenu = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AddMenu>();
-        menu = new List<Dictionary<string, string>>();
-        //Debug.Log("awake");
-        //foreach (KeyValuePair<string,FoodModel> item in levelFood)
-        //{
-        //    Debug.Log(item.Value.foodIngredient[0].state);
-        //}
-        //menuStr = RandomMenu();
 
+        addMenu = GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameCanvasController>().foodMenu;
+        
     }
-    void Start()
+
+    // 开始游戏，由房主计算出菜同步给其他玩家
+    public void StartGame()
     {
         Initmenu();
-
     }
+
+
     void Update()
     {
-        //Debug.Log(levelFood.Count);
-        //Debug.Log(destoryFoodMenuTimer.GetTimeRemaining());
-        //Debug.Log(levelTimer.GetRatioRemaining());
-        //Debug.Log(menuTimer.GetTimeRemaining());
-        //Debug.Log(levelFood);
-        //Debug.Log(destoryFoodMenuTimer.GetTimeRemaining());
-        //menuStr = RandomMenu();
-        
         AddMenu();
     }
+
+
     public void Initmenu()
     {
-        if (currentMenuNum == 0)
-            for (int i = 0; i < 2; i++)
-            {
+        if (currentMenuNum == 0){
+            for (int i = 0; i < 2; i++){
                 addMenu.AddMenuPanel(out menuStr);
-                //menuUI.Add();//
                 currentMenuNum += 1;
             }
+        }
     }
-            
-            //RandomMenu();  
-            //RandomMenu();
-            //Debug.Log("Init");
-            //Debug.Log("+2道菜");
+
     public List<FoodIngredientType> GetFoodType(List<string>foodList,Dictionary<string, FoodIngredientModel> levelFood)
     {
         List<FoodIngredientType> foodType = new List<FoodIngredientType>();
@@ -85,7 +73,9 @@ public class MenuManage : MonoBehaviour {
         }
         return foodType;
     }
-   public void AddMenu()
+
+
+    public void AddMenu()
     {
         if (menuTimer.GetTimeRemaining()<0.00000001f)
         {
@@ -93,7 +83,6 @@ public class MenuManage : MonoBehaviour {
             if (currentMenuNum == maxMenuNum)
             {
                 isMenuDone = false;
-               
             }
             else
             {
@@ -102,32 +91,30 @@ public class MenuManage : MonoBehaviour {
             if (isMenuDone)
             {
                 currentMenuNum += 1;
-                //Debug.Log("AddMenuPanel");
                 addMenu.AddMenuPanel(out menuStr);
                 isMenuAdd = true;
-                 
             }
             isMenuDone = false;
         }
-        //Debug.Log("+2道菜");
-        //Debug.Log(currentMenuNum);
-
     }
-    public  string RandomMenu()
+
+
+    public string RandomMenu()
     {
+        // 房主执行
+
         string menuStr="";
         int random = Random.Range(0,5);
         //Debug.Log(random);
         if (isMenuAdd)
         {
-            //Debug.Log(foodMenu[RandomLevelFoodKey()]);
              menuStr = foodMenu[random];
               
         }
-        //Debug.Log(menuStr
-           // +"111111111111111111111111111111111111");
         return menuStr;
     }
+
+
     public string FoodSprite(string menuStr)
     {
        
