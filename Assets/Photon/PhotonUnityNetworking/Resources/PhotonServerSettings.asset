@@ -43,4 +43,7 @@ MonoBehaviour:
   - FinishAction
   - DoActionFried
   - DoActionPoach
+  - _StartCountDown
+  - AddMenuPanelFuc
+  - Init
   DisableAutoOpenWizard: 1

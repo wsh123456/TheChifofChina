@@ -18,12 +18,17 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Photon.Pun;
 using Photon.Realtime;
+using Photon;
+
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
    
     private Animator ani;
     public static  PlayerMoveController instance;
     private PhotonView phView;
+    private bool canMove = false;
+
     private  void Awake()
     {
         instance = this;
@@ -40,6 +45,8 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
     private void Update()
     {
         if (!phView.IsMine)
+            return;
+        if(!canMove)
             return;
         Move();
     }
@@ -81,6 +88,13 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
         }
         else
         {
+        }
+    }
+
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged){
+        object temp;
+        if(propertiesThatChanged.TryGetValue("PlayerCanMove", out temp)){
+            canMove = (bool)temp;
         }
     }
 }

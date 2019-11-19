@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224882630478809360}
   - component: {fileID: 114062453278440886}
+  - component: {fileID: 114460763782468904}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -103,7 +104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38c2ca46249a74459f918672905ca8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  food: {fileID: 0}
 --- !u!114 &114080327268525080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,6 +126,27 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &114460763782468904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1275254441145108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &114508532303940652
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -17,7 +17,7 @@ public class WshTestMain : MonoBehaviourPunCallbacks {
 
     private void JoinRoom(){
         PhotonNetwork.NickName = nameInput.text;
-        PhotonNetwork.JoinRoom("testRoom1");
+        PhotonNetwork.JoinRoom("testRoom");
         // if(PhotonNetwork.JoinRoom("textRoom")){
         // }
         roomPanel.gameObject.SetActive(true);
@@ -30,7 +30,7 @@ public class WshTestMain : MonoBehaviourPunCallbacks {
 
         RoomOptions room = new RoomOptions();
         room.MaxPlayers = byte.Parse("4");
-        PhotonNetwork.CreateRoom("testRoom1",room);
+        PhotonNetwork.CreateRoom("testRoom",room);
 
         roomPanel.gameObject.SetActive(true);
         gameObject.SetActive(false);
