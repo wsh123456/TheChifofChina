@@ -46,6 +46,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     // public static PlayerHandController Instance;
     private CreateTingsManager thingManager;    // 生成东西
     private GameObject canPickUpThings;
+    private bool isPut;
 
     private void Awake()
     {
@@ -76,17 +77,38 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// <param name="other"></param>
     private void PickUp(int index)
     {
-        Debug.Log("进入RPCPickUp");
+
+        Debug.Log(PhotonView.Find(index).name + "++");
+        PhotonView.Find(index).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
+        //Debug.Log(PhotonView.Find(index).transform.parent.GetComponentsInChildren<Transform>().Length);
         inHandObj = PhotonView.Find(index).gameObject;
         inHandObj.transform.parent = handContainer;
         inHandObj.transform.localPosition = Vector3.zero;
         inHandObj.transform.localEulerAngles = Vector3.zero;
         inHandObj.GetComponent<Rigidbody>().isKinematic = true;
         RemoveLight();
+        Invoke("IsPut", 0.2f);
+        if (PhotonView.Find(index).transform.GetComponentsInChildren<Transform>().Length >= 2)
+        {
+            if (PhotonView.Find(index).transform.GetChild(0).name.Contains("Pro"))
+                return;
+            for (int i = 0; i < PhotonView.Find(index).transform.childCount; i++)
+            {
+                Debug.Log(PhotonView.Find(index).transform.childCount);
+                PhotonView.Find(index).transform.GetChild(i).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
+            }
+        }
 
+
+    }
+
+    private void IsPut()
+    {
+        isPut = true;
     }
     private void FixedUpdate()
     {
+
         inHandObj = GetOnHand();
 
         knife.SetActive(isCute);
@@ -117,7 +139,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             //放下
             if (inHandObj && Input.GetKeyDown(KeyCode.Tab) && inHandObj.GetComponent<IHand>().PutDown(this, null))
             {
-                // LayDownThings();
+
                 photonView.RPC("LayDownThings", RpcTarget.All, canPickUpThings.GetComponent<PhotonView>().ViewID, handContainer.GetChild(0).GetComponent<PhotonView>().ViewID);
             }
         }
@@ -126,7 +148,14 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         {
             isCute = false;
         }
-
+        for (int i = 0; i < handObj.Count; i++)
+        {
+            if (!handObj[i].gameObject.GetComponent<Collider>())
+            {
+                handObj.Remove(handObj[i]);
+                RemoveLight();
+            }
+        }
 
     }
 
@@ -144,7 +173,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             //拿东西
             if (other.tag == "Thing" && Input.GetKeyDown(KeyCode.Space) && inHandObj == null)
             {
-
+                Debug.Log("拿东西" + handObj[0].gameObject.name);
                 photonView.RPC("PickUp", RpcTarget.All, handObj[0].gameObject.GetComponent<PhotonView>().ViewID);
 
                 RemoveAllLight();
@@ -152,22 +181,32 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         }
         if (other.tag == "Plant")
         {
-            string name = null;
-            //取食材
-            if (inHandObj == null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2 && other.name == "Chicken")
-            {
-                if (other.name.Contains("(Clone)"))
-                {
-                    name = other.name.Substring(0, other.name.LastIndexOf("("));
-                }
-                name = other.name;
 
-                // 如果手上没东西
-                if (inHandObj == null)
+            string name = null;
+
+            //取食材
+            if (inHandObj == null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2)
+            {
+                foreach (FoodIngredientType suit in Enum.GetValues(typeof(FoodIngredientType)))
                 {
-                    GameObject go = ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient", handContainer.position);
-                    go.GetComponent<FoodIngredient>().photonView.RPC("InitFoodIngredient", RpcTarget.All, name);
-                    go.GetComponent<FoodIngredient>().photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID);
+                    if (suit == (FoodIngredientType)Enum.Parse(typeof(FoodIngredientType), other.name))
+                    {
+                        if (other.name.Contains("(Clone)"))
+                        {
+                            name = other.name.Substring(0, other.name.LastIndexOf("("));
+                        }
+                        name = other.name;
+
+                        // 如果手上没东西
+                        if (inHandObj == null)
+                        {
+                            isPut = true;
+                            GameObject go = ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient", handContainer.position);
+                            go.GetComponent<FoodIngredient>().photonView.RPC("InitFoodIngredient", RpcTarget.All, name);
+                            go.GetComponent<FoodIngredient>().photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID);
+                        }
+                        break;
+                    }
                 }
 
             }
@@ -189,10 +228,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                     photonView.RPC("BreakCurrentAction", RpcTarget.All);
                 }
             }
-            Debug.Log(other.gameObject.GetComponentsInChildren<Transform>().Length   +"放下");
-            Debug.Log(other.name + "放下");
             //放到台子上
-            if (inHandObj != null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2)
+            if (inHandObj != null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2 && isPut == true)
             {
                 try
                 {
@@ -201,6 +238,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                     //放到台子上
                     Debug.Log("放到台子上");
                     photonView.RPC("PutOnTable", RpcTarget.All, targetID, handContainer.GetChild(0).GetComponent<PhotonView>().ViewID);
+
+                    isPut = false;
                 }
                 catch
                 {
@@ -210,15 +249,16 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
             }
 
-
-            if (other.gameObject.GetComponentsInChildren<Transform>().Length >= 3)
+            if (other.transform.GetComponentsInChildren<Transform>().Length >= 3)
             {
                 //物体是盘子
-                if (inHandObj && Input.GetKeyDown(KeyCode.Space) && other.transform.GetChild(0).GetChild(0).name.Contains("Plate"))
+                if (other.transform.GetChild(0).GetChild(0).name.Contains("Plate") && inHandObj && Input.GetKeyDown(KeyCode.Space))
                 {
-
                     if (inHandObj == null)
                         return;
+                    if (!inHandObj.GetComponent<FoodIngredient>())
+                        return;
+                    Debug.Log(other.transform.GetChild(0).GetChild(0).name);
                     if (other.transform.GetChild(0).GetChild(0).GetComponent<PlateBehaviour>().CanInPlate(inHandObj.GetComponent<FoodIngredient>(), inHandObj))
                     {
                         Debug.Log("放入盘子");
@@ -254,17 +294,25 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         }
         if (other.tag == "Thing")
         {
-            PickTings pickTings = other.gameObject.AddComponent<PickTings>();
-            handObj.Add(pickTings);
-            handObj.Sort();
-            if (inHandObj)
+            if (!other.isTrigger)
             {
-                handObj[0].gameObject.AddComponent<HighlighterFlashing>();
-                handObj[0].gameObject.AddComponent<Highlighter>();
-            }
-            if (inHandObj == null && other.GetComponent<Rigidbody>().velocity.z > 3 || other.GetComponent<Rigidbody>().velocity.z < -3)
-            {
-                photonView.RPC("PickUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
+                PickTings pickTings = other.gameObject.AddComponent<PickTings>();
+                handObj.Add(pickTings);
+                handObj.Sort();
+                if (inHandObj)
+                {
+                    handObj[0].gameObject.AddComponent<HighlighterFlashing>();
+                    handObj[0].gameObject.AddComponent<Highlighter>();
+                }
+                if (other.GetComponent<Rigidbody>())
+                {
+                    if (inHandObj == null && other.GetComponent<Rigidbody>().velocity.z > 3 || other.GetComponent<Rigidbody>().velocity.z < -3)
+                    {
+                        Debug.Log("");
+                        photonView.RPC("PickUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
+                    }
+                }
+
             }
         }
     }
@@ -302,27 +350,39 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
         if (other.tag == "Thing")
         {
-            for (int i = 0; i < handObj.Count; i++)
+            if (!other.isTrigger)
             {
-                if (handObj[i].gameObject == null)
+                for (int i = 0; i < handObj.Count; i++)
                 {
-                    handObj.Remove(handObj[i]);
-                    Destroy(handObj[i].GetComponent<PickTings>());
-                }
-                if (other.gameObject == handObj[i].gameObject)
-                {
-                    if (i == 0)
-                    {
-                        RemoveLight();
-                    }
-                    Destroy(handObj[i].GetComponent<PickTings>());
 
-                    handObj.Remove(handObj[i]);
-                    return;
+                    if (other.gameObject == handObj[i].gameObject)
+                    {
+                        if (i == 0)
+                        {
+                            RemoveLight();
+                        }
+                        Destroy(handObj[i].GetComponent<PickTings>());
+                        Destroy(handObj[i].GetComponent<PickTings>());
+                        handObj.Remove(handObj[i]);
+
+                    }
+                }
+                if (handObj.Count != 0)
+                {
+                    for (int i = 0; i < handObj.Count; i++)
+                    {
+                        if (handObj[i] == null)
+                        {
+                            Destroy(handObj[i].GetComponent<PickTings>());
+                            return;
+                        }
+
+                    }
+
                 }
             }
-
         }
+
         if (other.tag == "Plant")
         {
             Destroy(allThings[0].GetComponent<HighlighterFlashing>());
@@ -332,7 +392,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-   /// <summary>
+    /// <summary>
     /// 放下东西
     /// </summary>
     private void LayDownThings(int emptyIndex, int handThingIndex)
@@ -379,20 +439,6 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
 
     #region photon同步调用  
-
-    /// <summary>
-    /// 生成新的食材(设置父物体)
-    /// </summary>
-    // public void CreateFoodIngredient(GameObject ingredient)
-    // {
-    //     ingredient.tag = "Thing";
-    //     ingredient.GetComponent<Rigidbody>().isKinematic = true;
-    //     ingredient.transform.parent = handContainer;
-    //     ingredient.transform.localPosition = Vector3.zero;
-
-    //     return;
-    // }
-
 
     /// <summary>
     /// 扔东西
@@ -445,12 +491,14 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (UserObj)
         {
+            isCute = false;
             UserObj.GetComponent<FoodIngredient>().BreakCurrentAction();
             UserObj = null;
-            isCute = false;
+
         }
     }
 
-    #endregion 
 }
+    #endregion
+
 

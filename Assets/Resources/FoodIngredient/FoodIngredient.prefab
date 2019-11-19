@@ -54,7 +54,6 @@ GameObject:
   - component: {fileID: 54816212372627820}
   - component: {fileID: 114461357844000714}
   - component: {fileID: 114609762794111344}
-  - component: {fileID: 114754062068171640}
   m_Layer: 0
   m_Name: FoodIngredient
   m_TagString: Untagged
@@ -177,9 +176,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 114609762794111344}
-  - {fileID: 114754062068171640}
   viewIdField: 0
-  InstantiationId: 0
+  InstantiationId: 1
   isRuntimeInstantiated: 0
 --- !u!114 &114609762794111344
 MonoBehaviour:
@@ -195,21 +193,6 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!114 &114754062068171640
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1726716372762802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &114764119844656986
 MonoBehaviour:
   m_ObjectHideFlags: 1

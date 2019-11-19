@@ -43,4 +43,6 @@ MonoBehaviour:
   - FinishAction
   - DoActionFried
   - DoActionPoach
+  - HideProgras
+  - ShowProgras
   DisableAutoOpenWizard: 1

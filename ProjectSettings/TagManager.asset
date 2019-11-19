@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Canvas
   - PlayerPoint
+  - Thing
+  - Plant
+  - ThingChange
   layers:
   - Default
   - TransparentFX

@@ -4,11 +4,12 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
+using System;
 
 /// <summary>
 /// 
 /// </summary>
-public class PlateBehaviour : MonoBehaviourPunCallbacks
+public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand
 {
     private LevelInstance Levelins;
     //声明一个列表存储盘子里的食材
@@ -137,7 +138,6 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks
                 {
                     return false;
                 }
-
             }
             foreach (var item in menu)
             {
@@ -170,5 +170,20 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks
 
             //}
         }
+    }
+
+    public bool Pick(PlayerHandController player, Action<GameObject> callback)
+    {
+        return true;
+    }
+
+    public bool Throw(PlayerHandController player, Action<GameObject> callback)
+    {
+        return false;
+    }
+
+    public bool PutDown(PlayerHandController player, Action<GameObject> callback)
+    {
+        return true;
     }
 }

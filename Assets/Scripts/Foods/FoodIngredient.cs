@@ -78,9 +78,9 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         usingMesh = new Dictionary<FoodIngredientState, string>();
         usingTime = new Dictionary<FoodIngredientState, float>();
         stateMachine = new FoodIngredientMachine();
-
         // 实例一个进度条
         progressBar = Instantiate(Resources.Load<GameObject>(UIConst.PROGRESS_BAR));
+        progressBar.GetComponent<PhotonView>().TransferOwnership(photonView.ViewID);
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         iconPoint = transform.Find("IconPoint").transform;
         progressPoint = transform.Find("ProgressPoint").transform;
@@ -173,6 +173,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
             isActive = true;
             StartCoroutine("ChangingStatus");
         }
+        
     }
     /// <param name="state">要转换到的状态</param>
     /// <param name="finishCallback">完成时的回调函数</param>
@@ -190,13 +191,15 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         // 显示进度条
         isShowPrograss = true;
         progressBar.SetActive(isShowPrograss);
-        progressBar.transform.Find("Slider").GetComponent<Slider>().value = curProgress / actionTime;
+       
     }
 
     /// <summary>
     /// 隐藏进度条
     /// </summary>
+    [PunRPC]
     public void HideProgras(){
+        Debug.Log("隐藏");
         isShowPrograss = false;
         progressBar.gameObject.SetActive(isShowPrograss);
     }
@@ -207,13 +210,15 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
 
     // 转换状态
     private IEnumerator ChangingStatus(){
-        while(true){
-            if(actionTime > 0){
-                ShowProgras();
-            }
+        if (actionTime > 0 && !IsFinish)
+        {
+            ShowProgras();
+        }
+        while (true){
             yield return new WaitForSeconds(Time.fixedDeltaTime);
             curProgress += Time.fixedDeltaTime;
-            if(curProgress > actionTime){
+            progressBar.transform.Find("Slider").GetComponent<Slider>().value = curProgress / actionTime;
+            if (curProgress >= actionTime){
                 break;
             }
         }

@@ -20,5 +20,6 @@ public class ConnectPhoton : MonoBehaviour {
     private void Start() {
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.SendRate = 60;
     }
 }

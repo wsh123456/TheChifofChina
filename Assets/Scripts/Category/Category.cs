@@ -18,28 +18,49 @@ using Photon.Pun;
 using Photon.Realtime;
 using System;
 
-public class Category:MonoBehaviourPunCallbacks{
+public class Category:MonoBehaviourPunCallbacks,IHand{
     /// <summary>
     /// 继续炸
     /// </summary>
-    protected bool isContinue=true;
+    protected bool isContinue=false;
     protected bool isCanCook;
     protected bool isCanStop;
-    protected bool isCheck;
+    //  protected bool isCheck=false;
     /// <summary>
     /// 检测锅中食物是否成熟
     /// </summary>
     /// <param name="game"></param>
-    protected virtual void CheckPotIsRipe()
+    //protected virtual void CheckPotIsRipe()
+    //{
+    //    if (transform.GetChild(0).gameObject.GetComponent<FoodIngredient>().curState == FoodIngredientState.Poach || transform.GetChild(0).gameObject.GetComponent<FoodIngredient>().curState == FoodIngredientState.Fried)
+    //    {
+    //        Debug.Log("回归初始化");
+    //        isCanCook = false;
+    //        isCheck = true;
+    //        // photonView.RPC("ChangeFoodState",RpcTarget.All ,transform.GetChild(0).gameObject.GetComponent<FoodIngredient>().photonView.ViewID);
+    //    }
+    //}
+
+    /// <summary>
+    /// 装盘
+    /// </summary>
+    /// <param name=""></param> 
+    protected virtual void InPlate(Collider other)
     {
-        if (transform.GetChild(0).gameObject.GetComponent<FoodIngredient>().curState == FoodIngredientState.Poach || transform.GetChild(0).gameObject.GetComponent<FoodIngredient>().curState == FoodIngredientState.Fried)
+        //装盘
+        if (other.gameObject.name == "Plate")
         {
-            
-            isCanCook = false;
-            isCheck = true;
-            // photonView.RPC("ChangeFoodState",RpcTarget.All ,transform.GetChild(0).gameObject.GetComponent<FoodIngredient>().photonView.ViewID);
+            if (transform.childCount > 0)
+            {
+                if (transform.GetChild(0).GetComponent<FoodIngredient>().curState != FoodIngredientState.Normal && Input.GetKeyDown(KeyCode.Space))
+                {
+                    photonView.RPC("SetParent", RpcTarget.All, transform.GetChild(0).GetComponent<PhotonView>().ViewID, other.GetComponent<PhotonView>().ViewID);
+                }
+            }
         }
     }
+
+
     /// <summary>
     /// 炸
     /// </summary>
@@ -63,7 +84,6 @@ public class Category:MonoBehaviourPunCallbacks{
         PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Poach, null);
     }
     //执行操作端锅终止操作
- 
     protected virtual void StopCurrentAction(GameObject game)
     {
         Debug.Log("打断");
@@ -86,6 +106,7 @@ public class Category:MonoBehaviourPunCallbacks{
         {
             return;
         }
+        
         photonView.RPC("SetParent",RpcTarget.All,inPot.GetComponent<PhotonView>().ViewID, photonView.ViewID);
     }
     //检测灶台
@@ -120,6 +141,11 @@ public class Category:MonoBehaviourPunCallbacks{
         
 
     }
+    [PunRPC]
+    public void BreakCurrentAction()
+    {
+            transform.GetChild(0).GetComponent<FoodIngredient>().BreakCurrentAction();
+    }
     /// <summary>
     /// 设置父物体
     /// </summary>
@@ -131,6 +157,35 @@ public class Category:MonoBehaviourPunCallbacks{
     {
         PhotonView.Find(categoryIndex).transform.SetParent(PhotonView.Find(plantIndex).transform);
         PhotonView.Find(categoryIndex).transform.localPosition = Vector3.zero;
-        PhotonView.Find(categoryIndex).GetComponent<Rigidbody>().isKinematic=true;
+        if (PhotonView.Find(categoryIndex).transform.parent==transform)
+        {
+            PhotonView.Find(categoryIndex).tag = "ThingChange";
+           Destroy( PhotonView.Find(categoryIndex).GetComponent<Collider>());
+        }
+        if (PhotonView.Find(categoryIndex).GetComponent<Rigidbody>())
+        {
+            PhotonView.Find(categoryIndex).GetComponent<Rigidbody>().isKinematic = true;
+
+        }
+        if (PhotonView.Find(categoryIndex).transform.childCount!=0)
+        {
+            Destroy(PhotonView.Find(categoryIndex).GetComponent<PhotonRigidbodyView>());
+            Destroy(PhotonView.Find(categoryIndex).GetComponent<Rigidbody>());
+        }
+    }
+
+    public bool Pick(PlayerHandController player, Action<GameObject> callback)
+    {
+        return true;
+    }
+
+    public bool Throw(PlayerHandController player, Action<GameObject> callback)
+    {
+        return false;
+    }
+
+    public bool PutDown(PlayerHandController player, Action<GameObject> callback)
+    {
+        return true;
     }
 }
