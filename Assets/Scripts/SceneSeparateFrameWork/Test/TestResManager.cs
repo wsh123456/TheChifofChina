@@ -72,7 +72,6 @@ public class TestResManager : MonoBehaviour
         Instance.m_Caches[path].UnLoad();
         if (Instance.m_Caches[path].RefTimes <= 0)
         {
-            Debug.Log("移除");
             Instance.m_Caches[path].Release();
             Instance.m_Caches.Remove(path);
         }
