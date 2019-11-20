@@ -6,18 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/jumpSceneTest/gamepage.unity
-    guid: 1a12d2a75d7a8eb4ebe700d7521024a3
-  - enabled: 1
-    path: Assets/Scenes/jumpSceneTest/mainpage.unity
-    guid: 577e769b00db0e44797eafd1fb8d1c89
-  - enabled: 1
-    path: Assets/Scenes/jumpSceneTest/LoadScene.unity
-    guid: 8d2e32868112fb840a4f931b1a26914b
-  - enabled: 1
-    path: Assets/Scenes/DongtaiLoad.unity
-    guid: 00a0020fc49bf2b49ac643fe9bb252b6
-  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/01 Welcome.unity
     guid: c382f9f3d6926cb4e921a5e7ec61bc2f
   - enabled: 1
