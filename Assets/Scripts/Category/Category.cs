@@ -25,6 +25,8 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
     protected bool isContinue=false;
     protected bool isCanCook;
     protected bool isCanStop;
+
+    private float overCookTime = 0;
     //  protected bool isCheck=false;
     /// <summary>
     /// 检测锅中食物是否成熟
@@ -72,16 +74,41 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
 
     }
 
+
+    // 完成烹饪后的回调
+    private void CookOver(){
+        StartCoroutine("ReadyToFire");
+    }
+
+    // 过烹饪，计算起火
+    private IEnumerator ReadyToFire(){
+        while(overCookTime <= 10f){
+            // 如果不在灶台上
+            if(!CheckHearth(null)){
+                break;
+            }
+            Debug.Log("过烹饪时间: " + overCookTime);
+            yield return new WaitForFixedUpdate();
+            overCookTime += Time.fixedDeltaTime;
+        }
+        if(overCookTime > 10f && CheckHearth(null)){
+            // 获取下面的灶台(桌子)着火
+            transform.GetComponentInParent<PlantController>().IsFire = true;
+            overCookTime = 0;
+        }
+    }
+
+
     [PunRPC]
     protected virtual void DoActionFried(int index)
     {
-       PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Fried, null);
+       PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Fried, CookOver);
     }
 
     [PunRPC]
     protected virtual void DoActionPoach(int index)
     {
-        PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Poach, null);
+        PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Poach, CookOver);
     }
     //执行操作端锅终止操作
     protected virtual void StopCurrentAction(GameObject game)
