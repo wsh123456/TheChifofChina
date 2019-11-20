@@ -121,7 +121,7 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
         //}
         try
         {
-            if (transform.parent.name == "CheckHearth")
+            if (transform.parent.name.Contains("CheckHearth"))
             {
               //  Debug.Log("检测到了灶台");
                 return true;

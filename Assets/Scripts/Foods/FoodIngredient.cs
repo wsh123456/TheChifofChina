@@ -117,8 +117,8 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         //if(Input.GetKeyDown(KeyCode.S)){
         //    BreakCurrentAction();
         //}
-
         progressBar.transform.position = Camera.main.WorldToScreenPoint(progressPoint.position);
+        progressBar.transform.localScale = Vector3.one;
     }
 
     
