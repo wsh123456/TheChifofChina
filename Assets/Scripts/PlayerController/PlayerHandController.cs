@@ -62,12 +62,11 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Start()
     {
-        canPickUpThings = transform.parent.parent.gameObject;
+       
         knife = transform.GetChild(0).GetChild(1).GetChild(0).GetChild(3).GetChild(0).gameObject;
         knife.SetActive(false);
-
         handContainer = transform.parent.Find("Hand");
-
+        canPickUpThings = handContainer.parent.parent.parent.gameObject;
     }
 
     [PunRPC]
@@ -186,7 +185,6 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             string name = null;
 
             //取食材
-            Debug.Log(other.name+"名字");
             if (inHandObj == null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2)
             {
                 foreach (FoodIngredientType suit in Enum.GetValues(typeof(FoodIngredientType)))
@@ -213,7 +211,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
             }
             //---------------切的状态 完成
-            if (inHandObj == null && other.name == "CuttingBoard" && Input.GetKeyDown(KeyCode.E))
+            if (inHandObj == null && other.name.Contains("CuttingBoard") && Input.GetKeyDown(KeyCode.E))
             {
                 // 如果子对象
                 try
@@ -288,11 +286,13 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         {
             return;
         }
+      
         if (other.tag == "Plant")
         {
+            Debug.Log(other.name);
             allThings.Add(other.gameObject);
-            allThings[0].AddComponent<HighlighterFlashing>();
-            allThings[0].AddComponent<Highlighter>();
+          //  allThings[0].AddComponent<HighlighterFlashing>();
+           // allThings[0].AddComponent<Highlighter>();
         }
         if (other.tag == "Thing")
         {
@@ -303,8 +303,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 handObj.Sort();
                 if (inHandObj)
                 {
-                    handObj[0].gameObject.AddComponent<HighlighterFlashing>();
-                    handObj[0].gameObject.AddComponent<Highlighter>();
+                   // handObj[0].gameObject.AddComponent<HighlighterFlashing>();
+                   // handObj[0].gameObject.AddComponent<Highlighter>();
                 }
                 if (other.GetComponent<Rigidbody>())
                 {
@@ -323,12 +323,12 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// </summary>
     private void RemoveLight()
     {
-        if (handObj.Count == 0)
-            return;
+        //if (handObj.Count == 0)
+        //    return;
 
 
-        Destroy(handObj[0].GetComponent<HighlighterFlashing>());
-        Destroy(handObj[0].GetComponent<Highlighter>());
+        //Destroy(handObj[0].GetComponent<HighlighterFlashing>());
+        //Destroy(handObj[0].GetComponent<Highlighter>());
     }
     private void RemoveAllLight()
     {
@@ -383,12 +383,12 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
                 }
             }
-        }
+        }   
 
         if (other.tag == "Plant")
         {
-            Destroy(allThings[0].GetComponent<HighlighterFlashing>());
-            Destroy(allThings[0].GetComponent<Highlighter>());
+          //  Destroy(allThings[0].GetComponent<HighlighterFlashing>());
+         //   Destroy(allThings[0].GetComponent<Highlighter>());
             allThings.Remove(allThings[0]);
         }
     }
@@ -450,7 +450,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     {
         inHandObj.GetComponent<Rigidbody>().isKinematic = false;
         inHandObj.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
-        inHandObj.transform.parent = GameObject.Find("CanPickUpThings").transform;
+        inHandObj.transform.parent =canPickUpThings.transform;
         ani.SetTrigger("Push");
     }
 
@@ -480,7 +480,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
         handObj.transform.SetParent(target.transform);
         handObj.transform.localPosition = Vector3.zero;
-        handObj.transform.localEulerAngles = Vector3.zero;
+       // handObj.transform.localEulerAngles = Vector3.zero;
         // handObj.GetComponent<Rigidbody>().isKinematic = false;
     }
 

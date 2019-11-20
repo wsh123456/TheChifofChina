@@ -14,7 +14,7 @@ public class ViewMove : MonoBehaviour
     private void Awake()
     {
         //初始化组件
-        waterAndBoat = GameObject.Find("WaterAndBoat").GetComponent<Transform>();
+        waterAndBoat = GameObject.Find("Design1").GetComponent<Transform>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Transform>();
     }
 
