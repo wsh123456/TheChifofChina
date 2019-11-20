@@ -54,8 +54,14 @@ EditorBuildSettings:
     path: Assets/HighlightingSystemDemo/Scenes/16 FPSCamera2.unity
     guid: 7546a4c3be3cc2b4fa72351c7adea2ae
   - enabled: 1
+    path: Assets/Scenes/DongtaiLoad.unity
+    guid: 00a0020fc49bf2b49ac643fe9bb252b6
+  - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/17 Toggle.unity
     guid: 5abba9bdb71577141bed8f325c44307e
+  - enabled: 1
+    path: Assets/Scenes/jumpSceneTest/LoadScene.unity
+    guid: 8d2e32868112fb840a4f931b1a26914b
   - enabled: 1
     path: Assets/HighlightingSystemDemo/Scenes/18 VR.unity
     guid: 21572dcdd637aca40b8a94e57ed89823

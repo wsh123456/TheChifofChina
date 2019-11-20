@@ -37,14 +37,14 @@ public class BombBehaviour : Category {
       //放入台子并且有东西被打断 之后
     private void Update()
     {
-       
-        if (transform.childCount>1)
+        
+        if (transform.GetChild(0).childCount>0)
         {
             //有灶台可以烹饪  可以继续  不可以暂停
-            if (transform.parent.name== "CheckHearth" && isCanCook&&!isContinue)
+            if (transform.parent.name.Contains("CheckHearth") && isCanCook&&!isContinue)
             {
                 Debug.Log("开始烹饪");
-                Bomb(transform.GetChild(0).gameObject);
+                Bomb(transform.GetChild(0).GetChild(0).gameObject);
                 isContinue = true;
             }
             if (transform.parent.name!= "CheckHearth" && !isCanCook&&isContinue)

@@ -21,6 +21,10 @@ public class PickTings : MonoBehaviour, IComparable{
     public int CompareTo(object obj)
     {
         PickTings other = obj as PickTings;
+        if (obj==null)
+        {
+            return 0;
+        }
         if (transform.position.y > other.transform.position.y)
         {
             return -1;
