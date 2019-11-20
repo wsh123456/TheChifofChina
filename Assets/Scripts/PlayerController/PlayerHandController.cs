@@ -79,11 +79,18 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
         Debug.Log(PhotonView.Find(index).name + "++");
         PhotonView.Find(index).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
+       
         //Debug.Log(PhotonView.Find(index).transform.parent.GetComponentsInChildren<Transform>().Length);
         inHandObj = PhotonView.Find(index).gameObject;
         inHandObj.transform.parent = handContainer;
         inHandObj.transform.localPosition = Vector3.zero;
         inHandObj.transform.localEulerAngles = Vector3.zero;
+        if (inHandObj.gameObject.name.Contains("Frying"))
+        {
+            Debug.Log(PhotonView.Find(index).name);
+            inHandObj.transform.localEulerAngles = new Vector3(0, 90, 0);
+            inHandObj.transform.localPosition = new Vector3(0, -0.00479f, 0);
+        }
         inHandObj.GetComponent<Rigidbody>().isKinematic = true;
         RemoveLight();
         Invoke("IsPut", 0.2f);
@@ -97,6 +104,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 PhotonView.Find(index).transform.GetChild(i).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
             }
         }
+        Debug.Log(PhotonView.Find(index).name+ "拿");
+       
 
 
     }
