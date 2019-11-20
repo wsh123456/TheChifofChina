@@ -30,7 +30,7 @@ public class ConveyorTrigger : MonoBehaviourPunCallbacks {
     {
         if (other.tag=="Thing"&&other.transform.parent.name!="Hand")
         {
-            photonView.RPC("SetParent", RpcTarget.All, other.transform.GetComponent<PhotonView>().ViewID, transform.GetComponent<PhotonView>().ViewID);
+            photonView.RPC("SetParent", RpcTarget.All, other.transform.GetComponent<PhotonView>().ViewID, transform.parent.GetComponent<PhotonView>().ViewID);
 
         }
     }
@@ -41,11 +41,9 @@ public class ConveyorTrigger : MonoBehaviourPunCallbacks {
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag=="Thing")
+        if (other.tag=="Thing" && other.transform.parent.name != "Hand")
         {
-            
                 other.GetComponent<Rigidbody>().velocity = dir * speed;
-
         }
         if (other.tag=="Player")
         {
@@ -60,5 +58,6 @@ public class ConveyorTrigger : MonoBehaviourPunCallbacks {
             other.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
        
+
     }
 }

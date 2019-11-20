@@ -50,13 +50,14 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
     protected virtual void InPlate(Collider other)
     {
         //装盘
-        if (other.gameObject.name == "Plate")
+        if (other.gameObject.name.Contains("Plate"))
         {
-            if (transform.childCount > 0)
+            if (transform.GetChild(0).childCount > 0)
             {
-                if (transform.GetChild(0).GetComponent<FoodIngredient>().curState != FoodIngredientState.Normal && Input.GetKeyDown(KeyCode.Space))
+              
+                if (transform.GetChild(0).GetChild(0).GetComponent<FoodIngredient>().curState != FoodIngredientState.Normal && Input.GetKeyDown(KeyCode.Space))
                 {
-                    photonView.RPC("SetParent", RpcTarget.All, transform.GetChild(0).GetComponent<PhotonView>().ViewID, other.GetComponent<PhotonView>().ViewID);
+                    photonView.RPC("SetParent", RpcTarget.All, transform.GetChild(0).GetChild(0).GetComponent<PhotonView>().ViewID, other.GetComponent<PhotonView>().ViewID);
                 }
             }
         }
@@ -134,18 +135,11 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
             return;
         }
         
-        photonView.RPC("SetParent",RpcTarget.All,inPot.GetComponent<PhotonView>().ViewID,transform.GetComponent<PhotonView>().ViewID);
+        photonView.RPC("SetParent",RpcTarget.All,inPot.GetComponent<PhotonView>().ViewID,transform.GetChild(0).GetComponent<PhotonView>().ViewID);
     }
     //检测灶台
     protected virtual bool CheckHearth(GameObject game)
     {
-        //if (game.name== "CheckHearth")
-        //{
-        //    if (game.GetComponentsInChildren<Transform>().Length == 1 &&Input.GetKeyDown(KeyCode.Space))
-        //    {
-        //        photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID, game.GetComponent<PhotonView>().ViewID);
-        //    }
-        //}
         try
         {
             if (transform.parent.name.Contains("CheckHearth"))
@@ -163,15 +157,11 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
         {
             return false;
         }
-
-  
-        
-
     }
     [PunRPC]
     public void BreakCurrentAction()
     {
-            transform.GetChild(0).GetComponent<FoodIngredient>().BreakCurrentAction();
+            transform.GetChild(0).GetChild(0).GetComponent<FoodIngredient>().BreakCurrentAction();
     }
     /// <summary>
     /// 设置父物体
@@ -184,7 +174,7 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
     {
         PhotonView.Find(categoryIndex).transform.SetParent(PhotonView.Find(plantIndex).transform);
         PhotonView.Find(categoryIndex).transform.localPosition = Vector3.zero;
-        if (PhotonView.Find(categoryIndex).transform.parent==transform)
+        if (PhotonView.Find(categoryIndex).transform.parent.parent==transform)
         {
             PhotonView.Find(categoryIndex).tag = "ThingChange";
            Destroy( PhotonView.Find(categoryIndex).GetComponent<Collider>());
