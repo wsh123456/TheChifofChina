@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UIFrameWork;
 
 public class CanvasController : Singleton<CanvasController> {
-    private Dictionary<string, GameObject> panels;
+
+    public Dictionary<string, GameObject> panels;
+
     protected override void Awake() {
         panels = new Dictionary<string, GameObject>();
         base.Awake();
@@ -14,13 +16,23 @@ public class CanvasController : Singleton<CanvasController> {
     }
 
     private void Start() {
-        // ShowModule("Panel2");
-        // UIManagerBase._instance.ShowModule(moduleName);
+        ShowModule("PlayerInfoPanel");
     }
 
     public void ShowModule(string moduleName){
         foreach(var item in panels){
-            item.Value.SetActive(item.Key == moduleName);
+            if (item.Value.GetComponent<UIModuleBase>() != null && item.Value.GetComponent<UIModuleBase>().moduleType == ModuleType.Aaa)
+            {
+                item.Value.SetActive(item.Key == moduleName);
+            }
+        }
+    }
+
+    public void FindAndSetActive(string moduleName, bool active){
+        try{
+            transform.Find(moduleName).gameObject.SetActive(active);
+        }catch{
+            Debug.LogError("不存在这个模块");
         }
     }
 }

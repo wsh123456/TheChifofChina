@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
         // 找到玩家生成的点
         initPoints = GameObject.FindGameObjectsWithTag("PlayerPoint");
         canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameCanvasController>();
-        PhotonNetwork.BackgroundTimeout = 1000;
     }
 
     private void Start() {

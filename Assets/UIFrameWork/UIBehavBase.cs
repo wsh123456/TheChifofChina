@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UIFrameWork{
-    public class UIBehavBase : UIMonoBehaviours {
+    public class UIBehavBase : UIMonoBehaviours
+    {
         protected UIModuleBase curModuleName;
 
         protected virtual void Awake() {
@@ -11,11 +13,12 @@ namespace UIFrameWork{
             GetCurrentModule();
             // 进行组件的初始化
             InitUIComponents();
+            // 对元件进行注册
+            Debug.Log("注册元件: " + curModuleName);
+            curModuleName.RegisterBehav(name, this);
         }
 
-        protected virtual void OnEnable() {
-            // 对元件进行注册
-            curModuleName.RegisterBehav(name, this);
+        protected virtual void OnEnable(){
         }
 
         protected virtual void OnDisable() {
@@ -25,10 +28,9 @@ namespace UIFrameWork{
 
 
         // 获取当前的模块
-        protected void GetCurrentModule(){
+        protected virtual void GetCurrentModule(){
             curModuleName = transform.GetComponentInParent<UIModuleBase>();
         }
-
 
     }
 }

@@ -15,6 +15,7 @@ namespace UIFrameWork
         string GetTextText();
     }
     public interface IImage {
+        void SetImageTexture(string textureName);
         
     }
     public interface IButton {
@@ -50,7 +51,7 @@ namespace UIFrameWork
         }
         public virtual void SetTextText(string text){
             if(m_text != null){
-                m_text.text = text; 
+                m_text.text = text;
             }
         }
         public virtual string GetTextText(){
@@ -64,10 +65,38 @@ namespace UIFrameWork
                 m_button.onClick.AddListener(action);
             }
         }
-        public virtual void AddOnClickListioner(UnityAction<int> action){}
+
+        public virtual void AddOnClickListioner(UnityAction<int> action){
+            if (m_button != null)
+            {
+                m_button.onClick.AddListener(delegate
+                {
+                    action(1);
+                });
+
+            }
+        }
+
+        public virtual void AddOnClickListioner(UnityAction<int> action, int i){
+            if (m_button != null){
+                m_button.onClick.AddListener(delegate{action(i);});
+            }
+        }
+        
         public virtual void ClearListioner(){}
-        public virtual string GetInputText(){return null;}
+        public virtual string GetInputText(){
+            if (m_input)
+            {
+                return m_input.text;
+            }
+            return null;
+        }
         public virtual void SetInputText(string text){}
         public virtual void AddOnValueChange(){}
+
+        public void SetImageTexture(string textureName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
