@@ -57,7 +57,11 @@ public class GameManager : MonoBehaviourPunCallbacks {
         curPlayer = player.GetComponent<PlayerController>();
         curPlayer.photonView.RPC("SetParent", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber-1);
         // 换头
-        curPlayer.ChangeChiefHead(Random.Range(0,6));
+        object headIndex;
+        if(!PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("ChefHeadIndex", out headIndex)){
+            headIndex = 0;
+        }
+        curPlayer.ChangeChiefHead((int)headIndex);
 
         Hashtable hashtable = new Hashtable();
         hashtable.Add("FinishInitPlayer", true);
