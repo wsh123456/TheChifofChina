@@ -73,6 +73,7 @@ public class SelectRoleController : UIControllerBase {
 
         chefObject.transform.SetParent(module.FindWidget("#PlayerPrefab").transform);
         chefObject.transform.localPosition = Vector3.zero;
+        chefObject.transform.localScale = new Vector3(20000f,20000f,20000f);
     }
 
     private void HideThisPanel()

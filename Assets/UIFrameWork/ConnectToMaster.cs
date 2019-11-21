@@ -27,14 +27,14 @@ public class ConnectToMaster : MonoBehaviourPunCallbacks {
         PhotonNetwork.ConnectUsingSettings();
     }
 
-    public override void OnJoinedRoom()
-    {
-        PlayerListController.ins.ShowPlayerList();
-    }
+    // public override void OnJoinedRoom()
+    // {
+    //     PlayerListController.ins.ShowPlayerList();
+    // }
 
-    public override void OnLeftRoom()
-    {
-        PlayerListController.ins.ShowPlayerList();
-    }
+    // public override void OnLeftRoom()
+    // {
+    //     PlayerListController.ins.ShowPlayerList();
+    // }
 
 }

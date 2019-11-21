@@ -27,20 +27,21 @@ public class RoomController : UIControllerBase {
 
     public override void ModuleInit()
     {
-        if (currentRoomInfo != null)
-        {
-            module.FindWidget("RoomName").SetTextText(currentRoomInfo.Name);
-            module.FindWidget("Slots").SetTextText(currentRoomInfo.PlayerCount + "/" + currentRoomInfo.MaxPlayers);
-            module.FindWidget("JoinButton").AddOnClickListioner(OnJoinBtnClick);
-        }
+        module.FindWidget("#JoinButton").AddOnClickListioner(OnJoinBtnClick);
     }
+
 
     private void OnJoinBtnClick()
     {
+        Debug.Log("加入房间：" + currentRoomInfo.Name);
         PhotonNetwork.JoinRoom(currentRoomInfo.Name);
-        if (!PhotonNetwork.InRoom)
-        {
-            PhotonNetwork.JoinRoom(currentRoomInfo.Name);
-        }
+        CanvasController.Instance.ShowModule("PlayerPanel");
+    }
+
+
+    public void SetRoomMessage(RoomInfo info){
+        currentRoomInfo = info;
+        module.FindWidget("#RoomName").SetTextText(currentRoomInfo.Name);
+        module.FindWidget("#PeopleCount").SetTextText(currentRoomInfo.PlayerCount + "/" + currentRoomInfo.MaxPlayers);
     }
 }

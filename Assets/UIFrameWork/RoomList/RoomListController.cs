@@ -59,8 +59,12 @@ public class RoomListController : UIControllerBase {
     {
         for (int i = 0; i < roomInfos.Count; i++)
         {
+            if(roomInfos[i].MaxPlayers == 0){
+                continue;
+            }
             RoomController roomObjInfo = Instantiate(roomObjPrefab).GetComponent<RoomController>();
             roomObjInfo.transform.SetParent(module.FindWidget("#RoomList").transform);
+            roomObjInfo.SetRoomMessage(roomInfos[i]);
             roomObjInfo.transform.localScale = Vector3.one;
             roomObjInfos.Add(roomObjInfo);
             roomObjInfo.currentRoomInfo = roomInfos[i];

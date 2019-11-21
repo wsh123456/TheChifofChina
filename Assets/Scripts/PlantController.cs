@@ -20,9 +20,10 @@ using Photon.Realtime;
 
 public class PlantController: MonoBehaviourPunCallbacks,IPunObservable{
     private bool isFire = false;
-    private GameObject firePrefab;      // 火焰预制体
+    private GameObject firePrefab;    // 火焰预制体
     private GameObject fire;
     private Transform canvas;
+    private float fireTime = 0;
 
     private Transform setPoint;
     private Camera mainCamera;
@@ -45,25 +46,19 @@ public class PlantController: MonoBehaviourPunCallbacks,IPunObservable{
         setPoint = transform.GetChild(0);
         canvas = GameObject.FindGameObjectWithTag("Canvas").transform;
 
-        fire = Instantiate(Resources.Load<GameObject>(UIConst.PROGRESS_BAR));
-        fire.GetComponent<PhotonView>().TransferOwnership(photonView.ViewID);
-        
+        firePrefab = Resources.Load<GameObject>("Fire");
     }
 
 
-    private void Start() {
-        fire.transform.SetParent(canvas);
-        fire.gameObject.SetActive(false);
-        StartFire();
-    }
-
-
-    private void Update() {
+    private void FixedUpdate() {
         if(!photonView.IsMine)
             return;
-        if(fire){
-            fire.transform.position = Camera.main.WorldToScreenPoint(setPoint.position);
-            fire.transform.localScale = Vector3.one;
+        if(IsFire){
+            fireTime += Time.fixedDeltaTime;
+            if(fireTime > 4f){
+                SpreadFire();
+                fireTime = 0;
+            }
         }
     }
 
@@ -71,6 +66,14 @@ public class PlantController: MonoBehaviourPunCallbacks,IPunObservable{
     // 起火
     private void StartFire(){
         Debug.Log("起火");
+        if(fire){
+            return;
+        }
+
+        fire = Instantiate(firePrefab, Vector3.zero, Quaternion.identity);
+        fire.GetComponent<PhotonView>().TransferOwnership(photonView.ViewID);
+        fire.transform.SetParent(transform);
+        fire.transform.position = setPoint.position;
 
         FoodIngredient[] foods = transform.GetComponentsInChildren<FoodIngredient>();
         for(int i = 0; i < foods.Length; i++){
@@ -87,6 +90,13 @@ public class PlantController: MonoBehaviourPunCallbacks,IPunObservable{
     // 火焰蔓延
     private void SpreadFire(){
         Debug.Log("火焰蔓延");
+        int curIndex = transform.GetSiblingIndex();
+        try{
+            transform.parent.GetChild(curIndex-1).GetComponent<PlantController>().IsFire = true;
+        }catch{}
+        try{
+            transform.parent.GetChild(curIndex+1).GetComponent<PlantController>().IsFire = true;
+        }catch{}
     }
 
 
