@@ -22,6 +22,7 @@ public class LoadScene : MonoBehaviour {
         // 播放过场动画
         // 加载场景数据
         // 进行场景加载跳转
+
         // textAlpha = progress.color.a;
         // StartCoroutine(MyLoadScene("boat"));
         PhotonNetwork.LoadLevel("DongtaiLoad");
