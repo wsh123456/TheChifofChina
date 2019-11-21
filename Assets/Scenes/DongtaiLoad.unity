@@ -1410,9 +1410,25 @@ Prefab:
       propertyPath: viewIdField
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114715084741158744, guid: 0bdf041d7e81977489952adbae4dcdf8,
+        type: 2}
+      propertyPath: Synchronization
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114715084741158744, guid: 0bdf041d7e81977489952adbae4dcdf8,
+        type: 2}
+      propertyPath: ObservedComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 105057370}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0bdf041d7e81977489952adbae4dcdf8, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &105057370 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114619134239210332, guid: 0bdf041d7e81977489952adbae4dcdf8,
+    type: 2}
+  m_PrefabInternal: {fileID: 105057369}
+  m_Script: {fileID: 11500000, guid: 251627a59a4d5db4588e14278275e4d8, type: 3}
 --- !u!1 &107286726
 GameObject:
   m_ObjectHideFlags: 0
@@ -27156,10 +27172,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 586453833}
   viewIdField: 2
   InstantiationId: 2
   isRuntimeInstantiated: 0
@@ -67628,10 +67644,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 1572541520}
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
@@ -94158,10 +94174,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 2063137803}
   viewIdField: 6
   InstantiationId: 6
   isRuntimeInstantiated: 0
