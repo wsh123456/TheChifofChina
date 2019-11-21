@@ -57,6 +57,7 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
                 if (other.GetComponent<PlateBehaviour>().CanInPlate(transform.GetChild(0).GetChild(0).GetComponent<FoodIngredient>(),other.gameObject) 
                     && Input.GetKeyDown(KeyCode.Space))
                 {
+
                     photonView.RPC("SetParent", RpcTarget.All, transform.GetChild(0).GetChild(0).GetComponent<PhotonView>().ViewID,
                         other.GetComponent<PhotonView>().ViewID);
                 }
@@ -104,6 +105,7 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
     [PunRPC]
     protected virtual void DoActionFried(int index)
     {
+        Debug.Log("zhawan156fds1f56sd1fc23sd1f23sd");
        PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Fried, CookOver);
     }
 

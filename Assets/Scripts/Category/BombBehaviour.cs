@@ -25,12 +25,23 @@ public class BombBehaviour : Category {
         if (other.GetComponent<FoodIngredient>())
         {
             //是肉类可以
-            if (other.GetComponent<FoodIngredient>().GetIType() == FoodIngredientType.Chicken && other.GetComponent<FoodIngredient>().curState == FoodIngredientState.Cut && Input.GetKeyDown(KeyCode.Space))
+            if ( other.GetComponent<FoodIngredient>().curState == FoodIngredientState.Cut && Input.GetKeyDown(KeyCode.Space)&& other.GetComponent<FoodIngredient>().GetIType() == FoodIngredientType.Chicken)
             {
                 //可以放
                 CanPutIn(other.gameObject);
             }
+            if (other.GetComponent<FoodIngredient>().curState == FoodIngredientState.Cut && Input.GetKeyDown(KeyCode.Space) && other.GetComponent<FoodIngredient>().GetIType() == FoodIngredientType.Potato)
+            {
+                //可以放
+                CanPutIn(other.gameObject);
+            }
+
+            if (other.GetComponent<FoodIngredient>().GetIType() == FoodIngredientType.Chicken)
+            {
+                Debug.Log(other.GetComponent<FoodIngredient>().curState);
+            }
         }
+
         //装盘
         InPlate(other);
     }

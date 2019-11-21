@@ -38,9 +38,12 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
     {
         progressBar.transform.SetParent(canvas.transform);
         progressBar.gameObject.SetActive(false);
+        
     }
     private void Update()
     {
+        progressBar.transform.position = Camera.main.WorldToScreenPoint(washPoint.transform.position);
+        progressBar.transform.localScale = Vector3.one;
         if (!game)
             return;
         Debug.Log(game.GetComponent<PlateBehaviour>().weshTime);
@@ -63,7 +66,7 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
         if (!other.transform.parent.name.Contains("Hand")&&other.transform.parent== transform.GetChild(0)
             &&other.GetComponent<PlateBehaviour>().curstate == PlateBehaviour.PlateState.Dirty && Input.GetKeyDown(KeyCode.E))
             {
-                
+                game = other.gameObject;   
                 int viewID = game.GetComponent<PlateBehaviour>().photonView.ViewID;
                 photonView.RPC("ShowPrograssBar", RpcTarget.All);
                 photonView.RPC("StartWashtar",RpcTarget.All,viewID);
@@ -119,5 +122,6 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
         Debug.Log("洗盘子完成");
         photonView.RPC("HidePrograssBar", RpcTarget.All);
         game = null;
+
     }
 }

@@ -22,18 +22,18 @@ using Photon;
 
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
-   
+public class PlayerMoveController : MonoBehaviourPunCallbacks, IPunObservable
+{
+
     private Animator ani;
-    public static  PlayerMoveController instance;
+    public static PlayerMoveController instance;
     private PhotonView phView;
     private bool canMove = false;
 
-
-    private  void Awake()
+    private void Awake()
     {
         instance = this;
-        ani =GetComponent<Animator>();
+        ani = GetComponent<Animator>();
         phView = GetComponent<PhotonView>();
     }
     private void Start()
@@ -45,10 +45,9 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
     }
     private void Update()
     {
-        if(!phView.IsMine){
+        if (!phView.IsMine)
             return;
-        }
-        if(!canMove)
+        if (!canMove)
             return;
         Move();
     }
@@ -59,21 +58,21 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
     {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
-        ani.SetFloat("Walk",Mathf.Abs(hor)+Mathf.Abs(ver)*100f-0.0000001f);
-        transform.position +=new Vector3(hor,0,ver)*Time.deltaTime*4f;
+        ani.SetFloat("Walk", Mathf.Abs(hor) + Mathf.Abs(ver) * 100f - 0.0000001f);
+        transform.position += new Vector3(hor, 0, ver) * Time.deltaTime * 4f;
         Vector3 dir = new Vector3(hor, 0, ver);
-        
-        if (dir!=Vector3.zero)
+
+        if (dir != Vector3.zero)
         {
 
-            if (Vector3.Angle(new Vector3(hor, 0, ver), -transform.forward)>3)
+            if (Vector3.Angle(new Vector3(hor, 0, ver), -transform.forward) > 3)
             {
                 //判断方向在人物的哪侧面
-                if (Vector3.Cross(new Vector3(hor, 0, ver), -transform.forward).normalized==Vector3.down)
+                if (Vector3.Cross(new Vector3(hor, 0, ver), -transform.forward).normalized == Vector3.down)
                 {
                     transform.Rotate(0, 6f, 0);
                 }
-               else
+                else
                     transform.Rotate(0, -6f, 0);
             }
         }
@@ -93,9 +92,11 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
         }
     }
 
-    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged){
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
         object temp;
-        if(propertiesThatChanged.TryGetValue("PlayerCanMove", out temp)){
+        if (propertiesThatChanged.TryGetValue("PlayerCanMove", out temp))
+        {
             canMove = (bool)temp;
         }
     }

@@ -25,7 +25,7 @@ public class PlaneBehaviour : MonoBehaviourPunCallbacks {
         {
             try
             {
-                other.GetComponent<PhotonView>().TransferOwnership(photonView.ViewID);
+                //other.GetComponent<PhotonView>().TransferOwnership(photonView.ViewID);
                 photonView.RPC("SetParent", RpcTarget.All, other.transform.GetComponent<PhotonView>().ViewID, transform.GetComponent<PhotonView>().ViewID);
             }
             catch

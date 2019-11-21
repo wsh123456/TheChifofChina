@@ -483,6 +483,11 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         PhotonView.Find(childIndex).transform.localEulerAngles = Vector3.zero;
         Destroy(PhotonView.Find(childIndex).transform.GetComponent<Rigidbody>());
         PhotonView.Find(childIndex).tag = "Untagged";
+        if (PhotonView.Find(childIndex).GetComponent<BoxCollider>())
+        {
+          Destroy( PhotonView.Find(childIndex).GetComponent<BoxCollider>());
+        }
+       
         //foodsList.Add(inPlateObj);
     }
     /// <summary>

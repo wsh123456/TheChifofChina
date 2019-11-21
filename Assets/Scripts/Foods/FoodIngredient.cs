@@ -371,5 +371,5 @@ public enum FoodIngredientState
 /// </summary>
 public enum FoodIngredientType
 {
-    Cabbage,Potato,Tomato,Chicken,Rice
+    Cabbage, Tomato,Potato, Chicken,Rice
 }

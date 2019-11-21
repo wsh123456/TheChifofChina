@@ -29,7 +29,7 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
         weshTime = 0f;
         currentTime = 10f;
         Levelins = LevelInstance._instance;
-        menu = new Dictionary<string, List<string>>();
+        menu = new Dictionary<string, List<FoodModel_FoodIngredient>>();
         clearPoint = GameObject.FindWithTag("ClearPoint").transform;
         Menu();
     }
@@ -112,17 +112,22 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
         //回收盘子
         ObjectPool.instance.RecycleObj(PhotonView.Find(photonView.ViewID).gameObject);
     }
-    private Dictionary<string, List<string>> menu;
+    private Dictionary<string, List<FoodModel_FoodIngredient>> menu;
 
     //拿到菜谱 
     private void Menu()
     {
         foreach (var item in Levelins.levelFood)
         {
-            List<string> CName = new List<string>();
+            List<FoodModel_FoodIngredient> CName = new List<FoodModel_FoodIngredient>();
             foreach (var i in item.Value.foodIngredient)
             {
-                CName.Add(i.name);
+                FoodModel_FoodIngredient temp = new FoodModel_FoodIngredient();
+                temp.name = i.name;
+                temp.state = i.state;
+
+                CName.Add(temp);
+
             }
             menu.Add(item.Key, CName);
         }
@@ -167,7 +172,9 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
             {
                 curstate = PlateState.Clear;
                 action();
+               
                 SetParents();
+                weshTime = 0;
                 break;
             }
         }
@@ -193,6 +200,7 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
             Debug.Log("藏盘子");
             return false;
         }
+        Debug.Log(food.curState);
         if (food.curState == FoodIngredientState.Normal)
         {
             Debug.Log("状态不允许");
@@ -212,11 +220,17 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
 
         foreach (var item in menu)
         {
-            if (item.Value.Contains(food.GetIType().ToString()) && food.DoAction(FoodIngredientState.InPlate, null))
-            {
-                foodsList.Add(inPlateObj);
-                return true;
-            }
+          
+                //foodsList.Add(inPlateObj);
+                //;
+                for (int i = 0; i < item.Value.Count; i++)
+                {
+                    if (item.Value[i].name==food.GetIType().ToString()&&item.Value[i].state==food.curState.ToString())
+                    {
+                        return true;
+                    }
+                }
+            
 
         }
         Debug.Log("其他错误");
