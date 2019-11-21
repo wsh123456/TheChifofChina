@@ -24,7 +24,7 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
     private void Start()
     {
         createPlatePoint = GameObject.FindWithTag("PlateReturn").transform;
-        Debug.Log(Resources.Load<Material>("Prefabs/Materials/DirtyPlate"));
+
     }
     //检测菜
 
