@@ -58,7 +58,7 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
             &&other.GetComponent<PlateBehaviour>().curstate == PlateBehaviour.PlateState.Dirty && Input.GetKeyDown(KeyCode.E))
             {
                 game = other.gameObject;
-                int viewID = game.GetComponent<FoodIngredient>().photonView.ViewID;
+                int viewID = game.GetComponent<PlateBehaviour>().photonView.ViewID;
                 photonView.RPC("ShowPrograssBar", RpcTarget.All);
                 photonView.RPC("StartWashtar",RpcTarget.All,viewID);
                 isCanStop = true;
