@@ -45,12 +45,13 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
             return;
         Debug.Log(game.GetComponent<PlateBehaviour>().weshTime);
         Debug.Log(game.GetComponent<PlateBehaviour>().currentTime);
-        photonView.RPC("SetProgressBar", RpcTarget.All);
+        photonView.RPC("SetProgressBar", RpcTarget.All,game.GetComponent<PhotonView>().ViewID);
     }
     [PunRPC]
-    private void SetProgressBar()
+    private void SetProgressBar(int index)
     {
-        progressBar.transform.Find("Slider").GetComponent<Slider>().value = game.GetComponent<PlateBehaviour>().weshTime / game.GetComponent<PlateBehaviour>().currentTime;
+        progressBar.transform.Find("Slider").GetComponent<Slider>().value = PhotonView.Find(index).GetComponent<PlateBehaviour>().weshTime / PhotonView.Find(index).GetComponent<PlateBehaviour>().currentTime;
+
     }
     private void OnTriggerStay(Collider other)
     {
@@ -62,7 +63,7 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
         if (!other.transform.parent.name.Contains("Hand")&&other.transform.parent== transform.GetChild(0)
             &&other.GetComponent<PlateBehaviour>().curstate == PlateBehaviour.PlateState.Dirty && Input.GetKeyDown(KeyCode.E))
             {
-                game = other.gameObject;
+                
                 int viewID = game.GetComponent<PlateBehaviour>().photonView.ViewID;
                 photonView.RPC("ShowPrograssBar", RpcTarget.All);
                 photonView.RPC("StartWashtar",RpcTarget.All,viewID);
@@ -87,11 +88,7 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
             game.GetComponent<PlateBehaviour>().photonView.RPC("BreakOperat", RpcTarget.All);
         }
     }
-    [PunRPC]
-    private void BreakOperat()
-    {
-        
-    }
+   
     /// <summary>
     /// 开始洗盘子
     /// </summary>
