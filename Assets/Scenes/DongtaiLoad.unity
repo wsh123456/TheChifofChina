@@ -1123,6 +1123,26 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114806486227451190, guid: 06491a5d74488814686608ac2ab7e1ab,
+        type: 2}
+      propertyPath: viewIdField
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 114806486227451190, guid: 06491a5d74488814686608ac2ab7e1ab,
+        type: 2}
+      propertyPath: InstantiationId
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 114706454629726972, guid: 06491a5d74488814686608ac2ab7e1ab,
+        type: 2}
+      propertyPath: viewIdField
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 114706454629726972, guid: 06491a5d74488814686608ac2ab7e1ab,
+        type: 2}
+      propertyPath: InstantiationId
+      value: 42
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06491a5d74488814686608ac2ab7e1ab, type: 2}
   m_IsPrefabParent: 0

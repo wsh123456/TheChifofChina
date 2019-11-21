@@ -95,13 +95,20 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             inHandObj.transform.localEulerAngles = new Vector3(0, 90, 0);
             inHandObj.transform.localPosition = new Vector3(0, -0.00479f, 0);
         }
+        if (inHandObj.gameObject.name.Contains("FireExtinguisher"))
+        {
+            Debug.Log(PhotonView.Find(index).name);
+            inHandObj.transform.localEulerAngles = new Vector3(0, 180, 0);
+            inHandObj.transform.localPosition = new Vector3(0, 0, 0);
+        }
+
         if (inHandObj.GetComponent<Rigidbody>())
         {
             inHandObj.GetComponent<Rigidbody>().isKinematic = true;
         }
         RemoveLight();
         Invoke("IsPut", 0.3f);
-        if (PhotonView.Find(index).transform.GetComponentsInChildren<Transform>().Length >= 2)
+        if (PhotonView.Find(index).transform.GetComponentsInChildren<Transform>().Length >= 2 && !inHandObj.gameObject.name.Contains("FireExtinguisher"))
         {
             if (PhotonView.Find(index).transform.GetChild(0).name.Contains("Pro"))
                 return;
@@ -177,6 +184,17 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             
         }
 
+        // ------使用喷火器
+        if (inHandObj && inHandObj.name.Contains("FireExtinguisher") && Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("喷tmd");
+            inHandObj.GetComponent<ExtinguisherBehaviour>().UseExtgui(true);
+        }
+        if (inHandObj && inHandObj.name.Contains("FireExtinguisher") && Input.GetKeyUp(KeyCode.E))
+        {
+            inHandObj.GetComponent<ExtinguisherBehaviour>().UseExtgui(false);
+        }
+
     }
 
 
@@ -221,21 +239,21 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                         {
                             isPut = true;
 
-                            Debug.Log("++++++++++++++++");
-  
                             GameObject go = ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient", handContainer.position);
                             Debug.Log(go + "---------------"+ go.GetComponent<PhotonView>().ViewID);
 
                             go.GetComponent<FoodIngredient>().photonView.RPC("InitFoodIngredient", RpcTarget.All, name);
                             go.GetComponent<FoodIngredient>().photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID);
                             
-                            Debug.Log(go +"sssssssssssssssssssssssssssssssss---------------"+ go.GetComponent<PhotonView>().ViewID);
+                           
                         }
                         break;
                     }
                 }
 
             }
+
+
             //---------------切的状态 完成
             if (inHandObj == null && other.name.Contains("CuttingBoard") && Input.GetKeyDown(KeyCode.E))
             {

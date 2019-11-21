@@ -361,6 +361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb50912df4e0ce5468c7434d6ba5537c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countDown: {fileID: 0}
+  timer: {fileID: 0}
+  foodMenu: {fileID: 0}
 --- !u!114 &114131943079913684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -576,11 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0639b77dfc6998a4690f7c6a1c4e2f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mterialTran: {fileID: 0}
-  food: {fileID: 0}
   foodMenu: []
-  foodsList: []
-  menuDic: []
   plateBehaviour: {fileID: 0}
 --- !u!114 &114618582647925204
 MonoBehaviour:
@@ -628,7 +627,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   viewIdField: 0
-  InstantiationId: 2
+  InstantiationId: 5
   isRuntimeInstantiated: 0
 --- !u!114 &114651595127290988
 MonoBehaviour:
@@ -649,7 +648,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   viewIdField: 0
-  InstantiationId: 1
+  InstantiationId: 3
   isRuntimeInstantiated: 0
 --- !u!114 &114713914676142720
 MonoBehaviour:
@@ -670,7 +669,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 0}
   viewIdField: 0
-  InstantiationId: 3
+  InstantiationId: 4
   isRuntimeInstantiated: 0
 --- !u!114 &114723602583991204
 MonoBehaviour:
@@ -907,7 +906,7 @@ Canvas:
   m_GameObject: {fileID: 1809126399558804}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 1
   m_PixelPerfect: 0

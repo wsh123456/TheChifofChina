@@ -1,13 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon;
+using Photon.Pun;
+using Photon.Realtime;
+using System;
 
 /// <summary>
 /// 灭火器
 /// </summary>
-public class ExtinguisherBehaviour : MonoBehaviour {
+public class ExtinguisherBehaviour : MonoBehaviourPunCallbacks,IPunObservable,IHand{
 
-    GameObject smoke;//灭火器烟雾游戏对象
+    private GameObject smoke;   // 灭火器烟雾游戏对象
+    private ParticleSystem co2;     // 喷射出的特效
+    private bool isUse;
+    public bool IsUse{
+        get{return isUse;}
+        set{
+            if(value){
+                co2.Play();
+            }else{
+                co2.Stop();
+            }
+            isUse = value;
+        }
+    }
+
     private void Awake()
     {
         //加载灭火器烟雾预设体
@@ -16,6 +34,7 @@ public class ExtinguisherBehaviour : MonoBehaviour {
         smoke = Instantiate(smokePreFab);
         //初始化烟雾
         Init();
+        co2 = smoke.GetComponent<ParticleSystem>();
     }
 
     /// <summary>
@@ -24,18 +43,7 @@ public class ExtinguisherBehaviour : MonoBehaviour {
     /// <param name="isUse">true为使用,false为不使用</param>
     public void UseExtgui(bool isUse)
     {
-        ParticleSystem particleSystem = smoke.GetComponent<ParticleSystem>();
-        //判断是否在使用
-        if (isUse)
-        {
-            //如果在使用，播放烟雾粒子特效
-            particleSystem.Play();
-        }
-        else
-        {
-            //如果不使用，停止播放烟雾粒子特效
-            particleSystem.Stop();
-        }
+        IsUse = isUse;
     }
 
     /// <summary>
@@ -47,5 +55,32 @@ public class ExtinguisherBehaviour : MonoBehaviour {
         smoke.transform.localPosition = new Vector3(0f, 0.008f, 0.005f);
         smoke.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         smoke.transform.eulerAngles = transform.eulerAngles;
+    }
+
+
+    public bool Pick(PlayerHandController player, Action<GameObject> callback)
+    {
+        return true;
+    }
+
+    public bool Throw(PlayerHandController player, Action<GameObject> callback)
+    {
+        return false;
+    }
+
+    public bool PutDown(PlayerHandController player, Action<GameObject> callback)
+    {
+        return true;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+        if (stream.IsWriting)
+        {
+            stream.SendNext(IsUse);
+        }
+        else
+        {
+            IsUse = (bool)stream.ReceiveNext();
+        }
     }
 }
