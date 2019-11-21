@@ -53,4 +53,5 @@ MonoBehaviour:
   - ShowPrograssBar
   - StartWashtar
   - BreakOperat
+  - SetProgressBar
   DisableAutoOpenWizard: 1

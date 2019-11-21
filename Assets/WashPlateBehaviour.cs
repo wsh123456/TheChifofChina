@@ -63,7 +63,7 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
         if (!other.transform.parent.name.Contains("Hand")&&other.transform.parent== transform.GetChild(0)
             &&other.GetComponent<PlateBehaviour>().curstate == PlateBehaviour.PlateState.Dirty && Input.GetKeyDown(KeyCode.E))
             {
-                
+                game = other.gameObject;
                 int viewID = game.GetComponent<PlateBehaviour>().photonView.ViewID;
                 photonView.RPC("ShowPrograssBar", RpcTarget.All);
                 photonView.RPC("StartWashtar",RpcTarget.All,viewID);
