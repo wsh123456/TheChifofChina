@@ -45,6 +45,11 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
             return;
         Debug.Log(game.GetComponent<PlateBehaviour>().weshTime);
         Debug.Log(game.GetComponent<PlateBehaviour>().currentTime);
+        photonView.RPC("SetProgressBar", RpcTarget.All);
+    }
+    [PunRPC]
+    private void SetProgressBar()
+    {
         progressBar.transform.Find("Slider").GetComponent<Slider>().value = game.GetComponent<PlateBehaviour>().weshTime / game.GetComponent<PlateBehaviour>().currentTime;
     }
     private void OnTriggerStay(Collider other)
