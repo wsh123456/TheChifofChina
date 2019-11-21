@@ -13,7 +13,6 @@ namespace UIFrameWork{
         
         protected virtual void Awake() {
             manageredUI = new Dictionary<string, UIBehavBase>();
-            Debug.Log("声明事件字典");
             if(moduleType != ModuleType.Once){
                 UIManagerBase._instance.RegisterModule(this.name, this);
             }

@@ -9,7 +9,7 @@ using System;
 /// <summary>
 /// 
 /// </summary>
-public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand
+public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
 {
     public Transform clearPoint;
     public Action action;
@@ -241,5 +241,19 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand
     public bool PutDown(PlayerHandController player, Action<GameObject> callback)
     {
         return true;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+             stream.SendNext(weshTime);
+
+        }
+        else
+        {
+            weshTime = (int)stream.ReceiveNext();
+        }
+                
     }
 }

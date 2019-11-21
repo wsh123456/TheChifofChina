@@ -1410,9 +1410,25 @@ Prefab:
       propertyPath: viewIdField
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114715084741158744, guid: 0bdf041d7e81977489952adbae4dcdf8,
+        type: 2}
+      propertyPath: Synchronization
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114715084741158744, guid: 0bdf041d7e81977489952adbae4dcdf8,
+        type: 2}
+      propertyPath: ObservedComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 105057370}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0bdf041d7e81977489952adbae4dcdf8, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &105057370 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114619134239210332, guid: 0bdf041d7e81977489952adbae4dcdf8,
+    type: 2}
+  m_PrefabInternal: {fileID: 105057369}
+  m_Script: {fileID: 11500000, guid: 251627a59a4d5db4588e14278275e4d8, type: 3}
 --- !u!1 &107286726
 GameObject:
   m_ObjectHideFlags: 0
@@ -16741,6 +16757,9 @@ GameObject:
   m_Component:
   - component: {fileID: 290778156}
   - component: {fileID: 290778157}
+  - component: {fileID: 290778160}
+  - component: {fileID: 290778159}
+  - component: {fileID: 290778158}
   m_Layer: 0
   m_Name: SprayPoint
   m_TagString: Untagged
@@ -16755,13 +16774,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 290778155}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00085000263, y: 0.007489998, z: 0.0022699828}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7167587, y: 0.22271815, z: 0.32135957, w: 0.5773921}
+  m_LocalPosition: {x: -0.0009, y: 0.0082, z: 0.003}
+  m_LocalScale: {x: 0.080376245, y: 0.07972122, z: 0.08037626}
   m_Children: []
   m_Father: {fileID: 1520025593}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 43.201, y: 100.009, z: 108.726006}
 --- !u!114 &290778157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16784,6 +16803,61 @@ MonoBehaviour:
   viewIdField: 41
   InstantiationId: 41
   isRuntimeInstantiated: 0
+--- !u!64 &290778158
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290778155}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 0baebe6c8f51e754a96dd7d4dee9bb4e, type: 3}
+--- !u!23 &290778159
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290778155}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &290778160
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290778155}
+  m_Mesh: {fileID: 4300000, guid: 0baebe6c8f51e754a96dd7d4dee9bb4e, type: 3}
 --- !u!1 &295030467
 GameObject:
   m_ObjectHideFlags: 0
@@ -27098,10 +27172,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 586453833}
   viewIdField: 2
   InstantiationId: 2
   isRuntimeInstantiated: 0
@@ -67570,10 +67644,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 1572541520}
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
@@ -94100,10 +94174,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 2063137803}
   viewIdField: 6
   InstantiationId: 6
   isRuntimeInstantiated: 0

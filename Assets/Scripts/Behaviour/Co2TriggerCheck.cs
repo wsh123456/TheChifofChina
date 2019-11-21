@@ -24,7 +24,7 @@ public class Co2TriggerCheck : MonoBehaviour {
     }
 
     private void OnTriggerStay(Collider other){
-        Debug.Log(other + "---------------------");
+
         // 如果灭火器在使用
         if(extinguisher.IsUse){
             try{

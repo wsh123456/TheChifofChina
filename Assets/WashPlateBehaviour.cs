@@ -87,9 +87,14 @@ public class WashPlateBehaviour : MonoBehaviourPunCallbacks {
     {
         
     }
+    /// <summary>
+    /// 开始洗盘子
+    /// </summary>
+    /// <param name="index"></param>
     [PunRPC]
     private void StartWashtar(int index)
     {
+        Debug.Log("=============");
      PhotonView.Find(index).GetComponent<PlateBehaviour>().StartWash(FinishOperation);
     }
 
