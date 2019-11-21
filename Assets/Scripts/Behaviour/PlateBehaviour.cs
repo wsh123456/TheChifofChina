@@ -245,15 +245,15 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
-        {
-             stream.SendNext(weshTime);
+        // if (stream.IsWriting)
+        // {
+        //      stream.SendNext(weshTime);
 
-        }
-        else
-        {
-            weshTime = (int)stream.ReceiveNext();
-        }
+        // }
+        // else
+        // {
+        //     weshTime = (int)stream.ReceiveNext();
+        // }
                 
     }
 }
