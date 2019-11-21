@@ -149,6 +149,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         isFinish = false;
 
         HideProgras();
+        Debug.Log("ssssssssssssssssssssssssssssssssssssss");
         return this;
     }
 
@@ -293,7 +294,9 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     
     // 设置使用的操作和时间
     private void SetUsingDict(FoodIngredientModel food){
-        if(food.normalPrefab != null){
+        usingMesh.Clear();
+        usingTime.Clear();
+        if (food.normalPrefab != null){
             usingMesh.Add(food.curState, food.normalPrefab);
             usingTime.Add(food.curState, 0);
         }

@@ -127,10 +127,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         inHandObj = GetOnHand();
         knife.SetActive(isCute);
         ani.SetBool("Cute", isCute);
-        foreach (var item in handObj)
-        {
-          Debug.Log(item.name);
-        }
+
         if (!photonView.IsMine)
         {
             return;
@@ -219,15 +216,20 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                             name = other.name.Substring(0, other.name.LastIndexOf("("));
                         }
                         name = other.name;
-
                         // 如果手上没东西
                         if (inHandObj == null)
                         {
-                            //isPut = true;
+                            isPut = true;
+
+                            Debug.Log("++++++++++++++++");
+  
                             GameObject go = ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient", handContainer.position);
+                            Debug.Log(go + "---------------"+ go.GetComponent<PhotonView>().ViewID);
+
                             go.GetComponent<FoodIngredient>().photonView.RPC("InitFoodIngredient", RpcTarget.All, name);
                             go.GetComponent<FoodIngredient>().photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID);
-
+                            
+                            Debug.Log(go +"sssssssssssssssssssssssssssssssss---------------"+ go.GetComponent<PhotonView>().ViewID);
                         }
                         break;
                     }
@@ -253,13 +255,12 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 }
             }
             //放到台子上
-            Debug.Log(other.gameObject.GetComponentsInChildren<Transform>().Length + "   长度 " + other.gameObject+"+ "+ isPut);
 
             if (inHandObj != null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2 && isPut == true)
             {
                 try
                 {
-                    Debug.Log(other.name + "长度" + other.gameObject.GetComponentsInChildren<Transform>().Length);
+                  //  Debug.Log(other.name + "长度" + other.gameObject.GetComponentsInChildren<Transform>().Length);
                     int targetID = other.gameObject.transform.GetChild(0).GetComponent<PhotonView>().ViewID;
                     //放到台子上
                     Debug.Log("放到台子上");

@@ -30,14 +30,13 @@ public class ConveyorTrigger : MonoBehaviourPunCallbacks {
     {
         if (other.tag=="Thing"&&other.transform.parent.name!="Hand")
         {
-            photonView.RPC("SetParent", RpcTarget.All, other.transform.GetComponent<PhotonView>().ViewID, transform.parent.GetComponent<PhotonView>().ViewID);
-
+            photonView.RPC("SetParent", RpcTarget.All, other.transform.GetComponent<PhotonView>().ViewID, transform.parent.parent.GetComponent<PhotonView>().ViewID);
         }
     }
     [PunRPC]
     private void SetParent(int index, int parentIndex)
     {
-        PhotonView.Find(index).transform.parent = PhotonView.Find(parentIndex).transform;
+        PhotonView.Find(index).transform.parent.parent = PhotonView.Find(parentIndex).transform;
     }
     private void OnTriggerStay(Collider other)
     {

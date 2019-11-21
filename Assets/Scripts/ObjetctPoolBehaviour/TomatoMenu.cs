@@ -47,14 +47,14 @@ public class TomatoMenu : MonoBehaviour {
         //}
         
     }
-    private void Start()
-    {
-      //  gameObject.AddComponent<FoodIngredient>();
-    }
-    private void OnDestroy()
-    {
-        ObjectPool.instance.RecycleObj(gameObject);
-    }
+    //private void Start()
+    //{
+    //  //  gameObject.AddComponent<FoodIngredient>();
+    //}
+    //private void OnDestroy()
+    //{
+    //    ObjectPool.instance.RecycleObj(gameObject);
+    //}
 
 
 }
