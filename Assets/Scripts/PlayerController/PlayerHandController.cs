@@ -106,7 +106,6 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         {
             inHandObj.GetComponent<Rigidbody>().isKinematic = true;
         }
-        RemoveLight();
         Invoke("IsPut", 0.3f);
         if (PhotonView.Find(index).transform.GetComponentsInChildren<Transform>().Length >= 2 && !inHandObj.gameObject.name.Contains("FireExtinguisher"))
         {
@@ -130,18 +129,23 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     }
     private void FixedUpdate()
     {
-
+        
         inHandObj = GetOnHand();
         knife.SetActive(isCute);
         ani.SetBool("Cute", isCute);
-
+       
         if (!photonView.IsMine)
         {
             return;
         }
 
         ani.SetBool("snackAttack", inHandObj != null);
-
+        
+        if (handObj.Count>0&&!handObj[0].activeSelf)
+        {
+            Debug.Log("aaa");
+            handObj.Remove(handObj[0]);
+        }
         if (inHandObj != null)
         {
             //扔
@@ -160,7 +164,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             //放下
             if (inHandObj && Input.GetKeyDown(KeyCode.Tab) && inHandObj.GetComponent<IHand>().PutDown(this, null))
             {
-                Debug.Log(canPickUpThings.GetComponent<PhotonView>().ViewID+"    " + handContainer.GetChild(0).GetComponent<PhotonView>().ViewID);
+
 
                 photonView.RPC("LayDownThings", RpcTarget.All, canPickUpThings.GetComponent<PhotonView>().ViewID, handContainer.GetChild(0).GetComponent<PhotonView>().ViewID);
             }
@@ -178,7 +182,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     handObj.Remove(handObj[i]);
                    // Destroy(handObj[i].GetComponent<PickTings>());
-                    RemoveLight();
+                   
                 }
             }
             
@@ -306,6 +310,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                     if (other.transform.GetChild(0).GetChild(0).GetComponent<PlateBehaviour>().CanInPlate(inHandObj.GetComponent<FoodIngredient>(), inHandObj))
                     {
                         Debug.Log("放入盘子");
+                        photonView.RPC("SetParents",RpcTarget.All,inHandObj.GetComponent<PhotonView>().ViewID, other.transform.GetChild(0).GetChild(0).GetComponent<PhotonView>().ViewID);
                         //TODO。。。。。 改变物体贴图
                     }
                 }
@@ -365,26 +370,6 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
     /// <summary>
-    /// 移除灯光
-    /// </summary>
-    private void RemoveLight()
-    {
-        //if (handObj.Count == 0)
-        //    return;
-
-
-        //Destroy(handObj[0].GetComponent<HighlighterFlashing>());
-        //Destroy(handObj[0].GetComponent<Highlighter>());
-    }
-    //private void RemoveAllLight()
-    //{
-    //    for (int i = 0; i < handObj.Count; i++)
-    //    {
-    //        Destroy(handObj[i].GetComponent<HighlighterFlashing>());
-    //        Destroy(handObj[i].GetComponent<Highlighter>());
-    //    }
-    //}
-    /// <summary>
     /// 物体离开清除脚本
     /// 从队列中移除
     /// </summary>
@@ -402,6 +387,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 for (int i = 0; i < handObj.Count; i++)
                 {
+                  
                     if (other.gameObject == handObj[i])
                     {
                         handObj.Remove(other.gameObject);
@@ -488,7 +474,17 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
 
     #region photon同步调用  
+    [PunRPC]
+    private void SetParents(int childIndex,int parentIndex)
+    {
 
+       PhotonView.Find(childIndex).transform.parent = PhotonView.Find(parentIndex).transform;
+        PhotonView.Find(childIndex).transform.localPosition = Vector3.zero;
+        PhotonView.Find(childIndex).transform.localEulerAngles = Vector3.zero;
+        Destroy(PhotonView.Find(childIndex).transform.GetComponent<Rigidbody>());
+        PhotonView.Find(childIndex).tag = "Untagged";
+        //foodsList.Add(inPlateObj);
+    }
     /// <summary>
     /// 扔东西
     /// </summary>

@@ -54,10 +54,11 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
         {
             if (transform.GetChild(0).childCount > 0)
             {
-              
-                if (transform.GetChild(0).GetChild(0).GetComponent<FoodIngredient>().curState != FoodIngredientState.Normal && Input.GetKeyDown(KeyCode.Space))
+                if (other.GetComponent<PlateBehaviour>().CanInPlate(transform.GetChild(0).GetChild(0).GetComponent<FoodIngredient>(),other.gameObject) 
+                    && Input.GetKeyDown(KeyCode.Space))
                 {
-                    photonView.RPC("SetParent", RpcTarget.All, transform.GetChild(0).GetChild(0).GetComponent<PhotonView>().ViewID, other.GetComponent<PhotonView>().ViewID);
+                    photonView.RPC("SetParent", RpcTarget.All, transform.GetChild(0).GetChild(0).GetComponent<PhotonView>().ViewID,
+                        other.GetComponent<PhotonView>().ViewID);
                 }
             }
         }

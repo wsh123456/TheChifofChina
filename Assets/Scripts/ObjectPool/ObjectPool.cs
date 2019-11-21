@@ -111,7 +111,7 @@ public class ObjectPool:MonoBehaviourPunCallbacks
             tempObj.SetActive(true);
            // photonView.RPC("ShowPrefab", RpcTarget.All, tempObj.GetComponent<PhotonView>().ViewID);
             //将对象返回
-            Debug.Log("显示隐藏对象" + tempObj + ", " + objName);
+
             return tempObj;
         }
 
@@ -227,7 +227,7 @@ public class ObjectPool:MonoBehaviourPunCallbacks
         else
         {
             //如果没有就新建子池，并添加进去
-            Debug.Log("+++++++++++++++++"+ objName);
+
             pool.Add(objName,new List<GameObject>() {obj });
         }
     }

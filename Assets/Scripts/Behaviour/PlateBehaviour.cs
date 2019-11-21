@@ -11,17 +11,26 @@ using System;
 /// </summary>
 public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand
 {
+    public Transform clearPoint;
+    public Action action;
     private LevelInstance Levelins;
     //声明一个列表存储盘子里的食材
     public List<GameObject> foodsList = new List<GameObject>();
     //声明isClean，默认true
+    public float weshTime ;
+    public float currentTime;
+    public float speedTime = 1f;
     public bool isClean = true;
     public List<string> foodName;
     public int[] viewIndex;
+    public PlateState curstate= PlateState.Clear;
     private void Start()
     {
+        weshTime = 0f;
+        currentTime = 10f;
         Levelins = LevelInstance._instance;
         menu = new Dictionary<string, List<string>>();
+        clearPoint = GameObject.FindWithTag("ClearPoint").transform;
         Menu();
     }
     /// <summary>
@@ -118,60 +127,107 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand
             menu.Add(item.Key, CName);
         }
     }
+    /// <summary>
+    /// 检测盘子状态
+    /// </summary>
+    public  void Check(PlateState state)
+    {
+        curstate = state;
+    }
 
+    /// <summary>
+    /// 开始洗
+    /// </summary>
+    public void StartWash(Action a)
+    {
+        action = a;
+        StartCoroutine("Clothes");
+    }
+    /// <summary>
+    /// 停止操作
+    /// </summary>
+    [PunRPC]
+    public void BreakOperat()
+    {
+        StopCoroutine("Clothes");
+    }
+    /// <summary>
+    /// 洗
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator Clothes()
+    {
+       
+        while (true)
+        {
+            yield return new WaitForSeconds(speedTime);
+            weshTime += speedTime;
+            Debug.Log(weshTime);
+            if (weshTime>currentTime)
+            {
+                curstate = PlateState.Clear;
+                action();
+                SetParents();
+                break;
+            }
+        }
+    }
+    /// <summary>
+    /// 洗碗设置父物体的点
+    /// </summary>
+    private void SetParents()
+    {
+        transform.SetParent(clearPoint);
+        transform.localPosition = Vector3.zero;
+        gameObject.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Prefabs/Materials/PlateMat");
+    }
     /// <summary>
     /// 可以放到盘子里
     /// </summary>
     /// <returns></returns>
-    public bool CanInPlate(FoodIngredient food, GameObject inPlateObj)
+    public bool CanInPlate(FoodIngredient food,GameObject inPlateObj)
     {
         //判断状态
+        if (curstate==PlateState.Dirty)
+        {
+            Debug.Log("藏盘子");
+            return false;
+        }
         if (food.curState == FoodIngredientState.Normal)
         {
+            Debug.Log("状态不允许");
             return false;
         }
         if (transform.childCount > 0)
-        {    //判断重读
+        {    //判断重复
             for (int i = 0; i < transform.childCount; i++)
             {
                 if (food.GetIType() == transform.GetChild(i).GetComponent<FoodIngredient>().GetIType())
                 {
+                    Debug.Log("重复了");
                     return false;
                 }
-            }
-            foreach (var item in menu)
+            }     
+        }
+
+        foreach (var item in menu)
+        {
+            if (item.Value.Contains(food.GetIType().ToString()) && food.DoAction(FoodIngredientState.InPlate, null))
             {
-                if (item.Value.Contains(food.GetIType().ToString()) && food.DoAction(FoodIngredientState.InPlate, null))
-                {
-                    transform.parent = inPlateObj.transform;
-                    inPlateObj.transform.localPosition = Vector3.zero;
-                    inPlateObj.transform.localEulerAngles = Vector3.zero;
-                    Destroy(inPlateObj.transform.GetComponent<Rigidbody>());
-                    inPlateObj.tag = "Untagged";
-                    foodsList.Add(inPlateObj);
-                    return true;
-                }
-
+                foodsList.Add(inPlateObj);
+                return true;
             }
-                    return false;
+
         }
-        else
-        {
+        Debug.Log("其他错误");
             return false;
-        }
+
     }
-   
-    private void OnTriggerStay(Collider other)
+ public  enum PlateState
     {
-        if (other.tag=="Out")
-        {
-            //if (MenuManage.menuManage.menu)
-            //{
-
-            //}
-        }
+        Clear,
+        Dirty
     }
-
     public bool Pick(PlayerHandController player, Action<GameObject> callback)
     {
         return true;

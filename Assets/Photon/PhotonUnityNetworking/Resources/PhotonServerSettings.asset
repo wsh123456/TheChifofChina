@@ -48,4 +48,9 @@ MonoBehaviour:
   - ThrowThings
   - ShowPrefab
   - HidePrefab
+  - SetParents
+  - HidePrograssBar
+  - ShowPrograssBar
+  - StartWashtar
+  - BreakOperat
   DisableAutoOpenWizard: 1

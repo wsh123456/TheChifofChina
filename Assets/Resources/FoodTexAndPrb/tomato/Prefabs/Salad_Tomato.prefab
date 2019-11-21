@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4203825893975964}
   - component: {fileID: 33947582364873796}
   - component: {fileID: 23902522206061734}
+  - component: {fileID: 114732848454761072}
   m_Layer: 0
   m_Name: Salad_Tomato
   m_TagString: Untagged
@@ -82,3 +83,24 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1252841426238134}
   m_Mesh: {fileID: 4300000, guid: 443344a452b0b604cb7e677dd247c525, type: 3}
+--- !u!114 &114732848454761072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1252841426238134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

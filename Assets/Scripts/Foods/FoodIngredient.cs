@@ -23,6 +23,9 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
     /// </summary>
     public FoodIngredientState curState = FoodIngredientState.Normal;
     public FoodIngredientState previousState;//装盘之前的状态
+
+
+
     /// <summary>
     /// 是否为熟食(煮过,炸过)
     /// </summary>
@@ -147,9 +150,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         isActive = false;
         // isFirstTime = true;
         isFinish = false;
-
         HideProgras();
-        Debug.Log("ssssssssssssssssssssssssssssssssssssss");
         return this;
     }
 
@@ -252,8 +253,7 @@ public class FoodIngredient : MonoBehaviourPunCallbacks,IPunObservable,IHand{
         transform.GetComponent<Rigidbody>().isKinematic = true;
         transform.SetParent(PhotonView.Find(viewID).GetComponent<PlayerHandController>().handContainer);
         transform.transform.localPosition = Vector3.zero;
-    }
-        
+    }     
     #endregion
 
 

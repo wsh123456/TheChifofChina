@@ -17,7 +17,7 @@ public class AddMenu : MonoBehaviourPunCallbacks,IPunObservable{
     void Awake()
     {
         levelFood = LevelInstance._instance.levelFood;
-        plateBehaviour = ObjectPool.instance.CreateObject(GameConst.Plate).GetComponent<PlateBehaviour>();
+       // plateBehaviour = ObjectPool.instance.CreateObject(GameConst.Plate).GetComponent<PlateBehaviour>();
     }
 
     private void Start() {
