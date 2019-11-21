@@ -607,6 +607,15 @@ Prefab:
       propertyPath: m_AnchorMin.y
       value: 0.8497037
       objectReference: {fileID: 0}
+    - target: {fileID: 1157277910371330, guid: f341deea240dd4ef18a6839f1bc04bde, type: 2}
+      propertyPath: m_TagString
+      value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 224867911491810926, guid: f341deea240dd4ef18a6839f1bc04bde,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -18.700073
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f341deea240dd4ef18a6839f1bc04bde, type: 2}
   m_IsPrefabParent: 0

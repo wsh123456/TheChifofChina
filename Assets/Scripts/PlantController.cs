@@ -22,8 +22,10 @@ public class PlantController: MonoBehaviourPunCallbacks,IPunObservable{
     private bool isFire = false;
     private GameObject firePrefab;      // 火焰预制体
     private GameObject fire;
+    private Transform canvas;
 
     private Transform setPoint;
+    private Camera mainCamera;
 
 
     public bool IsFire{
@@ -39,14 +41,37 @@ public class PlantController: MonoBehaviourPunCallbacks,IPunObservable{
     }
 
     private void Awake() {
-        firePrefab = Resources.Load<GameObject>("Fire");
+        mainCamera = Camera.main;
         setPoint = transform.GetChild(0);
+        canvas = GameObject.FindGameObjectWithTag("Canvas").transform;
+
+        fire = Instantiate(Resources.Load<GameObject>(UIConst.PROGRESS_BAR));
+        fire.GetComponent<PhotonView>().TransferOwnership(photonView.ViewID);
+        
     }
+
+
+    private void Start() {
+        fire.transform.SetParent(canvas);
+        fire.gameObject.SetActive(false);
+        StartFire();
+    }
+
+
+    private void Update() {
+        if(!photonView.IsMine)
+            return;
+        if(fire){
+            fire.transform.position = Camera.main.WorldToScreenPoint(setPoint.position);
+            fire.transform.localScale = Vector3.one;
+        }
+    }
+
 
     // 起火
     private void StartFire(){
         Debug.Log("起火");
-        fire = Instantiate(firePrefab, Camera.main.ScreenToViewportPoint(setPoint.position), Quaternion.identity);
+
         FoodIngredient[] foods = transform.GetComponentsInChildren<FoodIngredient>();
         for(int i = 0; i < foods.Length; i++){
             foods[i].DoAction(FoodIngredientState.Break, null);

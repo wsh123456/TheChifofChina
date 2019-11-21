@@ -241,7 +241,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                         // 如果手上没东西
                         if (inHandObj == null)
                         {
-                            //isPut = true;
+                            isPut = true;
                             GameObject go = ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient", handContainer.position);
                             go.GetComponent<FoodIngredient>().photonView.RPC("InitFoodIngredient", RpcTarget.All, name);
                             go.GetComponent<FoodIngredient>().photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID);
