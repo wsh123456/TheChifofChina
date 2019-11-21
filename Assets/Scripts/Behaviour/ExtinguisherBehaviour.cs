@@ -17,6 +17,7 @@ public class ExtinguisherBehaviour : MonoBehaviourPunCallbacks,IPunObservable,IH
     public bool IsUse{
         get{return isUse;}
         set{
+            Debug.Log("灭火器使用");
             if(value){
                 co2.Play();
             }else{

@@ -24,8 +24,6 @@ public class MenuUI :MonoBehaviourPunCallbacks,IPunObservable{
     void Awake() {
         materialPoint = transform.Find("materialPoint");
         food = transform.Find("FoodPoint/MenuFood/food"). GetComponent<Image>();
-
-
         levelFood = LevelInstance._instance.levelFood;
         levelIngredient = LevelInstance._instance.levelIngredient;
         addMenu = GameObject.FindGameObjectWithTag("Canvas").GetComponent<AddMenu>();       
@@ -37,10 +35,10 @@ public class MenuUI :MonoBehaviourPunCallbacks,IPunObservable{
     }
     void Update ()
     {
-        AddMenu();
+        ReMoveMenu();
     }
 
-    void AddMenu()
+    void ReMoveMenu()
     {
         if (destoryFoodMenuTimer.isDone){
             MenuManage.menuManage.currentMenuNum -= 1;
@@ -59,13 +57,8 @@ public class MenuUI :MonoBehaviourPunCallbacks,IPunObservable{
 
         // 读取菜的图片，记录现在这个是什么菜
         this.menuStr = MenuManage.menuManage.menuStr;
-        for (int i = 0; i < levelFood[menuStr].foodIngredient.Count; i++){
-            meterialStr = levelFood[menuStr].foodIngredient[i].name;
-        }
         foodSprite = levelFood[menuStr].normalUI;
         food.sprite = Resources.Load<Sprite>(foodSprite);
-
-        // 设置父物体
         transform.SetParent(PhotonView.Find(viewID).transform);
         transform.localScale = new Vector3(1, 1, 1);
         transform.localRotation = new Quaternion(0, 0, 0, 0);
@@ -79,7 +72,10 @@ public class MenuUI :MonoBehaviourPunCallbacks,IPunObservable{
         }
     }
 
-
+    /// <summary>
+    /// 添加成菜材料的UI
+    /// </summary>
+    /// <param name="meterialStr">成菜对应的字符串 </param>
     public void AddMenuMterialUI(string meterialStr)
     {
         GameObject menu = Resources.Load<GameObject>("Prefabs/mterial");

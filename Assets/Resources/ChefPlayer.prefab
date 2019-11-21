@@ -889,9 +889,9 @@ GameObject:
   - component: {fileID: 136927582524077454}
   - component: {fileID: 114237746841243118}
   - component: {fileID: 114350976327574608}
-  - component: {fileID: 114403932008194720}
   - component: {fileID: 114976937849442378}
   - component: {fileID: 114931831404550618}
+  - component: {fileID: 114260762502838516}
   m_Layer: 0
   m_Name: ChefPlayer
   m_TagString: Player
@@ -2610,6 +2610,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91c4858f60dc7a41b85cf407556b020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114260762502838516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1770609132033460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!114 &114350057922191582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2658,30 +2672,16 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 2
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114403932008194720}
   - {fileID: 114976937849442378}
   - {fileID: 114742404136881608}
   - {fileID: 114931831404550618}
+  - {fileID: 114260762502838516}
   viewIdField: 0
   InstantiationId: 2
   isRuntimeInstantiated: 0
---- !u!114 &114403932008194720
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1770609132033460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
 --- !u!114 &114509319960411890
 MonoBehaviour:
   m_ObjectHideFlags: 1

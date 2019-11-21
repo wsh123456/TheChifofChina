@@ -29,6 +29,7 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
     private PhotonView phView;
     private bool canMove = false;
 
+
     private  void Awake()
     {
         instance = this;
@@ -44,8 +45,9 @@ public class PlayerMoveController :MonoBehaviourPunCallbacks,IPunObservable {
     }
     private void Update()
     {
-        if (!phView.IsMine)
+        if(!phView.IsMine){
             return;
+        }
         if(!canMove)
             return;
         Move();

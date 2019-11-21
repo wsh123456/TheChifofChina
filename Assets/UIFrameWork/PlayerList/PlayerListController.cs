@@ -48,11 +48,12 @@ public class PlayerListController : UIControllerBase {
 
     private void OnLeftRoomBtnClick()
     {
-        this.gameObject.SetActive(false);
+        // this.gameObject.SetActive(false);
         //TODO:转移房主或者清空房间信息
         if (PhotonNetwork.InRoom)
         {
             PhotonNetwork.LeaveRoom();
+            CanvasController.Instance.ShowModule("RoomListPanel");
         }
     }
 
@@ -124,7 +125,9 @@ public class PlayerListController : UIControllerBase {
 
     private void ShowStartGameButton()
     {
-        module.FindWidget("#StartGameButton").SetObjectActive(PhotonNetwork.IsMasterClient);
+        if(module){
+            module.FindWidget("#StartGameButton").SetObjectActive(PhotonNetwork.IsMasterClient);
+        }
     }
 
     private void OnStartGameBtnClick()
