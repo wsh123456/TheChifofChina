@@ -19,12 +19,16 @@ public class ExportBehavour : MonoBehaviour {
 
 
     //检测菜
-
+        
 
     //检测菜单
 
 
     //对比出菜
+
+
+
+
 
     /// <summary>
     /// 检测盘子
@@ -32,9 +36,23 @@ public class ExportBehavour : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name.Contains("Plate"))
+        if (other.gameObject.name.Contains("Plate")&&!other.transform.parent.name.Contains("Hand"))
         {
+            for (int i = 0; i < other.transform.childCount; i++)
+            {
+                Destroy(other.transform.GetChild(0).gameObject);
+            }
             ObjectPool.instance.RecycleObj(other.gameObject);
+            StartCoroutine("CreatePlate");
         }
     }
+    /// <summary>
+    /// 生成盘子
+    /// </summary>
+    /// <returns></returns>
+
+    //private IEnumerator CreatePlate()
+    //{
+        
+    //}
 }
