@@ -25,6 +25,8 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
     protected bool isContinue=false;
     protected bool isCanCook;
     protected bool isCanStop;
+
+    private float overCookTime = 0;
     //  protected bool isCheck=false;
     /// <summary>
     /// 检测锅中食物是否成熟
@@ -48,13 +50,14 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
     protected virtual void InPlate(Collider other)
     {
         //装盘
-        if (other.gameObject.name == "Plate")
+        if (other.gameObject.name.Contains("Plate"))
         {
-            if (transform.childCount > 0)
+            if (transform.GetChild(0).childCount > 0)
             {
-                if (transform.GetChild(0).GetComponent<FoodIngredient>().curState != FoodIngredientState.Normal && Input.GetKeyDown(KeyCode.Space))
+              
+                if (transform.GetChild(0).GetChild(0).GetComponent<FoodIngredient>().curState != FoodIngredientState.Normal && Input.GetKeyDown(KeyCode.Space))
                 {
-                    photonView.RPC("SetParent", RpcTarget.All, transform.GetChild(0).GetComponent<PhotonView>().ViewID, other.GetComponent<PhotonView>().ViewID);
+                    photonView.RPC("SetParent", RpcTarget.All, transform.GetChild(0).GetChild(0).GetComponent<PhotonView>().ViewID, other.GetComponent<PhotonView>().ViewID);
                 }
             }
         }
@@ -72,16 +75,41 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
 
     }
 
+
+    // 完成烹饪后的回调
+    private void CookOver(){
+        StartCoroutine("ReadyToFire");
+    }
+
+    // 过烹饪，计算起火
+    private IEnumerator ReadyToFire(){
+        while(overCookTime <= 10f){
+            // 如果不在灶台上
+            if(!CheckHearth(null)){
+                break;
+            }
+            Debug.Log("过烹饪时间: " + overCookTime);
+            yield return new WaitForFixedUpdate();
+            overCookTime += Time.fixedDeltaTime;
+        }
+        if(overCookTime > 10f && CheckHearth(null)){
+            // 获取下面的灶台(桌子)着火
+            transform.GetComponentInParent<PlantController>().IsFire = true;
+            overCookTime = 0;
+        }
+    }
+
+
     [PunRPC]
     protected virtual void DoActionFried(int index)
     {
-       PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Fried, null);
+       PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Fried, CookOver);
     }
 
     [PunRPC]
     protected virtual void DoActionPoach(int index)
     {
-        PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Poach, null);
+        PhotonView.Find(index).GetComponent<FoodIngredient>().DoAction(FoodIngredientState.Poach, CookOver);
     }
     //执行操作端锅终止操作
     protected virtual void StopCurrentAction(GameObject game)
@@ -107,21 +135,14 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
             return;
         }
         
-        photonView.RPC("SetParent",RpcTarget.All,inPot.GetComponent<PhotonView>().ViewID,transform.GetComponent<PhotonView>().ViewID);
+        photonView.RPC("SetParent",RpcTarget.All,inPot.GetComponent<PhotonView>().ViewID,transform.GetChild(0).GetComponent<PhotonView>().ViewID);
     }
     //检测灶台
     protected virtual bool CheckHearth(GameObject game)
     {
-        //if (game.name== "CheckHearth")
-        //{
-        //    if (game.GetComponentsInChildren<Transform>().Length == 1 &&Input.GetKeyDown(KeyCode.Space))
-        //    {
-        //        photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID, game.GetComponent<PhotonView>().ViewID);
-        //    }
-        //}
         try
         {
-            if (transform.parent.name == "CheckHearth")
+            if (transform.parent.name.Contains("CheckHearth"))
             {
               //  Debug.Log("检测到了灶台");
                 return true;
@@ -136,15 +157,11 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
         {
             return false;
         }
-
-  
-        
-
     }
     [PunRPC]
     public void BreakCurrentAction()
     {
-            transform.GetChild(0).GetComponent<FoodIngredient>().BreakCurrentAction();
+            transform.GetChild(0).GetChild(0).GetComponent<FoodIngredient>().BreakCurrentAction();
     }
     /// <summary>
     /// 设置父物体
@@ -157,7 +174,7 @@ public class Category:MonoBehaviourPunCallbacks,IHand{
     {
         PhotonView.Find(categoryIndex).transform.SetParent(PhotonView.Find(plantIndex).transform);
         PhotonView.Find(categoryIndex).transform.localPosition = Vector3.zero;
-        if (PhotonView.Find(categoryIndex).transform.parent==transform)
+        if (PhotonView.Find(categoryIndex).transform.parent.parent==transform)
         {
             PhotonView.Find(categoryIndex).tag = "ThingChange";
            Destroy( PhotonView.Find(categoryIndex).GetComponent<Collider>());

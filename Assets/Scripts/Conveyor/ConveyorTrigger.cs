@@ -15,8 +15,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
-
-public class ConveyorTrigger : MonoBehaviour {
+using Photon.Pun;
+public class ConveyorTrigger : MonoBehaviourPunCallbacks {
 
     public Transform Aim;
     public Transform End;
@@ -26,25 +26,37 @@ public class ConveyorTrigger : MonoBehaviour {
     {
          dir =   End.position- Aim.position;
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag=="Thing"&&other.transform.parent.name!="Hand")
+        {
+            photonView.RPC("SetParent", RpcTarget.All, other.transform.GetComponent<PhotonView>().ViewID, transform.parent.parent.GetComponent<PhotonView>().ViewID);
+        }
+    }
+    [PunRPC]
+    private void SetParent(int index, int parentIndex)
+    {
+        PhotonView.Find(index).transform.parent.parent = PhotonView.Find(parentIndex).transform;
+    }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag=="Thing")
+        if (other.tag=="Thing" && other.transform.parent.name != "Hand")
         {
-            
-                other.GetComponent<Rigidbody>().mass = 0f;
                 other.GetComponent<Rigidbody>().velocity = dir * speed;
-            
         }
         if (other.tag=="Player")
         {
-            other.GetComponent<Rigidbody>().mass = 0f;
-            other.GetComponent<Rigidbody>().velocity=dir* speed;
+           // other.GetComponent<Rigidbody>().mass = 0f;
+           // other.GetComponent<Rigidbody>().velocity=dir* speed;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        other.GetComponent<Rigidbody>().mass = 1f;
-        other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        if (other.GetComponent<Rigidbody>())
+        {
+            other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+       
+
     }
 }

@@ -5,7 +5,7 @@ using Photon.Pun;
 /// <summary>
 /// 对象池
 /// </summary>
-public class ObjectPool
+public class ObjectPool:MonoBehaviourPunCallbacks
 {
     #region SingleTon
     public static readonly ObjectPool instance = new ObjectPool();
@@ -23,6 +23,12 @@ public class ObjectPool
     private Dictionary<string, GameObject> prefabCache;
 
 	#region Methods
+    
+    [PunRPC]
+    private void ShowPrefab(int index)
+    {
+        PhotonView.Find(index).gameObject.SetActive(true);
+    }
     /// <summary>
     /// 生成对象
     /// </summary>
@@ -41,7 +47,7 @@ public class ObjectPool
             //将子池中第0个对象移除
             pool[objName].RemoveAt(0);
             //将取出的对象设为激活
-            tempObj.SetActive(true);
+            
             //将对象返回
             return tempObj;
         }
@@ -103,7 +109,9 @@ public class ObjectPool
             pool[objName].RemoveAt(0);
             //将取出的对象设为激活
             tempObj.SetActive(true);
+           // photonView.RPC("ShowPrefab", RpcTarget.All, tempObj.GetComponent<PhotonView>().ViewID);
             //将对象返回
+            Debug.Log("显示隐藏对象" + tempObj + ", " + objName);
             return tempObj;
         }
 
@@ -117,15 +125,14 @@ public class ObjectPool
         }
         else
         {
-
+            Debug.Log("生成新物体");
             //如果没有，就从Resources加载预设体
             prefab = PrefabLoadManager.instance.LoadPrefabByPath<GameObject>(path);
-
             //添加到预设体缓冲池中
             prefabCache.Add(objName,prefab);
         }
-        
 
+        Debug.Log(""+"   "+ tempObj);
         //生成预设体
         // tempObj = UnityEngine.Object.Instantiate(prefab);
         tempObj = PhotonNetwork.Instantiate(path, pos, Quaternion.identity);
@@ -208,6 +215,7 @@ public class ObjectPool
         }
         //先将要回收的对象设为非激活
         obj.SetActive(false);
+
         //获取对象名字
         string objName = obj.name.Replace("(Clone)", "");
         //判断对象池是否含有该对象的子池
@@ -219,6 +227,7 @@ public class ObjectPool
         else
         {
             //如果没有就新建子池，并添加进去
+            Debug.Log("+++++++++++++++++"+ objName);
             pool.Add(objName,new List<GameObject>() {obj });
         }
     }

@@ -33,7 +33,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     // private FoodType foodType;
     private Animator ani;
 
-    private List<PickTings> handObj;
+    private List<GameObject> handObj;
     /// <summary>
     /// 触发器碰到除物品外的所有东西
     /// </summary>
@@ -55,19 +55,18 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         ani = transform.parent.GetComponent<Animator>();
 
 
-        handObj = new List<PickTings>();
+        handObj = new List<GameObject>();
         allThings = new List<GameObject>();
         // knife = transform.Find("Chef/Skeleton/Base/RightHand/Knife").gameObject;
     }
 
     private void Start()
     {
-        canPickUpThings = transform.parent.parent.gameObject;
+       
         knife = transform.GetChild(0).GetChild(1).GetChild(0).GetChild(3).GetChild(0).gameObject;
         knife.SetActive(false);
-
         handContainer = transform.parent.Find("Hand");
-
+        canPickUpThings = handContainer.parent.parent.parent.gameObject;
     }
 
     [PunRPC]
@@ -80,15 +79,36 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
         Debug.Log(PhotonView.Find(index).name + "++");
         PhotonView.Find(index).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
+       
         //Debug.Log(PhotonView.Find(index).transform.parent.GetComponentsInChildren<Transform>().Length);
         inHandObj = PhotonView.Find(index).gameObject;
         inHandObj.transform.parent = handContainer;
         inHandObj.transform.localPosition = Vector3.zero;
         inHandObj.transform.localEulerAngles = Vector3.zero;
-        inHandObj.GetComponent<Rigidbody>().isKinematic = true;
+        if (inHandObj.gameObject.name.Contains("Frying"))
+        {
+          
+            if (!inHandObj.GetComponent<Rigidbody>())
+            {
+                inHandObj.AddComponent<Rigidbody>();
+            }
+            inHandObj.transform.localEulerAngles = new Vector3(0, 90, 0);
+            inHandObj.transform.localPosition = new Vector3(0, -0.00479f, 0);
+        }
+        if (inHandObj.gameObject.name.Contains("FireExtinguisher"))
+        {
+            Debug.Log(PhotonView.Find(index).name);
+            inHandObj.transform.localEulerAngles = new Vector3(0, 180, 0);
+            inHandObj.transform.localPosition = new Vector3(0, 0, 0);
+        }
+
+        if (inHandObj.GetComponent<Rigidbody>())
+        {
+            inHandObj.GetComponent<Rigidbody>().isKinematic = true;
+        }
         RemoveLight();
-        Invoke("IsPut", 0.2f);
-        if (PhotonView.Find(index).transform.GetComponentsInChildren<Transform>().Length >= 2)
+        Invoke("IsPut", 0.3f);
+        if (PhotonView.Find(index).transform.GetComponentsInChildren<Transform>().Length >= 2 && !inHandObj.gameObject.name.Contains("FireExtinguisher"))
         {
             if (PhotonView.Find(index).transform.GetChild(0).name.Contains("Pro"))
                 return;
@@ -98,6 +118,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 PhotonView.Find(index).transform.GetChild(i).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
             }
         }
+        Debug.Log(PhotonView.Find(index).name+ "拿");
+       
 
 
     }
@@ -110,7 +132,6 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     {
 
         inHandObj = GetOnHand();
-
         knife.SetActive(isCute);
         ani.SetBool("Cute", isCute);
 
@@ -151,11 +172,27 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         }
         for (int i = 0; i < handObj.Count; i++)
         {
-            if (!handObj[i].gameObject.GetComponent<Collider>())
+            if (handObj[i])
             {
-                handObj.Remove(handObj[i]);
-                RemoveLight();
+                if (!handObj[i].gameObject.GetComponent<Collider>())
+                {
+                    handObj.Remove(handObj[i]);
+                   // Destroy(handObj[i].GetComponent<PickTings>());
+                    RemoveLight();
+                }
             }
+            
+        }
+
+        // ------使用喷火器
+        if (inHandObj && inHandObj.name.Contains("FireExtinguisher") && Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("喷tmd");
+            inHandObj.GetComponent<ExtinguisherBehaviour>().UseExtgui(true);
+        }
+        if (inHandObj && inHandObj.name.Contains("FireExtinguisher") && Input.GetKeyUp(KeyCode.E))
+        {
+            inHandObj.GetComponent<ExtinguisherBehaviour>().UseExtgui(false);
         }
 
     }
@@ -177,7 +214,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 Debug.Log("拿东西" + handObj[0].gameObject.name);
                 photonView.RPC("PickUp", RpcTarget.All, handObj[0].gameObject.GetComponent<PhotonView>().ViewID);
 
-                RemoveAllLight();
+               // RemoveAllLight();
             }
         }
         if (other.tag == "Plant")
@@ -186,7 +223,6 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             string name = null;
 
             //取食材
-            Debug.Log(other.name+"名字");
             if (inHandObj == null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2)
             {
                 foreach (FoodIngredientType suit in Enum.GetValues(typeof(FoodIngredientType)))
@@ -198,22 +234,28 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                             name = other.name.Substring(0, other.name.LastIndexOf("("));
                         }
                         name = other.name;
-
                         // 如果手上没东西
                         if (inHandObj == null)
                         {
                             isPut = true;
+
                             GameObject go = ObjectPool.instance.CreateObject("FoodIngredient", "FoodIngredient/FoodIngredient", handContainer.position);
+                            Debug.Log(go + "---------------"+ go.GetComponent<PhotonView>().ViewID);
+
                             go.GetComponent<FoodIngredient>().photonView.RPC("InitFoodIngredient", RpcTarget.All, name);
                             go.GetComponent<FoodIngredient>().photonView.RPC("SetParent", RpcTarget.All, photonView.ViewID);
+                            
+                           
                         }
                         break;
                     }
                 }
 
             }
+
+
             //---------------切的状态 完成
-            if (inHandObj == null && other.name == "CuttingBoard" && Input.GetKeyDown(KeyCode.E))
+            if (inHandObj == null && other.name.Contains("CuttingBoard") && Input.GetKeyDown(KeyCode.E))
             {
                 // 如果子对象
                 try
@@ -231,16 +273,16 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 }
             }
             //放到台子上
+
             if (inHandObj != null && Input.GetKeyDown(KeyCode.Space) && other.gameObject.GetComponentsInChildren<Transform>().Length == 2 && isPut == true)
             {
                 try
                 {
-                    Debug.Log(other.name + "长度" + other.gameObject.GetComponentsInChildren<Transform>().Length);
+                  //  Debug.Log(other.name + "长度" + other.gameObject.GetComponentsInChildren<Transform>().Length);
                     int targetID = other.gameObject.transform.GetChild(0).GetComponent<PhotonView>().ViewID;
                     //放到台子上
                     Debug.Log("放到台子上");
                     photonView.RPC("PutOnTable", RpcTarget.All, targetID, handContainer.GetChild(0).GetComponent<PhotonView>().ViewID);
-
                     isPut = false;
                 }
                 catch
@@ -288,29 +330,33 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         {
             return;
         }
+      
         if (other.tag == "Plant")
         {
+            Debug.Log(other.name);
             allThings.Add(other.gameObject);
-            allThings[0].AddComponent<HighlighterFlashing>();
-            allThings[0].AddComponent<Highlighter>();
+          //  allThings[0].AddComponent<HighlighterFlashing>();
+           // allThings[0].AddComponent<Highlighter>();
         }
         if (other.tag == "Thing")
         {
             if (!other.isTrigger)
             {
-                PickTings pickTings = other.gameObject.AddComponent<PickTings>();
-                handObj.Add(pickTings);
-                handObj.Sort();
-                if (inHandObj)
-                {
-                    handObj[0].gameObject.AddComponent<HighlighterFlashing>();
-                    handObj[0].gameObject.AddComponent<Highlighter>();
-                }
+                // Debug.Log(other.name+"加脚本");
+                //  PickTings pickTings = other.gameObject.AddComponent<PickTings>();
+                Debug.Log("添加"+ other.gameObject);
+                handObj.Add(other.gameObject);
+               // handObj.Sort();
+             //   if (inHandObj)
+               // {
+                   // handObj[0].gameObject.AddComponent<HighlighterFlashing>();
+                   // handObj[0].gameObject.AddComponent<Highlighter>();
+              //  }
                 if (other.GetComponent<Rigidbody>())
                 {
                     if (inHandObj == null && other.GetComponent<Rigidbody>().velocity.z > 3 || other.GetComponent<Rigidbody>().velocity.z < -3)
                     {
-                        Debug.Log("");
+
                         photonView.RPC("PickUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
                     }
                 }
@@ -323,21 +369,21 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// </summary>
     private void RemoveLight()
     {
-        if (handObj.Count == 0)
-            return;
+        //if (handObj.Count == 0)
+        //    return;
 
 
-        Destroy(handObj[0].GetComponent<HighlighterFlashing>());
-        Destroy(handObj[0].GetComponent<Highlighter>());
+        //Destroy(handObj[0].GetComponent<HighlighterFlashing>());
+        //Destroy(handObj[0].GetComponent<Highlighter>());
     }
-    private void RemoveAllLight()
-    {
-        for (int i = 0; i < handObj.Count; i++)
-        {
-            Destroy(handObj[i].GetComponent<HighlighterFlashing>());
-            Destroy(handObj[i].GetComponent<Highlighter>());
-        }
-    }
+    //private void RemoveAllLight()
+    //{
+    //    for (int i = 0; i < handObj.Count; i++)
+    //    {
+    //        Destroy(handObj[i].GetComponent<HighlighterFlashing>());
+    //        Destroy(handObj[i].GetComponent<Highlighter>());
+    //    }
+    //}
     /// <summary>
     /// 物体离开清除脚本
     /// 从队列中移除
@@ -356,39 +402,40 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 for (int i = 0; i < handObj.Count; i++)
                 {
-
-                    if (other.gameObject == handObj[i].gameObject)
+                    if (other.gameObject == handObj[i])
                     {
-                        if (i == 0)
-                        {
-                            RemoveLight();
-                        }
-                        Destroy(handObj[i].GetComponent<PickTings>());
-                        Destroy(handObj[i].GetComponent<PickTings>());
-                        handObj.Remove(handObj[i]);
+                        handObj.Remove(other.gameObject);
+                        Debug.Log("移除");
+                        //if (i == 0)
+                        //{
+                        //    RemoveLight();
+                        //}
+                        //  Destroy(handObj[i].GetComponent<PickTings>());
 
+                        //  Debug.Log("移除"+ handObj[i].name);
+                        //   Debug.Log("剩下"+handObj[0].name);
                     }
                 }
-                if (handObj.Count != 0)
-                {
-                    for (int i = 0; i < handObj.Count; i++)
-                    {
-                        if (handObj[i] == null)
-                        {
-                            Destroy(handObj[i].GetComponent<PickTings>());
-                            return;
-                        }
+                //if (handObj.Count != 0)
+                //{
+                //    for (int i = 0; i < handObj.Count; i++)
+                //    {
+                //        if (handObj[i] == null)
+                //        {
+                //            // Destroy(handObj[i].GetComponent<PickTings>());
+                //            return;
+                //        }
 
-                    }
+                //    }
 
-                }
+                //}
             }
-        }
+        }   
 
         if (other.tag == "Plant")
         {
-            Destroy(allThings[0].GetComponent<HighlighterFlashing>());
-            Destroy(allThings[0].GetComponent<Highlighter>());
+          //  Destroy(allThings[0].GetComponent<HighlighterFlashing>());
+         //   Destroy(allThings[0].GetComponent<Highlighter>());
             allThings.Remove(allThings[0]);
         }
     }
@@ -401,11 +448,11 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     {
         Debug.Log(PhotonView.Find(emptyIndex));
         PhotonView.Find(handThingIndex).GetComponent<Rigidbody>().isKinematic = false;
-
         PhotonView.Find(handThingIndex).transform.parent = PhotonView.Find(emptyIndex).transform;
+       
     }
 
-
+        
 
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -450,7 +497,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     {
         inHandObj.GetComponent<Rigidbody>().isKinematic = false;
         inHandObj.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
-        inHandObj.transform.parent = GameObject.Find("CanPickUpThings").transform;
+        inHandObj.transform.parent =canPickUpThings.transform;
         ani.SetTrigger("Push");
     }
 
@@ -476,12 +523,20 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     public void PutOnTable(int targetID, int handID)
     {
         GameObject target = PhotonView.Find(targetID).gameObject;
-        GameObject handObj = PhotonView.Find(handID).gameObject;
-
-        handObj.transform.SetParent(target.transform);
-        handObj.transform.localPosition = Vector3.zero;
-        handObj.transform.localEulerAngles = Vector3.zero;
+        GameObject handObj1 = PhotonView.Find(handID).gameObject;
+        handObj1.transform.SetParent(target.transform);
+        handObj1.transform.localPosition = Vector3.zero;
+        if (handObj1.name.Contains("Frying"))
+        {
+            Destroy(handObj1.GetComponent<Rigidbody>());
+        }
+        if (handObj1.name.Contains("Frying"))
+        {
+            handObj.Remove(handObj1.gameObject);
+        }
+        // handObj.transform.localEulerAngles = Vector3.zero;
         // handObj.GetComponent<Rigidbody>().isKinematic = false;
+
     }
 
 

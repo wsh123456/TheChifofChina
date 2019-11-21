@@ -15,8 +15,6 @@ namespace UIFrameWork
 
         // 注册模块
         public void RegisterModule(string moduleName, UIModuleBase module){
-            Debug.Log("moduleName: " + moduleName);
-
             // 如果当前模块还没有被注册，将其注册
             if(!manageredModule.ContainsKey(moduleName)){
                 manageredModule.Add(moduleName, module);
@@ -33,7 +31,6 @@ namespace UIFrameWork
 
         // 显示模块,隐藏其他模块
         public void ShowModule(string moduleName){
-            Debug.Log(manageredModule[moduleName]);
             if(!ContainsModule(moduleName)){
                 Debug.Log(moduleName);
                 return;
@@ -84,7 +81,8 @@ namespace UIFrameWork
 
     public enum ModuleType
     {
-        Aaa,Bbb,
-        Once    // 用于动态生成的重复UIModule,不在Manager中注册Module模块
+        Aaa,//批量
+        Bbb,//独立的
+        Once//用于动态生成的重复UIModule,不在Manager中注册Module模块
     }
 }

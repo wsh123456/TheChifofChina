@@ -46,4 +46,6 @@ MonoBehaviour:
   - RespawnSpaceship
   - SetParent
   - ThrowThings
+  - ShowPrefab
+  - HidePrefab
   DisableAutoOpenWizard: 1
