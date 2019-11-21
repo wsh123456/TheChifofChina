@@ -247,12 +247,12 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
     {
         if (stream.IsWriting)
         {
-             stream.SendNext(weshTime);
+             //stream.SendNext(weshTime);
 
         }
         else
         {
-            weshTime = (int)stream.ReceiveNext();
+           // weshTime = (int)stream.ReceiveNext();
         }
                 
     }
