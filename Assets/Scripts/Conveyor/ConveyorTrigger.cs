@@ -25,12 +25,20 @@ public class ConveyorTrigger : MonoBehaviourPunCallbacks {
     private void Start()
     {
          dir =   End.position- Aim.position;
+        
+            Debug.Log(transform.parent.parent+"   ssssssssss");
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag=="Thing"&&other.transform.parent.name!="Hand")
         {
-            photonView.RPC("SetParent", RpcTarget.All, other.transform.GetComponent<PhotonView>().ViewID, transform.parent.parent.GetComponent<PhotonView>().ViewID);
+            try
+            {
+                photonView.RPC("SetParent", RpcTarget.All, other.transform.GetComponent<PhotonView>().ViewID, transform.parent.parent.GetComponent<PhotonView>().ViewID);
+            }
+            catch 
+            {
+            }
         }
     }
     [PunRPC]
