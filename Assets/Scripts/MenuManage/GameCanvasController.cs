@@ -23,11 +23,12 @@ public class GameCanvasController : MonoBehaviour {
     public Panel_CountDown countDown;
     public TimerContorller timer;
     public AddMenu foodMenu;
-
+    
     private void Awake() {
         countDown = transform.Find("CountDown").GetComponent<Panel_CountDown>();
         timer = transform.Find("Timer").GetComponent<TimerContorller>();
         foodMenu = transform.Find("MenuPoint").GetComponent<AddMenu>();
+        
     }
 
     public void StartCountDown(){
