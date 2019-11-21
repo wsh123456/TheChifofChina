@@ -31,6 +31,7 @@ public class PlayerMoveController : MonoBehaviourPunCallbacks, IPunObservable
     private bool canMove = false;
 
     private void Awake()
+
     {
         instance = this;
         ani = GetComponent<Animator>();
@@ -47,7 +48,8 @@ public class PlayerMoveController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (!phView.IsMine)
             return;
-        if (!canMove)
+    
+        if(!canMove)
             return;
         Move();
     }

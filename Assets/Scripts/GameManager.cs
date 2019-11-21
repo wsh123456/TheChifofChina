@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
     public PlayerController curPlayer;
     
     private GameCanvasController canvas;
-    private bool isInitPlayer = false;
 
     private void Awake() {
         _ins = this;
@@ -37,8 +36,10 @@ public class GameManager : MonoBehaviourPunCallbacks {
         Hashtable hashtable = new Hashtable();
         hashtable.Add("LoadLevelDone", true);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
+
         PhotonNetwork.SendRate = 70;
         PhotonNetwork.SerializationRate = 70;
+
     }
 
 
@@ -55,7 +56,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
 
 
     private void InitPlayer(){
-        
         Transform point = initPoints[PhotonNetwork.LocalPlayer.ActorNumber-1].transform;
         GameObject player = PhotonNetwork.Instantiate("ChefPlayer", point.position, Quaternion.identity); 
         curPlayer = player.GetComponent<PlayerController>();
@@ -70,8 +70,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
         Hashtable hashtable = new Hashtable();
         hashtable.Add("FinishInitPlayer", true);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
-
-        isInitPlayer = true;
     }
 
     // 开始同步倒计时
@@ -139,7 +137,7 @@ public class GameManager : MonoBehaviourPunCallbacks {
         object temp;
         // object temp1;
         if(propertiesThatChanged.TryGetValue("CanInitPlayer", out temp)){
-            if((bool)temp && !isInitPlayer){
+            if((bool)temp){
                 InitPlayer();
             }
         }

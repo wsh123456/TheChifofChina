@@ -107,7 +107,8 @@ public class PlayerListController : UIControllerBase {
                 }
                 
                 playerObjInfo.transform.SetParent(module.FindWidget("#PlayerList").transform);
-                // playerObjInfo.transform.position = Vector3.zero;
+                playerObjInfo.transform.localScale = Vector3.one;
+                playerObjInfo.transform.localPosition = Vector3.zero;
                 playerObjInfo.PlayerInit(PhotonNetwork.PlayerList[i]);
                 playerObjs.Add(playerObjInfo);
             }
