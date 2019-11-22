@@ -69,12 +69,17 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
     public List<string> GetFoodList()
     {
         List<string> foodList = new List<string>();
+        if (transform.childCount>0)
+        {
         for (int i = 0; i < transform.childCount; i++)
         {
             foodList.Add(transform.GetChild(i).GetComponent<FoodIngredient>().GetIType().ToString());
             Debug.Log(foodsList[i].name);
         }
         return foodList;
+        }
+        Debug.Log("没有子节点");
+        return null;
     }
 
 /// <summary>

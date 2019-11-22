@@ -29,6 +29,7 @@ public class GameCanvasController : MonoBehaviour {
         countDown = transform.Find("CountDown").GetComponent<Panel_CountDown>();
         timer = transform.Find("Timer").GetComponent<TimerContorller>();
         foodMenu = transform.Find("MenuPoint").GetComponent<AddMenu>();
+
         coinMenu = transform.Find("Coin").GetComponent<CoinContorller>();  
     }
 

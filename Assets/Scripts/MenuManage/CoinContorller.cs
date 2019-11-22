@@ -12,21 +12,25 @@ public class CoinContorller : MonoBehaviourPunCallbacks,IPunObservable {
     bool isCheck;
     AddMenu addMenu;
 	// Use this for initialization
-	void Start () {
-        coinNum = transform.Find("Coin_banner/Coin_Number").GetComponent<Text>();
+	void Awake () {
+        coinNum = GameObject.FindWithTag("Coin").GetComponent<Text>();
         addMenu = GameObject.FindWithTag("Canvas").GetComponent<AddMenu>();
-
+        coinNum.text = 0.ToString();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        coinNum.text = MenuManage.menuManage.price.ToString();
+        // coinNum.text = MenuManage.menuManage.price.ToString();
 	}
+    public void GetIcon(int coin)
+    {
+        photonView.RPC("SetIcon", RpcTarget.All, coin);
+    }
 
     // 设置金币
     [PunRPC]
     public void SetIcon(int coin){
-        coinNum.text = (int.Parse(coinNum.text) + coin).ToString();
+        coinNum.text =(int.Parse(coinNum.text) + coin).ToString();
     }
 
 

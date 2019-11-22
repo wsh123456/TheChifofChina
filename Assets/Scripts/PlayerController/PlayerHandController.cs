@@ -113,7 +113,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 return;
             for (int i = 0; i < PhotonView.Find(index).transform.childCount; i++)
             {
-                Debug.Log(PhotonView.Find(index).transform.childCount);
+
                 PhotonView.Find(index).transform.GetChild(i).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
             }
         }

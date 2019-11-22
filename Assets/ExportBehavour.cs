@@ -40,34 +40,50 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
     private void CheckGreens(GameObject plateObj)
     {
         greensName = new List<string>();
-        
-        // for(int i = 0; i < MenuManage.menuManage.menuList.Count; i++){
-        //     bool isthisFood = true;
-        //     List<FoodModel_FoodIngredient> temp = LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].foodIngredient;
-        //     List<string> foodsInPlate = plateObj.GetComponent<PlateBehaviour>().GetFoodList();
-        //     for(int j = 0; j < temp.Count; j++){
-        //         // 如果不在盘子里，跳出
-        //         if(!foodsInPlate.Contains(temp[j].name)){
-        //            isthisFood = false;
-        //            break; 
-        //         }
-        //     }
+        Debug.Log(MenuManage.menuManage.menuList.Count+" 菜单列表");
 
-        //     // 如果是这个菜，上菜，将菜单中的i销毁
-        //     if(isthisFood){
-        //         GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameCanvasController>().coinMenu.photonView.RPC("SetIcon", RpcTarget.All, LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].price);
-        //         MenuManage.menuManage.addMenu.foodMenu[i].GetComponent<MenuUI>().photonView.RPC("RemoveUI", RpcTarget.All, i);
-        //     }
-        // }
-
-        if (plateObj.transform.childCount>0)
+        if (plateObj.transform.childCount > 0)
         {
             for (int m = 0; m < plateObj.transform.childCount; m++)
             {
                 greensName.Add(plateObj.transform.GetChild(m).GetComponent<FoodIngredient>().GetIType().ToString());
             }
         }
+        for (int i = 0; i < MenuManage.menuManage.menuList.Count; i++)
+        {
+            Debug.Log(3);
+            bool isthisFood = true;
+            Debug.Log(4);
             
+            List<FoodModel_FoodIngredient> temp = LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].foodIngredient;
+            Debug.Log(5);
+          ///  List<string> foodsInPlate = plateObj.GetComponent<PlateBehaviour>().GetFoodList();
+          //  Debug.Log(temp.Count + " 临时变量" +
+            //    "");
+            for (int j = 0; j < temp.Count; j++)
+            {
+                Debug.Log(1);
+                // 如果不在盘子里，跳出
+                if (!greensName.Contains(temp[j].name))
+                {
+                    Debug.Log("不在盘子 跳出");
+                    isthisFood = false;
+                    break;
+                }
+            }
+
+            // 如果是这个菜，上菜，将菜单中的i销毁
+            if (isthisFood)
+            {
+                Debug.Log("是这个菜");
+                GameObject.FindGameObjectWithTag("Canvas").
+                    GetComponent<GameCanvasController>().coinMenu.GetIcon((int)LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].price);
+                MenuManage.menuManage.addMenu.foodMenu[i].GetComponent<MenuUI>().photonView.RPC("RemoveUI", RpcTarget.All, i);
+                break;
+            }
+        }
+
+
     }
 
 
@@ -86,10 +102,12 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
         if (other.gameObject.name.Contains("Plate")&&!other.transform.parent.name.Contains("Hand"))
         {
             CheckGreens(other.gameObject);
+            Debug.Log(2);
             if (other.GetComponentsInChildren<Transform>().Length>1)
             {
                 for (int i = 0; i < other.transform.childCount; i++)
                 {
+                    Debug.Log(3);
                     Destroy(other.transform.GetChild(i).gameObject);
                 }
             }

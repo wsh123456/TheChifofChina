@@ -16,6 +16,7 @@ TagManager:
   - PlateReturn
   - WashPoint
   - ClearPoint
+  - Coin
   layers:
   - Default
   - TransparentFX

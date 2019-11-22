@@ -96,8 +96,10 @@ public class MenuUI :MonoBehaviourPunCallbacks,IPunObservable{
     /// 移除菜UI
     /// </summary>
     public void RemoveUI(int index){
+        Debug.Log(index+   this.name);
         MenuManage.menuManage.menuList.RemoveAt(index);
-        Destroy(this);
+        //ObjectPool.instance.RecycleObj(gameObject);
+        PhotonNetwork.Destroy(photonView);
     }
 
 
