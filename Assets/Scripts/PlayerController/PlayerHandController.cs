@@ -68,7 +68,6 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         knife.SetActive(false);
         handContainer = transform.parent.Find("Hand");
         canPickUpThings = handContainer.parent.parent.parent.gameObject;
-        PhotonView.Find(photonView.ViewID).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
     }
 
     [PunRPC]
@@ -119,6 +118,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
         Debug.Log(PhotonView.Find(index).name+ "拿");
+        PhotonView.Find(photonView.ViewID).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
+
         PhotonView.Find(index).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
 
 
