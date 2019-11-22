@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviourPunCallbacks {
         hashtable.Add("LoadLevelDone", true);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
 
-        PhotonNetwork.SendRate = 70;
-        PhotonNetwork.SerializationRate = 70;
+        PhotonNetwork.SendRate = 30;
+        PhotonNetwork.SerializationRate = 30;
 
     }
 
