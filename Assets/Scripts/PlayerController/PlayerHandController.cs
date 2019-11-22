@@ -359,8 +359,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
               //  }
                 if (other.GetComponent<Rigidbody>())
                 {
-                    Debug.Log(other.GetComponent<Rigidbody>().velocity.z+" 速度aaa");
-                    if (inHandObj == null && other.GetComponent<Rigidbody>().velocity.z > 3 || other.GetComponent<Rigidbody>().velocity.z < -0.3)
+                    Debug.Log(other.GetComponent<Rigidbody>().velocity.z+" 速度aaa"+ !other.transform.parent);
+                    if (inHandObj == null && other.GetComponent<Rigidbody>().velocity.z != 0&&!other.transform.parent)//> 3 || other.GetComponent<Rigidbody>().velocity.z < -0.3)
                     {
 
                         photonView.RPC("PickUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
