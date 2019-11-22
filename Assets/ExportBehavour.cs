@@ -40,15 +40,38 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
     private void CheckGreens(GameObject plateObj)
     {
         greensName = new List<string>();
+        
+        // for(int i = 0; i < MenuManage.menuManage.menuList.Count; i++){
+        //     bool isthisFood = true;
+        //     List<FoodModel_FoodIngredient> temp = LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].foodIngredient;
+        //     List<string> foodsInPlate = plateObj.GetComponent<PlateBehaviour>().GetFoodList();
+        //     for(int j = 0; j < temp.Count; j++){
+        //         // 如果不在盘子里，跳出
+        //         if(!foodsInPlate.Contains(temp[j].name)){
+        //            isthisFood = false;
+        //            break; 
+        //         }
+        //     }
+
+        //     // 如果是这个菜，上菜，将菜单中的i销毁
+        //     if(isthisFood){
+        //         GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameCanvasController>().coinMenu.photonView.RPC("SetIcon", RpcTarget.All, LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].price);
+        //         MenuManage.menuManage.addMenu.foodMenu[i].GetComponent<MenuUI>().photonView.RPC("RemoveUI", RpcTarget.All, i);
+        //     }
+        // }
+
         if (plateObj.transform.childCount>0)
         {
-            for (int i = 0; i < plateObj.transform.childCount; i++)
+            for (int m = 0; m < plateObj.transform.childCount; m++)
             {
-                greensName.Add(plateObj.transform.GetChild(i).GetComponent<FoodIngredient>().GetIType().ToString());
+                greensName.Add(plateObj.transform.GetChild(m).GetComponent<FoodIngredient>().GetIType().ToString());
             }
         }
-                 
+            
     }
+
+
+
     /// <summary>
     /// 菜名
     /// </summary>
@@ -67,7 +90,7 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
             {
                 for (int i = 0; i < other.transform.childCount; i++)
                 {
-                    Destroy(other.transform.GetChild(0).gameObject);
+                    Destroy(other.transform.GetChild(i).gameObject);
                 }
             }
             ObjectPool.instance.RecycleObj(other.gameObject);

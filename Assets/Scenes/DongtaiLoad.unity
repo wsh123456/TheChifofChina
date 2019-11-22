@@ -16760,6 +16760,7 @@ GameObject:
   - component: {fileID: 290778160}
   - component: {fileID: 290778159}
   - component: {fileID: 290778158}
+  - component: {fileID: 290778161}
   m_Layer: 0
   m_Name: SprayPoint
   m_TagString: Untagged
@@ -16858,6 +16859,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 290778155}
   m_Mesh: {fileID: 4300000, guid: 0baebe6c8f51e754a96dd7d4dee9bb4e, type: 3}
+--- !u!114 &290778161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 290778155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a43fff83c6c1fad4284cfc4c2b1535fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &295030467
 GameObject:
   m_ObjectHideFlags: 0
@@ -18233,6 +18245,7 @@ MonoBehaviour:
   countDown: {fileID: 0}
   timer: {fileID: 0}
   foodMenu: {fileID: 0}
+  coinMenu: {fileID: 0}
 --- !u!114 &407761214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43229,6 +43242,7 @@ MonoBehaviour:
   menuList: []
   menuStr: 
   price: 0
+  addMenu: {fileID: 0}
   isAddMenu: 1
   isMenuDone: 1
   isMenuAdd: 1

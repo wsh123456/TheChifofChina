@@ -101,27 +101,7 @@ public class MenuUI :MonoBehaviourPunCallbacks,IPunObservable{
     }
 
 
-    public void test(PlateBehaviour plate){
-        for(int i = 0; i < MenuManage.menuManage.menuList.Count; i++){
-            bool isthisFood = true;
-            List<FoodModel_FoodIngredient> temp = LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].foodIngredient;
-            List<string> foodsInPlate = plate.GetFoodList();
-            for(int j = 0; j < temp.Count; j++){
-                // 如果不在盘子里，跳出
-                // if(){
-                //    isthisFood = false;
-                //    break; 
-                // }
-            }
-            // 如果是这个菜，上菜，将菜单中的i销毁
-            if(isthisFood){
-                // 金钱 + LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].price;
-                GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameCanvasController>().coinMenu.photonView.RPC("SetIcon", RpcTarget.All, LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].price);
-                // 盘子清空!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                MenuManage.menuManage.addMenu.foodMenu[i].GetComponent<MenuUI>().photonView.RPC("RemoveUI", RpcTarget.All, i);
-            }
-        }
-    }
+    
 
 
 

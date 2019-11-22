@@ -124,10 +124,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251627a59a4d5db4588e14278275e4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clearPoint: {fileID: 0}
   foodsList: []
+  weshTime: 0
+  currentTime: 0
+  speedTime: 1
   isClean: 1
   foodName: []
   viewIndex: 
+  curstate: 0
 --- !u!114 &114715084741158744
 MonoBehaviour:
   m_ObjectHideFlags: 1
