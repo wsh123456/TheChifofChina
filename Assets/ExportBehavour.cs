@@ -67,7 +67,7 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
             {
                 for (int i = 0; i < other.transform.childCount; i++)
                 {
-                    Destroy(other.transform.GetChild(0).gameObject);
+                    Destroy(other.transform.GetChild(i).gameObject);
                 }
             }
             ObjectPool.instance.RecycleObj(other.gameObject);

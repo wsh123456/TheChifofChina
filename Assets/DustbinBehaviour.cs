@@ -20,15 +20,24 @@ public class DustbinBehaviour : MonoBehaviour {
    
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag.Contains("Thing")&&!other.transform.parent.name.Contains("Hand"))
+        if (other.tag.Contains("Thing")&&!other.transform.parent.name.Contains("Hand")&&!other.name.Contains("Frying"))
         {
             Debug.Log(other.name);
             other.transform.position = Vector3.zero;
             ObjectPool.instance.RecycleObj(other.gameObject);
         }
-        if (other.tag.Contains("Thing") && other.transform.parent.name.Contains("Hand")&&other.name.Contains("Flying")&&other.transform.GetChild(0).GetChild(0)&&Input.GetKeyDown(KeyCode.Space))
+        
+        if (other.tag.Contains("Thing") && other.transform.parent.name.Contains("Hand")&&other.name.Contains("Frying")&&other.transform.GetChild(0).GetChild(0)&&Input.GetKeyDown(KeyCode.Space))
         {
+            other.gameObject.GetComponent<Rigidbody>().isKinematic = false;
             Destroy(other.transform.GetChild(0).GetChild(0).gameObject);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.name.Contains("Frying"))
+        {
+            other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }
