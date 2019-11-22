@@ -360,9 +360,10 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
                 if (other.GetComponent<Rigidbody>())
                 {
                     Debug.Log(other.GetComponent<Rigidbody>().velocity.z+" 速度aaa"+ !other.transform.parent);
-                    if (inHandObj == null && other.GetComponent<Rigidbody>().velocity.z != 0&&!other.transform.parent)//> 3 || other.GetComponent<Rigidbody>().velocity.z < -0.3)
+                    Debug.Log((inHandObj == null)+ " 34343"+(other.GetComponent<Rigidbody>().velocity.y != 0)+" 4343 "+( !other.transform.parent));
+                    if (inHandObj == null && other.GetComponent<Rigidbody>().velocity.y <-0.3|| inHandObj == null && other.GetComponent<Rigidbody>().velocity.y >0.3)//> 3 || other.GetComponent<Rigidbody>().velocity.z < -0.3)
                     {
-
+                        Debug.Log(other.GetComponent<Rigidbody>().velocity.z + " 速度bbb" + !other.transform.parent);
                         photonView.RPC("PickUp", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
                     }
                 }
