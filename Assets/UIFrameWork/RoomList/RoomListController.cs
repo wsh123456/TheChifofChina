@@ -65,7 +65,7 @@ public class RoomListController : UIControllerBase {
             RoomController roomObjInfo = Instantiate(roomObjPrefab).GetComponent<RoomController>();
             roomObjInfo.transform.SetParent(module.FindWidget("#RoomList").transform);
             roomObjInfo.SetRoomMessage(roomInfos[i]);
-            roomObjInfo.transform.localScale = Vector3.one;
+            // roomObjInfo.transform.localScale = Vector3.one;
             roomObjInfos.Add(roomObjInfo);
             roomObjInfo.currentRoomInfo = roomInfos[i];
             Debug.Log(roomInfos[i].Name);
