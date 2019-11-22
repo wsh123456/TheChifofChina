@@ -15,6 +15,7 @@
 using UnityEngine;
 using System.Collections;
 using Photon.Pun;
+using System.Collections.Generic;
 
 public class ExportBehavour : MonoBehaviourPunCallbacks {
 
@@ -36,10 +37,22 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
     /// <summary>
     /// 检测菜 与菜单相同 发放金币
     /// </summary>
-    private void CheckGreens()
+    private void CheckGreens(GameObject plateObj)
     {
-
+        greensName = new List<string>();
+        if (plateObj.transform.childCount>0)
+        {
+            for (int i = 0; i < plateObj.transform.childCount; i++)
+            {
+                greensName.Add(plateObj.transform.GetChild(i).GetComponent<FoodIngredient>().GetIType().ToString());
+            }
+        }
+                 
     }
+    /// <summary>
+    /// 菜名
+    /// </summary>
+    private List<string> greensName;
 
     /// <summary>
     /// 检测盘子
@@ -49,6 +62,7 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
     {
         if (other.gameObject.name.Contains("Plate")&&!other.transform.parent.name.Contains("Hand"))
         {
+            CheckGreens(other.gameObject);
             if (other.GetComponentsInChildren<Transform>().Length>1)
             {
                 for (int i = 0; i < other.transform.childCount; i++)
@@ -57,7 +71,6 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
                 }
             }
             ObjectPool.instance.RecycleObj(other.gameObject);
-            
             StartCoroutine("CreatePlate");
         }
     }

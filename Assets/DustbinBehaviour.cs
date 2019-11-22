@@ -26,5 +26,9 @@ public class DustbinBehaviour : MonoBehaviour {
             other.transform.position = Vector3.zero;
             ObjectPool.instance.RecycleObj(other.gameObject);
         }
+        if (other.tag.Contains("Thing") && other.transform.parent.name.Contains("Hand")&&other.name.Contains("Flying")&&other.transform.GetChild(0).GetChild(0)&&Input.GetKeyDown(KeyCode.Space))
+        {
+            Destroy(other.transform.GetChild(0).GetChild(0).gameObject);
+        }
     }
 }

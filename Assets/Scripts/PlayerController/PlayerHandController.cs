@@ -497,7 +497,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     public void ThrowThings()
     {
         inHandObj.GetComponent<Rigidbody>().isKinematic = false;
-        inHandObj.GetComponent<Rigidbody>().AddForce(transform.forward * 500f);
+        inHandObj.GetComponent<Rigidbody>().AddForce((transform.forward+new Vector3(0,0.003f,0)) * 500f);
         inHandObj.transform.parent =canPickUpThings.transform;
         ani.SetTrigger("Push");
     }
