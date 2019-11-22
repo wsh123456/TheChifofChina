@@ -27100,7 +27100,7 @@ GameObject:
   - component: {fileID: 586453833}
   - component: {fileID: 586453832}
   m_Layer: 0
-  m_Name: Plate (1)
+  m_Name: Plate
   m_TagString: Thing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94175,7 +94175,7 @@ GameObject:
   - component: {fileID: 2063137801}
   - component: {fileID: 2063137800}
   m_Layer: 0
-  m_Name: Plate 3
+  m_Name: Plate
   m_TagString: Thing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
