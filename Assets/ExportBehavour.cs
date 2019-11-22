@@ -139,6 +139,7 @@ public class ExportBehavour : MonoBehaviourPunCallbacks {
     [PunRPC]
     private void SetParents(int childIndex,int parentIndex)
     {
+        Debug.Log("qweqweqwe?????????????????");
         PhotonView.Find(childIndex).transform.SetParent(PhotonView.Find(parentIndex).transform);
         PhotonView.Find(childIndex).transform.localPosition = Vector3.zero;
         PhotonView.Find(childIndex).GetComponent<MeshRenderer>().material=Resources.Load<Material>("Prefabs/Materials/DirtyPlate");

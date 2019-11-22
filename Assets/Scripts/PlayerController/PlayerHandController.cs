@@ -76,7 +76,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// <param name="other"></param>
     private void PickUp(int index)
     {
-
+        
         Debug.Log(PhotonView.Find(index).name + "++");
         PhotonView.Find(index).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
        

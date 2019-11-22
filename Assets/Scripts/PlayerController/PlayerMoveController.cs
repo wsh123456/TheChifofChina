@@ -41,7 +41,7 @@ public class PlayerMoveController : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (phView.IsMine)
         {
-            HumanGameController.ins.currentPlayer = phView;
+            // HumanGameController.ins.currentPlayer = phView;
         }
     }
     private void Update()
