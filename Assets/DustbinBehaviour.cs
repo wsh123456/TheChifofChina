@@ -14,9 +14,10 @@
 #endregion
 using UnityEngine;
 using System.Collections;
+using Photon.Pun;
 
 
-public class DustbinBehaviour : MonoBehaviour {
+public class DustbinBehaviour : MonoBehaviourPunCallbacks {
    
     private void OnTriggerStay(Collider other)
     {
@@ -30,7 +31,7 @@ public class DustbinBehaviour : MonoBehaviour {
         if (other.tag.Contains("Thing") && other.transform.parent.name.Contains("Hand")&&other.name.Contains("Frying")&&other.transform.GetChild(0).GetChild(0)&&Input.GetKeyDown(KeyCode.Space))
         {
             other.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            Destroy(other.transform.GetChild(0).GetChild(0).gameObject);
+        PhotonNetwork.Destroy(other.transform.GetChild(0).GetChild(0).gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
