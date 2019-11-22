@@ -112,7 +112,7 @@ public class PlateBehaviour : MonoBehaviourPunCallbacks,IHand,IPunObservable
         //回收盘子
         ObjectPool.instance.RecycleObj(PhotonView.Find(photonView.ViewID).gameObject);
     }
-    private Dictionary<string, List<FoodModel_FoodIngredient>> menu;
+    public Dictionary<string, List<FoodModel_FoodIngredient>> menu;
 
     //拿到菜谱 
     private void Menu()

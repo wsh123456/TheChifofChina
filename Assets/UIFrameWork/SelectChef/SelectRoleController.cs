@@ -43,12 +43,12 @@ public class SelectRoleController : UIControllerBase {
 
     public override void OnEnable(){
         base.OnEnable();
-        if(PhotonNetwork.InLobby){
+        // if(PhotonNetwork.InLobby){
+        //     chefObject.SetActive(true);
+        // }
+        // if(PhotonNetwork.InRoom){
             chefObject.SetActive(true);
-        }
-        if(PhotonNetwork.InRoom){
-            chefObject.SetActive(true);
-        }
+        // }
     }
 
     public override void OnDisable() {

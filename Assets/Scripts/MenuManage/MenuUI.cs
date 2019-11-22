@@ -54,6 +54,7 @@ public class MenuUI :MonoBehaviourPunCallbacks,IPunObservable{
     [PunRPC]
     public void Init(int viewID, string menuStr){
         MenuManage.menuManage.menuList.Add(menuStr);
+        MenuManage.menuManage.addMenu.foodMenu.Add(this);
 
         // 读取菜的图片，记录现在这个是什么菜
         this.menuStr = MenuManage.menuManage.menuStr;
@@ -87,6 +88,39 @@ public class MenuUI :MonoBehaviourPunCallbacks,IPunObservable{
         menuPrb.transform.localRotation = new Quaternion(0, 0, 0, 0);
         menuPrb.transform.localPosition = new Vector3(50, 0, 0);
         meterial.sprite = Resources.Load<Sprite>(levelIngredient[meterialStr].normalUI);
+    }
+
+
+    [PunRPC]
+    /// <summary>
+    /// 移除菜UI
+    /// </summary>
+    public void RemoveUI(int index){
+        MenuManage.menuManage.menuList.RemoveAt(index);
+        Destroy(this);
+    }
+
+
+    public void test(PlateBehaviour plate){
+        for(int i = 0; i < MenuManage.menuManage.menuList.Count; i++){
+            bool isthisFood = true;
+            List<FoodModel_FoodIngredient> temp = LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].foodIngredient;
+            List<string> foodsInPlate = plate.GetFoodList();
+            for(int j = 0; j < temp.Count; j++){
+                // 如果不在盘子里，跳出
+                // if(){
+                //    isthisFood = false;
+                //    break; 
+                // }
+            }
+            // 如果是这个菜，上菜，将菜单中的i销毁
+            if(isthisFood){
+                // 金钱 + LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].price;
+                GameObject.FindGameObjectWithTag("Canvas").GetComponent<GameCanvasController>().coinMenu.photonView.RPC("SetIcon", RpcTarget.All, LevelInstance._instance.levelFood[MenuManage.menuManage.menuList[i]].price);
+                // 盘子清空!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                MenuManage.menuManage.addMenu.foodMenu[i].GetComponent<MenuUI>().photonView.RPC("RemoveUI", RpcTarget.All, i);
+            }
+        }
     }
 
 

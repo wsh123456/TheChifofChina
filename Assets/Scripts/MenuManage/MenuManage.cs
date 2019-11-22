@@ -16,7 +16,7 @@ public class MenuManage : MonoBehaviour {
     public List<string> menuList = new List<string>();
     public  string menuStr;
     public float price=0;
-    private AddMenu addMenu;
+    public AddMenu addMenu;
     //public List<Timer> MenuTimer;
     bool isDestory = true;
     public bool isAddMenu = true;

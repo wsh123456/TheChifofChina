@@ -8,7 +8,7 @@ using Photon.Realtime;
 
 
 public class AddMenu : MonoBehaviourPunCallbacks,IPunObservable{
-    public List<string> foodMenu=new List<string>();
+    public List<MenuUI> foodMenu=new List<MenuUI>();
     
     public PlateBehaviour plateBehaviour;
     
@@ -21,7 +21,6 @@ public class AddMenu : MonoBehaviourPunCallbacks,IPunObservable{
     }
 
     private void Start() {
-        foodMenu = MenuManage.menuManage.foodMenu;
     }
 
     // 添加菜单
