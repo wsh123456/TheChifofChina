@@ -25,7 +25,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-
+    
     private GameObject knife;
     /// <summary>
     /// 食物种类
@@ -50,6 +50,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+
         // Instance = this;
         thingManager = transform.parent.GetComponent<CreateTingsManager>();
         ani = transform.parent.GetComponent<Animator>();
@@ -67,6 +68,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
         knife.SetActive(false);
         handContainer = transform.parent.Find("Hand");
         canPickUpThings = handContainer.parent.parent.parent.gameObject;
+        PhotonView.Find(photonView.ViewID).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
     }
 
     [PunRPC]
@@ -76,9 +78,8 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
     /// <param name="other"></param>
     private void PickUp(int index)
     {
-        
-        Debug.Log(PhotonView.Find(index).name + "++");
-        PhotonView.Find(index).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
+        Debug.Log(PhotonView.Find(index).name + "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+   
        
         //Debug.Log(PhotonView.Find(index).transform.parent.GetComponentsInChildren<Transform>().Length);
         inHandObj = PhotonView.Find(index).gameObject;
@@ -118,7 +119,7 @@ public class PlayerHandController : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
         Debug.Log(PhotonView.Find(index).name+ "拿");
-       
+        PhotonView.Find(index).GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
 
 
     }
